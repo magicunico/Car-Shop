@@ -1,0 +1,25 @@
+package com.example.demo.employee;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+    private EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/all")
+    public List<Employee> getAll(){return employeeService.getEmployees();}
+
+    @PostMapping(value = "/add")
+    public void addEmployee(@RequestBody Employee employee){employeeService.addEmployee(employee);}
+
+    @PostMapping(value = "/delete")
+    public void deleteEmployee(@RequestBody Employee employee){employeeService.deleteEmployee(employee);}
+}
