@@ -16,5 +16,5 @@ public class InsuranceService {
 
     public void addInsurance(Insurance insurance){insuranceRepository.save(insurance);}
 
-    public void deleteInsurance(Insurance insurance){insuranceRepository.delete(insurance);}
+    public void deleteInsurance(Long id){insuranceRepository.deleteById(id);}
 }

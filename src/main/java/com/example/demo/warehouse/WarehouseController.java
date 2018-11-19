@@ -23,4 +23,8 @@ public class WarehouseController {
     public void addWarehouse(@RequestBody Warehouse warehouse){
         warehouseService.addWarehouse(warehouse);
     }
+
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteWarehouse(@PathVariable Long id){warehouseService.deleteWarehouse(id);}
+
 }

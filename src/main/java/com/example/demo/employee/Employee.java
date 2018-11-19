@@ -9,7 +9,8 @@ public class Employee  {
 
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String pesel;
@@ -29,8 +30,7 @@ public class Employee  {
     @Column
     private float salary;
 
-    public Employee(int id, String pesel, String name, String surname, String address, Date date, float salary) {
-        this.id = id;
+    public Employee( String pesel, String name, String surname, String address, Date date, float salary) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
@@ -42,11 +42,11 @@ public class Employee  {
     public Employee() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

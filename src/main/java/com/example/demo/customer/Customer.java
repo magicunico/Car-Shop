@@ -10,7 +10,8 @@ public class Customer {
 
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
    @Column
     private String pesel;
@@ -24,8 +25,7 @@ public class Customer {
    @Column
     private String address;
 
-    public Customer(int id, String pesel, String name, String surname, String address) {
-        this.id = id;
+    public Customer(String pesel, String name, String surname, String address) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
@@ -35,11 +35,11 @@ public class Customer {
     public Customer() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

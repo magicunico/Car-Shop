@@ -20,6 +20,6 @@ public class EmployeeController {
     @PostMapping(value = "/add")
     public void addEmployee(@RequestBody Employee employee){employeeService.addEmployee(employee);}
 
-    @PostMapping(value = "/delete")
-    public void deleteEmployee(@RequestBody Employee employee){employeeService.deleteEmployee(employee);}
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteEmployee(@PathVariable Long id){employeeService.deleteEmployee(id);}
 }

@@ -22,9 +22,9 @@ public class CustomerController {
     @PostMapping(value = "/add")
     public void addCustomer(@RequestBody Customer customer){customerService.addCustomer(customer);}
 
-    @PostMapping(value = "/delete")
-    public void deleteCustomer(@RequestBody Customer customer){
-        customerService.deleteCustomer(customer);
 
-    }
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteCustomer(@PathVariable Long id){customerService.deleteCustomer(id);}
+
+
 }

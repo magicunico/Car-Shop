@@ -20,5 +20,5 @@ public class WarehouseService {
         warehouseRepository.save(warehouse);
     }
 
-    public void deleteWarehouse(Warehouse warehouse){warehouseRepository.delete(warehouse);}
+    public void deleteWarehouse(Long id){warehouseRepository.deleteById(id);}
 }

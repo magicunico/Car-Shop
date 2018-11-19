@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class Car {
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String color;
@@ -32,8 +33,7 @@ public class Car {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    public Car(int id, String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand) {
-        this.id = id;
+    public Car(String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand) {
         this.color = color;
         this.price = price;
         this.body = body;
@@ -45,11 +45,11 @@ public class Car {
     public Car() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

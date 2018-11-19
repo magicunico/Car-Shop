@@ -14,7 +14,8 @@ import java.util.Date;
 public class Transaction {
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private Date date;
@@ -44,7 +45,7 @@ public class Transaction {
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
-    public Transaction(int id, Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance) {
+    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance) {
         this.id = id;
         this.date = date;
         this.payment = payment;
@@ -59,11 +60,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

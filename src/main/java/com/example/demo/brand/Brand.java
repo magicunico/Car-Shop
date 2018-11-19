@@ -9,7 +9,8 @@ import javax.persistence.*;
 public class Brand {
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
@@ -18,8 +19,7 @@ public class Brand {
     @JoinColumn(name = "producer_id")
     private Producer producer;
 
-    public Brand(int id, String name, Producer producer) {
-        this.id = id;
+    public Brand( String name, Producer producer) {
         this.name = name;
         this.producer = producer;
     }
@@ -27,11 +27,11 @@ public class Brand {
     public Brand() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

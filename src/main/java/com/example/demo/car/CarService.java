@@ -16,5 +16,5 @@ public class CarService {
 
     public void addCar(Car car){carRepository.save(car);}
 
-    public void deleteCar(Car car){carRepository.delete(car);}
+    public void deleteCar(Long id){carRepository.deleteById(id);}
 }

@@ -20,6 +20,7 @@ public class InsuranceController {
     @PostMapping(value = "/add")
     public void addInsurance(@RequestBody Insurance insurance){insuranceService.addInsurance(insurance);}
 
-    @PostMapping(value = "/delete")
-    public void deleteInsurance(@RequestBody Insurance insurance){insuranceService.deleteInsurance(insurance);}
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteInsurance(@PathVariable Long id){insuranceService.deleteInsurance(id);}
+
 }

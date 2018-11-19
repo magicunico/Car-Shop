@@ -11,7 +11,8 @@ public class Repair {
 
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
@@ -27,8 +28,7 @@ public class Repair {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public Repair(int id, String name, float price, Car car, Employee employee) {
-        this.id = id;
+    public Repair(String name, float price, Car car, Employee employee) {
         this.name = name;
         this.price = price;
         this.car = car;
@@ -38,11 +38,11 @@ public class Repair {
     public Repair() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

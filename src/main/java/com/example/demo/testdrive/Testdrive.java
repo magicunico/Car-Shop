@@ -12,7 +12,8 @@ import java.util.Date;
 public class Testdrive {
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private Date date;
@@ -29,8 +30,7 @@ public class Testdrive {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    public Testdrive(int id, Date date, Employee employee, Customer customer, Car car) {
-        this.id = id;
+    public Testdrive(Date date, Employee employee, Customer customer, Car car) {
         this.date = date;
         this.employee = employee;
         this.customer = customer;
@@ -40,11 +40,11 @@ public class Testdrive {
     public Testdrive() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

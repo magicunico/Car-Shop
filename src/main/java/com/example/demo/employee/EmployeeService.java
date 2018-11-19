@@ -16,5 +16,5 @@ public class EmployeeService {
 
     public void addEmployee(Employee employee){employeeRepository.save(employee);}
 
-    public void deleteEmployee(Employee employee){employeeRepository.delete(employee);}
+    public void deleteEmployee(Long id){employeeRepository.deleteById(id);}
 }

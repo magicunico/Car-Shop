@@ -15,4 +15,5 @@ public class BrandService {
     public List<Brand> getBrands(){return brandRepository.findAll();}
 
     public void addBrand(Brand brand){brandRepository.save(brand);}
+
 }

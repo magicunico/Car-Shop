@@ -9,7 +9,8 @@ public class Insurance {
 
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
@@ -23,8 +24,7 @@ public class Insurance {
     @Column
     private float price;
 
-    public Insurance(int id, String name, Date starting, Date ending, float price) {
-        this.id = id;
+    public Insurance(String name, Date starting, Date ending, float price) {
         this.name = name;
         this.starting = starting;
         this.ending = ending;
@@ -34,11 +34,11 @@ public class Insurance {
     public Insurance() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -8,23 +8,31 @@ public class Warehouse {
 
     @Id
     @Column
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
 
-    public Warehouse(Integer id, String name) {
-        this.id = id;
+    public Warehouse(String name) {
         this.name = name;
     }
 
     public Warehouse(){};
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

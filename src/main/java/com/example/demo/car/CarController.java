@@ -20,6 +20,6 @@ public class CarController {
     @PostMapping(value = "/add")
     public void addCar(@RequestBody Car car){carService.addCar(car);}
 
-    @PostMapping(value = "/delete")
-    public void deleteCar(@RequestBody Car car){carService.deleteCar(car);}
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteCar(@PathVariable Long id){carService.deleteCar(id);}
 }

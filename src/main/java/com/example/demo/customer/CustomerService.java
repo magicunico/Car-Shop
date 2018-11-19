@@ -16,5 +16,5 @@ public class CustomerService {
 
     public void addCustomer(Customer customer){customerRepository.save(customer);}
 
-    public void deleteCustomer(Customer customer){customerRepository.delete(customer);}
+    public void deleteCustomer(Long id){customerRepository.deleteById(id);}
 }
