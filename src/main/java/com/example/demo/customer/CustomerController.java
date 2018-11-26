@@ -26,5 +26,6 @@ public class CustomerController {
     @DeleteMapping(value = "/delete/{id}")
     public void deleteCustomer(@PathVariable Long id){customerService.deleteCustomer(id);}
 
-
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody Customer customer){customerService.updateCustomer(customer);}
 }

@@ -12,9 +12,19 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> getCustomers(){return customerRepository.findAll();}
+    public List<Customer> getCustomers() {
+        return customerRepository.findAll();
+    }
 
-    public void addCustomer(Customer customer){customerRepository.save(customer);}
+    public void addCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
 
-    public void deleteCustomer(Long id){customerRepository.deleteById(id);}
+    public void deleteCustomer(Long id) {
+        customerRepository.deleteById(id);
+    }
+
+    public void updateCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
 }
