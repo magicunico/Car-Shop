@@ -1,5 +1,6 @@
 package com.example.demo.customer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,23 +9,39 @@ import java.util.List;
 public class CustomerService {
     private CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    @Autowired
+    CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> getCustomers() {
+     List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
-    public void addCustomer(Customer customer) {
+     void addCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long id) {
+     void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }
 
-    public void updateCustomer(Customer customer) {
-        customerRepository.save(customer);
-    }
+     void updateCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow(()-> new IllegalArgumentException("customer not found"));
+        if(customerDTO.getAddress() != null && !customerDTO.getAddress().isEmpty()){
+            customer.setAddress(customerDTO.getAddress());
+        }
+         if(customerDTO.getName() != null && !customerDTO.getName().isEmpty()){
+             customer.setName(customerDTO.getName());
+         }
+
+         if(customerDTO.getPesel() != null && !customerDTO.getPesel().isEmpty()){
+             customer.setPesel(customerDTO.getPesel());
+         }
+
+         if(customerDTO.getSurname() != null && !customerDTO.getSurname().isEmpty()){
+             customer.setSurname(customerDTO.getSurname());
+         }
+         customerRepository.save(customer);
+     }
 }

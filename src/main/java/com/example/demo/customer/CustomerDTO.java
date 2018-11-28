@@ -1,45 +1,26 @@
-package com.example.demo.employee;
+package com.example.demo.customer;
 
-import javax.persistence.*;
-import java.util.Date;
+public class CustomerDTO {
 
-@Entity
-@Table (name = "employee",indexes = {@Index(name = "employee_pkey",columnList = "id",unique = true)})
-public class Employee  {
-
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String pesel;
 
-    @Column
     private String name;
 
-    @Column
     private String surname;
 
-    @Column
     private String address;
 
-    @Column
-    private Date date;
-
-    @Column
-    private float salary;
-
-    public Employee( String pesel, String name, String surname, String address, Date date, float salary) {
+    public CustomerDTO(Long id, String pesel, String name, String surname, String address) {
+        this.id = id;
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
         this.address = address;
-        this.date = date;
-        this.salary = salary;
     }
 
-    public Employee() {
+    public CustomerDTO() {
     }
 
     public Long getId() {
@@ -81,24 +62,4 @@ public class Employee  {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
 }
-
-
-
-

@@ -22,4 +22,7 @@ public class EmployeeController {
 
     @DeleteMapping(value = "delete/{id}")
     public void deleteEmployee(@PathVariable Long id){employeeService.deleteEmployee(id);}
+
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody EmployeeDTO employeeDTO ){employeeService.updateEmployee(employeeDTO);}
 }

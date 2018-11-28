@@ -1,5 +1,6 @@
 package com.example.demo.brand;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,12 +9,13 @@ import java.util.List;
 public class BrandService {
     private BrandRepository brandRepository;
 
-    public BrandService(BrandRepository brandRepository) {
+    @Autowired
+    BrandService(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;
     }
 
-    public List<Brand> getBrands(){return brandRepository.findAll();}
+     List<Brand> getBrands(){return brandRepository.findAll();}
 
-    public void addBrand(Brand brand){brandRepository.save(brand);}
+     void addBrand(Brand brand){brandRepository.save(brand);}
 
 }

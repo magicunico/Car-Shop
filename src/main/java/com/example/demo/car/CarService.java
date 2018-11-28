@@ -1,5 +1,6 @@
 package com.example.demo.car;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,13 +9,14 @@ import java.util.List;
 public class CarService {
     private CarRepository carRepository;
 
-    public CarService(CarRepository carRepository) {
+    @Autowired
+    CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
 
-    public List<Car> getCars(){return carRepository.findAll();}
+     List<Car> getCars(){return carRepository.findAll();}
 
-    public void addCar(Car car){carRepository.save(car);}
+     void addCar(Car car){carRepository.save(car);}
 
-    public void deleteCar(Long id){carRepository.deleteById(id);}
+     void deleteCar(Long id){carRepository.deleteById(id);}
 }

@@ -27,5 +27,5 @@ public class CustomerController {
     public void deleteCustomer(@PathVariable Long id){customerService.deleteCustomer(id);}
 
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody Customer customer){customerService.updateCustomer(customer);}
+    public void updateCustomer(@RequestBody CustomerDTO customerDTO){customerService.updateCustomer(customerDTO);}
 }
