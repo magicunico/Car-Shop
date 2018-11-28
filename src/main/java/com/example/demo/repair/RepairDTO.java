@@ -3,35 +3,21 @@ package com.example.demo.repair;
 import com.example.demo.car.Car;
 import com.example.demo.employee.Employee;
 
-import javax.persistence.*;
+public class RepairDTO {
 
-@Entity
-@Table(name = "repair",indexes = {@Index(name = "repair_pkey",columnList = "id",unique = true)})
-public class Repair {
-
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private float price;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @Column
     private Integer status;
 
-    public Repair(String name, float price, Car car, Employee employee, Integer status) {
+    public RepairDTO(String name, float price, Car car, Employee employee, Integer status) {
         this.name = name;
         this.price = price;
         this.car = car;
@@ -39,7 +25,7 @@ public class Repair {
         this.status = status;
     }
 
-    public Repair(String name, float price, Car car, Employee employee) {
+    public RepairDTO(String name, float price, Car car, Employee employee) {
         this.name = name;
         this.price = price;
         this.car = car;
@@ -47,7 +33,7 @@ public class Repair {
         this.status=1;
     }
 
-    public Repair() {
+    public RepairDTO() {
     }
 
     public Long getId() {
@@ -106,4 +92,3 @@ public class Repair {
         this.status=0;
     }
 }
-

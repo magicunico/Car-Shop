@@ -30,7 +30,20 @@ public class Employee  {
     @Column
     private float salary;
 
-    public Employee( String pesel, String name, String surname, String address, Date date, float salary) {
+    @Column
+    private Integer status;
+
+    public Employee(String pesel, String name, String surname, String address, Date date, float salary, Integer status) {
+        this.pesel = pesel;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.date = date;
+        this.salary = salary;
+        this.status = status;
+    }
+
+    public Employee(String pesel, String name, String surname, String address, Date date, float salary) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
@@ -97,7 +110,24 @@ public class Employee  {
     public void setSalary(float salary) {
         this.salary = salary;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setActive(){
+        this.status=1;
+    }
+
+    public void setNonactive(){
+        this.status=0;
+    }
 }
+
 
 
 

@@ -1,34 +1,24 @@
-package com.example.demo.producer;
+package com.example.demo.warehouse;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "producer",indexes = {@Index(name = "producer_pkey",columnList = "id",unique = true)})
-public class Producer {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class WarehouseDTO {
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private Integer status;
 
-    public Producer(String name, Integer status) {
+    public WarehouseDTO(String name, Integer status) {
         this.name = name;
         this.status = status;
     }
 
-    public Producer(String name) {
+    public WarehouseDTO(String name) {
 
         this.name = name;
         this.status=1;
     }
 
-    public Producer() {
-    }
+    public WarehouseDTO(){};
 
     public Long getId() {
         return id;
@@ -62,3 +52,5 @@ public class Producer {
         this.status=0;
     }
 }
+
+

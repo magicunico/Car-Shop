@@ -1,54 +1,34 @@
 package com.example.demo.transaction;
 
-
 import com.example.demo.car.Car;
 import com.example.demo.customer.Customer;
 import com.example.demo.employee.Employee;
 import com.example.demo.insurance.Insurance;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "transaction",indexes = {@Index(name = "transaction_pkey",columnList = "id",unique = true)})
-public class Transaction {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TransactionDTO {
     private Long id;
 
-    @Column
     private Date date;
 
-    @Column
     private String payment;
 
-    @Column
     private String place;
 
-    @Column
     private float sum;
 
-    @OneToOne
-    @JoinColumn(name="car_id")
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name ="customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name ="employee_id")
     private Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
-    @Column
     private Integer status;
 
-    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance, Integer status) {
+    public TransactionDTO(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance, Integer status) {
         this.date = date;
         this.payment = payment;
         this.place = place;
@@ -60,7 +40,7 @@ public class Transaction {
         this.status = status;
     }
 
-    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance) {
+    public TransactionDTO(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance) {
         this.id = id;
         this.date = date;
         this.payment = payment;
@@ -73,7 +53,7 @@ public class Transaction {
         this.status=1;
     }
 
-    public Transaction() {
+    public TransactionDTO() {
     }
 
     public Long getId() {

@@ -14,8 +14,18 @@ public class Warehouse {
     @Column
     private String name;
 
-    public Warehouse(String name) {
+    @Column
+    private Integer status;
+
+    public Warehouse(String name, Integer status) {
         this.name = name;
+        this.status = status;
+    }
+
+    public Warehouse(String name) {
+
+        this.name = name;
+        this.status=1;
     }
 
     public Warehouse(){};
@@ -35,4 +45,21 @@ public class Warehouse {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setActive(){
+        this.status=1;
+    }
+
+    public void setNonactive(){
+        this.status=0;
+    }
 }
+

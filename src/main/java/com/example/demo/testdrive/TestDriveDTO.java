@@ -4,40 +4,38 @@ import com.example.demo.car.Car;
 import com.example.demo.customer.Customer;
 import com.example.demo.employee.Employee;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "testdrive",indexes = {@Index(name = "testdrive_pkey",columnList = "id",unique = true)})
-public class Testdrive {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TestDriveDTO {
     private Long id;
 
-    @Column
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
     private Car car;
 
-    public Testdrive(Date date, Employee employee, Customer customer, Car car) {
+    private Integer status;
+
+    public TestDriveDTO(Date date, Employee employee, Customer customer, Car car, Integer status) {
         this.date = date;
         this.employee = employee;
         this.customer = customer;
         this.car = car;
+        this.status = status;
     }
 
-    public Testdrive() {
+    public TestDriveDTO(Date date, Employee employee, Customer customer, Car car) {
+        this.date = date;
+        this.employee = employee;
+        this.customer = customer;
+        this.car = car;
+        this.status=1;
+    }
+
+    public TestDriveDTO() {
     }
 
     public Long getId() {
@@ -78,5 +76,21 @@ public class Testdrive {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setActive(){
+        this.status=1;
+    }
+
+    public void setNonactive(){
+        this.status=0;
     }
 }

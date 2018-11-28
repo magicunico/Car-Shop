@@ -3,50 +3,37 @@ package com.example.demo.car;
 import com.example.demo.brand.Brand;
 import com.example.demo.warehouse.Warehouse;
 
-import javax.persistence.*;
+public class CarDTO {
 
-@Entity
-@Table(name = "car",indexes = {@Index(name = "car_pkey",columnList = "id",unique = true)})
-public class Car {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String color;
 
-    @Column
     private float price;
 
-    @Column
     private String body;
 
-    @Column
     private String gearbox;
 
-    @Column
-    private Integer status;
-
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    public Car(String color, float price, String body, String gearbox, Integer status, Warehouse warehouse, Brand brand) {
+    private Integer status;
+
+    public CarDTO(Long id, String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand, Integer status) {
+        this.id = id;
         this.color = color;
         this.price = price;
         this.body = body;
         this.gearbox = gearbox;
-        this.status = status;
         this.warehouse = warehouse;
         this.brand = brand;
+        this.status = status;
     }
 
-    public Car(String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand) {
+    public CarDTO(Long id, String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand) {
+        this.id = id;
         this.color = color;
         this.price = price;
         this.body = body;
@@ -54,9 +41,6 @@ public class Car {
         this.warehouse = warehouse;
         this.brand = brand;
         this.status=1;
-    }
-
-    public Car() {
     }
 
     public Long getId() {
@@ -99,14 +83,6 @@ public class Car {
         this.gearbox = gearbox;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public Warehouse getWarehouse() {
         return warehouse;
     }
@@ -123,6 +99,14 @@ public class Car {
         this.brand = brand;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public void setActive(){
         this.status=1;
     }
@@ -131,3 +115,4 @@ public class Car {
         this.status=0;
     }
 }
+

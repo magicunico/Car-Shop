@@ -18,5 +18,22 @@ public class CarService {
 
      void addCar(Car car){carRepository.save(car);}
 
-     void deleteCar(Long id){carRepository.deleteById(id);}
+     void deleteCar(Long id){
+        Car car=carRepository.findById(id).get();
+        car.setNonactive();
+        carRepository.save(car);
+    }
+
+    void updateCar(CarDTO carDTO){
+        Car car = carRepository.findById(carDTO.getId()).orElseThrow(()->new IllegalArgumentException("Car not found"));
+
+        car.setBody(carDTO.getBody());
+        car.setBrand(carDTO.getBrand());
+        car.setColor(carDTO.getColor());
+        car.setPrice(carDTO.getPrice());
+        car.setGearbox(carDTO.getGearbox());
+        car.setWarehouse(carDTO.getWarehouse());
+        carRepository.save(car);
+
+    }
 }

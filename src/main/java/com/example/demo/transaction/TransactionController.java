@@ -22,5 +22,13 @@ public class TransactionController {
 
     @PostMapping(value = "/add")
     public void addTransaction(@RequestBody Transaction transaction){transactionService.addTransaction(transaction);}
+
+
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteInsurance(@PathVariable Long id){transactionService.deleteTransaction(id);}
+
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody TransactionDTO transactionDTO){transactionService.updateTransaction(transactionDTO);}
+
 }
 

@@ -18,4 +18,19 @@ public class BrandService {
 
      void addBrand(Brand brand){brandRepository.save(brand);}
 
+     void updateBrand(BrandDTO brandDTO){
+        Brand brand = brandRepository.findById(brandDTO.getId()).orElseThrow(()->new IllegalArgumentException("Brand not found"));
+
+
+        brand.setName(brandDTO.getName());
+        brand.setProducer(brandDTO.getProducer());
+        brandRepository.save(brand);
+     }
+
+     void deleteBrand(Long id){
+        Brand brand = brandRepository.findById(id).get();
+        brand.setNonactive();
+        brandRepository.save(brand);
+     }
+
 }

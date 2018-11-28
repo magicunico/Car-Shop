@@ -1,7 +1,6 @@
 package com.example.demo.customer;
 
-import com.example.demo.testdrive.TestDriveService;
-import com.example.demo.testdrive.Testdrive;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +23,9 @@ public class CustomerController {
 
 
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteCustomer(@PathVariable Long id){customerService.deleteCustomer(id);}
+    public void deleteCustomer(@PathVariable Long id){
+        customerService.deleteCustomer(id);
+    }
 
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody CustomerDTO customerDTO){customerService.updateCustomer(customerDTO);}

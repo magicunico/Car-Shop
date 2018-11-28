@@ -27,4 +27,7 @@ public class WarehouseController {
     @DeleteMapping(value = "delete/{id}")
     public void deleteWarehouse(@PathVariable Long id){warehouseService.deleteWarehouse(id);}
 
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody WarehouseDTO warehouseDTO){warehouseService.updateWarehouse(warehouseDTO);}
+
 }

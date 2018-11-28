@@ -25,11 +25,15 @@ public class Customer {
    @Column
     private String address;
 
+   @Column
+   private Integer status;
+
     public Customer(String pesel, String name, String surname, String address) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
         this.address = address;
+        this.status=1;
     }
 
     public Customer(Long id,String pesel, String name, String surname, String address) {
@@ -38,6 +42,7 @@ public class Customer {
         this.name = name;
         this.surname = surname;
         this.address = address;
+        this.status=1;
     }
 
     public Customer() {
@@ -81,5 +86,19 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status){this.status=status;}
+
+    public void setActive() {
+        this.status = 1;
+    }
+
+    public void setNonctive() {
+        this.status = 0;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.warehouse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,17 +9,32 @@ import java.util.List;
 public class WarehouseService {
     private WarehouseRepository warehouseRepository;
 
-    public WarehouseService(WarehouseRepository warehouseRepository) {
+    @Autowired
+     WarehouseService(WarehouseRepository warehouseRepository) {
         this.warehouseRepository = warehouseRepository;
     }
 
-    public List<Warehouse> getWarehousess(){
+     List<Warehouse> getWarehousess(){
         return warehouseRepository.findAll();
     }
 
-    public void addWarehouse(Warehouse warehouse){
+     void addWarehouse(Warehouse warehouse){
         warehouseRepository.save(warehouse);
     }
 
-    public void deleteWarehouse(Long id){warehouseRepository.deleteById(id);}
+     void deleteWarehouse(Long id){
+        Warehouse warehouse = warehouseRepository.findById(id).get();
+        warehouse.setNonactive();
+        warehouseRepository.save(warehouse);
+    }
+
+    void updateWarehouse(WarehouseDTO warehouseDTO){
+        Warehouse warehouse = warehouseRepository.findById(warehouseDTO.getId()).orElseThrow(()-> new IllegalArgumentException("warehouse not found"));
+
+        warehouse.setName(warehouseDTO.getName());
+
+        warehouseRepository.save(warehouse);
+    }
+
+
 }

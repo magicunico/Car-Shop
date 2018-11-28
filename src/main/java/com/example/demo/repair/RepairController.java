@@ -19,4 +19,11 @@ public class RepairController {
 
     @PostMapping(value = "/add")
     public void addRepair(@RequestBody Repair repair){repairService.addRepair(repair);}
+
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteInsurance(@PathVariable Long id){repairService.deleteRepair(id);}
+
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody RepairDTO repairDTO){repairService.updateRepair(repairDTO);}
+
 }

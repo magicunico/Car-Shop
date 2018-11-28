@@ -1,5 +1,6 @@
 package com.example.demo.producer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,11 +9,24 @@ import java.util.List;
 public class ProducerService {
     private ProducerRepository producerRepository;
 
-    public ProducerService(ProducerRepository producerRepository) {
+    @Autowired
+     ProducerService(ProducerRepository producerRepository) {
         this.producerRepository = producerRepository;
     }
 
-    public List<Producer> getProducers(){return producerRepository.findAll();}
+     List<Producer> getProducers(){return producerRepository.findAll();}
 
-    public void addProducer(Producer producer){producerRepository.save(producer);}
+     void addProducer(Producer producer){producerRepository.save(producer);}
+
+    void deleteProducer(Long id){
+        Producer producer = producerRepository.findById(id).get();
+        producer.setNonactive();
+        producerRepository.save(producer);
+    }
+
+    void updateProducer(ProducerDTO producerDTO){
+        Producer producer = producerRepository.findById(producerDTO.getId()).orElseThrow(()->new IllegalArgumentException("Producer not found"));
+            producer.setName(producerDTO.getName());
+          producerRepository.save(producer);
+    }
 }

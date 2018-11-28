@@ -18,27 +18,21 @@ public class EmployeeService {
 
      void addEmployee(Employee employee){employeeRepository.save(employee);}
 
-     void deleteEmployee(Long id){employeeRepository.deleteById(id);}
+     void deleteEmployee(Long id){
+        Employee employee = employeeRepository.findById(id).get();
+        employee.setNonactive();
+        employeeRepository.save(employee);
+    }
 
      void updateEmployee(EmployeeDTO employeeDTO){
         Employee employee = employeeRepository.findById(employeeDTO.getId()).orElseThrow(()-> new IllegalArgumentException("Employee not found"));
-        if(employeeDTO.getAddress() != null && employeeDTO.getAddress().isEmpty() ){
-            employee.setAddress(employeeDTO.getAddress());
-        }
 
+        employee.setAddress(employeeDTO.getAddress());
         employee.setDate(employeeDTO.getDate());
-
-         if(employeeDTO.getName() != null && employeeDTO.getName().isEmpty() ){
-             employee.setName(employeeDTO.getName());
-         }
-         if(employeeDTO.getPesel() != null && employeeDTO.getPesel().isEmpty() ){
-             employee.setPesel(employeeDTO.getPesel());
-         }
-         if(employeeDTO.getSurname() != null && employeeDTO.getSurname().isEmpty() ){
-             employee.setSurname(employeeDTO.getSurname());
-         }
-         employee.setSalary(employeeDTO.getSalary());
-
-         employeeRepository.save(employee);
+        employee.setName(employeeDTO.getName());
+        employee.setPesel(employeeDTO.getPesel());
+        employee.setSurname(employeeDTO.getSurname());
+        employee.setSalary(employeeDTO.getSalary());
+        employeeRepository.save(employee);
      }
 }

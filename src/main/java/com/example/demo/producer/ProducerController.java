@@ -21,5 +21,11 @@ public class ProducerController {
     public void addProducer(@RequestBody Producer producer){producerService.addProducer(producer);}
 
 
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteInsurance(@PathVariable Long id){producerService.deleteProducer(id);}
+
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody ProducerDTO producerDTO ){producerService.updateProducer(producerDTO);}
+
 
 }

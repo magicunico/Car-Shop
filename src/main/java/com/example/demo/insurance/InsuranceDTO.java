@@ -1,33 +1,23 @@
 package com.example.demo.insurance;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "insurance",indexes = {@Index(name = "insurance_pkey",columnList = "id",unique = true)})
-public class Insurance {
+public class InsuranceDTO {
 
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private Date starting;
 
-    @Column
     private Date ending;
 
-    @Column
     private float price;
 
-    @Column
     private Integer status;
 
-    public Insurance(String name, Date starting, Date ending, float price, Integer status) {
+    public InsuranceDTO(Long id, String name, Date starting, Date ending, float price, Integer status) {
+        this.id = id;
         this.name = name;
         this.starting = starting;
         this.ending = ending;
@@ -35,7 +25,8 @@ public class Insurance {
         this.status = status;
     }
 
-    public Insurance(String name, Date starting, Date ending, float price) {
+    public InsuranceDTO(Long id, String name, Date starting, Date ending, float price) {
+        this.id = id;
         this.name = name;
         this.starting = starting;
         this.ending = ending;
@@ -43,7 +34,7 @@ public class Insurance {
         this.status=1;
     }
 
-    public Insurance() {
+    public InsuranceDTO() {
     }
 
     public Long getId() {

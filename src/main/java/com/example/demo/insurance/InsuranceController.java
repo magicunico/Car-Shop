@@ -23,4 +23,8 @@ public class InsuranceController {
     @DeleteMapping(value = "delete/{id}")
     public void deleteInsurance(@PathVariable Long id){insuranceService.deleteInsurance(id);}
 
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody InsuranceDTO insuranceDTO ){insuranceService.updateInsurance(insuranceDTO);}
+
+
 }

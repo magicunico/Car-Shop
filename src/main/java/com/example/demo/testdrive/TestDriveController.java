@@ -15,8 +15,15 @@ public class TestDriveController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/all")
-    public List<Testdrive> getAll(){return testDriveService.getTestDrives();}
+    public List<TestDrive> getAll(){return testDriveService.getTestDrives();}
 
     @PostMapping(value = "/add")
-    public void addTestDrive(@RequestBody Testdrive testDrive){testDriveService.addTestDrive(testDrive);}
+    public void addTestDrive(@RequestBody TestDrive testDrive){testDriveService.addTestDrive(testDrive);}
+
+    @DeleteMapping(value = "delete/{id}")
+    public void deleteInsurance(@PathVariable Long id){testDriveService.deleteTestDrive(id);}
+
+    @PutMapping(value = "/update")
+    public void updateCustomer(@RequestBody TestDriveDTO testDriveDTO){testDriveService.updateTestDrive(testDriveDTO);}
+
 }

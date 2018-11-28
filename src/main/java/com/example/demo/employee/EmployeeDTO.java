@@ -15,7 +15,20 @@ public class EmployeeDTO {
 
     private Date date;
 
+    private Integer status;
+
     private float salary;
+
+    public EmployeeDTO(Long id, String pesel, String name, String surname, String address, Date date, Integer status, float salary) {
+        this.id = id;
+        this.pesel = pesel;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.date = date;
+        this.status = status;
+        this.salary = salary;
+    }
 
     public EmployeeDTO(Long id, String pesel, String name, String surname, String address, Date date, float salary) {
         this.id = id;
@@ -25,6 +38,7 @@ public class EmployeeDTO {
         this.address = address;
         this.date = date;
         this.salary = salary;
+        this.status=1;
     }
 
     public EmployeeDTO() {
@@ -84,5 +98,21 @@ public class EmployeeDTO {
 
     public void setSalary(float salary) {
         this.salary = salary;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setActive(){
+        this.status=1;
+    }
+
+    public void setNonactive(){
+        this.status=0;
     }
 }

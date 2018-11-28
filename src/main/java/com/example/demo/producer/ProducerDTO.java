@@ -1,45 +1,38 @@
 package com.example.demo.producer;
 
-import javax.persistence.*;
+public class ProducerDTO {
 
-@Entity
-@Table(name = "producer",indexes = {@Index(name = "producer_pkey",columnList = "id",unique = true)})
-public class Producer {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private Integer status;
 
-    public Producer(String name, Integer status) {
+    public ProducerDTO(Long id, String name, Integer status) {
+        this.id = id;
         this.name = name;
         this.status = status;
     }
 
-    public Producer(String name) {
-
+    public ProducerDTO(Long id, String name) {
+        this.id = id;
         this.name = name;
         this.status=1;
     }
 
-    public Producer() {
+    public ProducerDTO() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

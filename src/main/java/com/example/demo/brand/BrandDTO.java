@@ -2,33 +2,31 @@ package com.example.demo.brand;
 
 import com.example.demo.producer.Producer;
 
-import javax.persistence.*;
+public class BrandDTO {
 
-@Entity
-@Table(name = "brand", indexes = {@Index(name = "brand_pkey",columnList = "id",unique = true)})
-public class Brand {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "producer_id")
     private Producer producer;
 
-    @Column
     private Integer status;
 
-    public Brand(String name, Producer producer) {
+    public BrandDTO(Long id, String name, Producer producer, Integer status) {
+        this.id = id;
         this.name = name;
         this.producer = producer;
-        this.status = 1;
+        this.status = status;
     }
 
-    public Brand() {
+    public BrandDTO(Long id, String name, Producer producer) {
+        this.id = id;
+        this.name = name;
+        this.producer = producer;
+        this.status=1;
+    }
+
+    public BrandDTO() {
     }
 
     public Long getId() {
@@ -59,16 +57,17 @@ public class Brand {
         return status;
     }
 
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public void setActive(){
         this.status=1;
     }
 
-    public void setNonactive(){
+    public void setNonctive(){
         this.status=0;
     }
 
-    public void setStatus(Integer status){
-        this.status=status;
-    }
 
 }

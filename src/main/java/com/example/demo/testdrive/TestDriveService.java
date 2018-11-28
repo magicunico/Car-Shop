@@ -1,6 +1,7 @@
 package com.example.demo.testdrive;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,11 +10,28 @@ import java.util.List;
 public class TestDriveService {
     private TestDriveRepository testDriveRepository;
 
-    public TestDriveService(TestDriveRepository testDriveRepository) {
+    @Autowired
+     TestDriveService(TestDriveRepository testDriveRepository) {
         this.testDriveRepository = testDriveRepository;
     }
 
-    public List<Testdrive> getTestDrives(){return testDriveRepository.findAll();}
+     List<TestDrive> getTestDrives(){return testDriveRepository.findAll();}
 
-    public void addTestDrive(Testdrive testDrive){testDriveRepository.save(testDrive);}
+     void addTestDrive(TestDrive testDrive){testDriveRepository.save(testDrive);}
+
+    void deleteTestDrive(Long id){
+        TestDrive testDrive = testDriveRepository.findById(id).get();
+        testDrive.setNonactive();
+        testDriveRepository.save(testDrive);
+    }
+
+    void updateTestDrive(TestDriveDTO testDriveDTO){
+        TestDrive testDrive=testDriveRepository.findById(testDriveDTO.getId()).orElseThrow(()-> new IllegalArgumentException("TestDrive not found"));
+
+        testDrive.setDate(testDriveDTO.getDate());
+        testDrive.setCustomer(testDriveDTO.getCustomer());
+        testDrive.setEmployee(testDriveDTO.getEmployee());
+        testDrive.setCar(testDriveDTO.getCar());
+        testDriveRepository.save(testDrive);
+    }
 }

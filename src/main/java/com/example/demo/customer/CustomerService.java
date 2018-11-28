@@ -23,25 +23,17 @@ public class CustomerService {
     }
 
      void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+        Customer customer = customerRepository.findById(id).get();
+        customer.setNonctive();
+        customerRepository.save(customer);
     }
 
      void updateCustomer(CustomerDTO customerDTO) {
         Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow(()-> new IllegalArgumentException("customer not found"));
-        if(customerDTO.getAddress() != null && !customerDTO.getAddress().isEmpty()){
             customer.setAddress(customerDTO.getAddress());
-        }
-         if(customerDTO.getName() != null && !customerDTO.getName().isEmpty()){
-             customer.setName(customerDTO.getName());
-         }
-
-         if(customerDTO.getPesel() != null && !customerDTO.getPesel().isEmpty()){
-             customer.setPesel(customerDTO.getPesel());
-         }
-
-         if(customerDTO.getSurname() != null && !customerDTO.getSurname().isEmpty()){
-             customer.setSurname(customerDTO.getSurname());
-         }
-         customerRepository.save(customer);
+            customer.setName(customerDTO.getName());
+            customer.setPesel(customerDTO.getPesel());
+            customer.setSurname(customerDTO.getSurname());
+            customerRepository.save(customer);
      }
 }

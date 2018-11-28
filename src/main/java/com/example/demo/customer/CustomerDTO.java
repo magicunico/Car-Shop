@@ -12,12 +12,24 @@ public class CustomerDTO {
 
     private String address;
 
+    private Integer status;
+
+    public CustomerDTO(Long id, String pesel, String name, String surname, String address, Integer status) {
+        this.id = id;
+        this.pesel = pesel;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.status = status;
+    }
+
     public CustomerDTO(Long id, String pesel, String name, String surname, String address) {
         this.id = id;
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
         this.address = address;
+        this.status=1;
     }
 
     public CustomerDTO() {
@@ -62,4 +74,21 @@ public class CustomerDTO {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setActive(){
+        this.status=1;
+    }
+
+    public void setNonactive(){
+        this.status=0;
+    }
 }
+
