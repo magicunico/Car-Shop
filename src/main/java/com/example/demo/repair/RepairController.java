@@ -17,13 +17,21 @@ public class RepairController {
     @GetMapping("/all")
     public List<Repair> getAll(){ return repairService.getRepairs();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addRepair(@RequestBody Repair repair){repairService.addRepair(repair);}
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteInsurance(@PathVariable Long id){repairService.deleteRepair(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody RepairDTO repairDTO){repairService.updateRepair(repairDTO);}
 
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Repair> getActive(){
+        return repairService.getActive();
+    }
 }

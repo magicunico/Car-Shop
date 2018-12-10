@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -38,4 +39,9 @@ public class TransactionService {
 
         transactionRepository.save(transaction);
      }
+
+    List<Transaction> getActive(){
+        return transactionRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
+    }
 }

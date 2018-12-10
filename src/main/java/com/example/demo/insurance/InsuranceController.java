@@ -17,14 +17,21 @@ public class InsuranceController {
     @GetMapping("/all")
     public List<Insurance> getAll(){return insuranceService.getInsurances();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addInsurance(@RequestBody Insurance insurance){insuranceService.addInsurance(insurance);}
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteInsurance(@PathVariable Long id){insuranceService.deleteInsurance(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody InsuranceDTO insuranceDTO ){insuranceService.updateInsurance(insuranceDTO);}
 
-
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Insurance> getActive(){
+        return insuranceService.getActive();
+    }
 }

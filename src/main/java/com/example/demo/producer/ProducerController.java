@@ -17,15 +17,21 @@ public class ProducerController {
     @GetMapping("/all")
     public List<Producer> getAll(){return producerService.getProducers();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addProducer(@RequestBody Producer producer){producerService.addProducer(producer);}
 
-
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteInsurance(@PathVariable Long id){producerService.deleteProducer(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody ProducerDTO producerDTO ){producerService.updateProducer(producerDTO);}
 
-
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Producer> getActive(){
+        return producerService.getActive();
+    }
 }

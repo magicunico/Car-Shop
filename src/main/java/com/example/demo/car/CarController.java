@@ -17,13 +17,22 @@ public class CarController {
     @GetMapping("/all")
     public List<Car> getAll(){return carService.getCars();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addCar(@RequestBody Car car){carService.addCar(car);}
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteCar(@PathVariable Long id){carService.deleteCar(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody CarDTO carDTO ){carService.updateCar(carDTO);}
+
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Car> getActive(){
+        return carService.getActive();
+    }
 
 }

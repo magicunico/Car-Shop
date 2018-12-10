@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProducerService {
@@ -28,5 +29,10 @@ public class ProducerService {
         Producer producer = producerRepository.findById(producerDTO.getId()).orElseThrow(()->new IllegalArgumentException("Producer not found"));
             producer.setName(producerDTO.getName());
           producerRepository.save(producer);
+    }
+
+    List<Producer> getActive(){
+        return producerRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
     }
 }

@@ -19,15 +19,21 @@ public class WarehouseController {
         return warehouseService.getWarehousess();
     }
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addWarehouse(@RequestBody Warehouse warehouse){
         warehouseService.addWarehouse(warehouse);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteWarehouse(@PathVariable Long id){warehouseService.deleteWarehouse(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody WarehouseDTO warehouseDTO){warehouseService.updateWarehouse(warehouseDTO);}
 
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Warehouse> getActive(){ return warehouseService.getActive(); }
 }

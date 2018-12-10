@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TestDriveService {
@@ -33,5 +34,10 @@ public class TestDriveService {
         testDrive.setEmployee(testDriveDTO.getEmployee());
         testDrive.setCar(testDriveDTO.getCar());
         testDriveRepository.save(testDrive);
+    }
+
+    List<TestDrive> getActive(){
+        return testDriveRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
     }
 }

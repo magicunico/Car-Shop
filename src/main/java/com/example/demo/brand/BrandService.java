@@ -2,6 +2,8 @@ package com.example.demo.brand;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
+
 
 import java.util.List;
 
@@ -33,4 +35,8 @@ public class BrandService {
         brandRepository.save(brand);
      }
 
+    List<Brand> getActive(){
+        return brandRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
+    }
 }

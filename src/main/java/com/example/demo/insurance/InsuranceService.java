@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InsuranceService {
@@ -33,4 +34,9 @@ public class InsuranceService {
         insurance.setPrice(insuranceDTO.getPrice());
         insuranceRepository.save(insurance);
      }
+
+    List<Insurance> getActive(){
+        return insuranceRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
+    }
 }

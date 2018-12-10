@@ -20,15 +20,22 @@ public class TransactionController {
     @GetMapping("/all")
     public List<Transaction> getAll(){return transactionService.getTransactions();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addTransaction(@RequestBody Transaction transaction){transactionService.addTransaction(transaction);}
 
-
+    @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
     public void deleteInsurance(@PathVariable Long id){transactionService.deleteTransaction(id);}
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody TransactionDTO transactionDTO){transactionService.updateTransaction(transactionDTO);}
 
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Transaction> getActive(){
+        return transactionService.getActive();
+    }
 }
 

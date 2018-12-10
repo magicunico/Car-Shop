@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WarehouseService {
@@ -34,6 +35,11 @@ public class WarehouseService {
         warehouse.setName(warehouseDTO.getName());
 
         warehouseRepository.save(warehouse);
+    }
+
+    List<Warehouse> getActive(){
+        return warehouseRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
     }
 
 

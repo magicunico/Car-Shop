@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RepairService {
@@ -33,4 +34,8 @@ public class RepairService {
         repair.setCar(repairDTO.getCar());
         repairRepository.save(repair);
      }
+    List<Repair> getActive(){
+        return repairRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+                .collect(Collectors.toList());
+    }
 }

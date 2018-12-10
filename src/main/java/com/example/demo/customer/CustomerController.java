@@ -18,15 +18,23 @@ public class CustomerController {
     @GetMapping("/all")
     public List<Customer> getAll(){return customerService.getCustomers();}
 
+    @CrossOrigin("*")
     @PostMapping(value = "/add")
     public void addCustomer(@RequestBody Customer customer){customerService.addCustomer(customer);}
 
-
+    @CrossOrigin("*")
     @DeleteMapping(value = "/delete/{id}")
     public void deleteCustomer(@PathVariable Long id){
         customerService.deleteCustomer(id);
     }
 
+    @CrossOrigin("*")
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody CustomerDTO customerDTO){customerService.updateCustomer(customerDTO);}
+
+    @CrossOrigin("*")
+    @GetMapping("/active")
+    public List<Customer> getActive(){
+        return customerService.getActive();
+    }
 }
