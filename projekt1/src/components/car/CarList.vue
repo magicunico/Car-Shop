@@ -33,11 +33,11 @@ export default {
                 sortable:true
             },
              {
-                key:'warehouse_id',
+                key:'warehouse.id',
                 sortable:true
             },
              {
-                key:'brand_id',
+                key:'brand.id',
                 sortable:true
             }]
         }
@@ -57,7 +57,8 @@ export default {
         axios.get("http://localhost:8080/car/active")
         .then(data => this.employees = data.data)
         .catch(error => console.error(error))
-    }
+    },
     
 }
+    
 </script>

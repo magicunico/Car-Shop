@@ -33,19 +33,19 @@ export default {
                 sortable:true
             },
             {
-                key:'car',
+                key:'car.id',
                 sortable:true
             },
             {
-                key:'customer',
+                key:'customer.id',
                 sortable:true
             },
             {
-                key:'employee',
+                key:'employee.id',
                 sortable:true
             },
             {
-                key:'insurance',
+                key:'insurance.id',
                 sortable:true
             }]
         }

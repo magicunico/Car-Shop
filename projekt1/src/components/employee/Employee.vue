@@ -3,7 +3,7 @@
     <LeftMenu @change-emp="change"/>
     <Form v-if="form"/>
     <List v-if="list"/>
-    <List v-if="all"/>
+    <All v-if="all"/>
   </div>
 </template>
 
@@ -22,8 +22,8 @@ components:{
 },
   data () {
     return {
-      list:false,
-      form:true,
+      list:true,
+      form:false,
       all:false,
     }
   },

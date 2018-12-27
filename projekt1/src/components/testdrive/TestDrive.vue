@@ -3,7 +3,10 @@
     <LeftMenu @change-emp="change"/>
     <Form v-if="form"/>
     <List v-if="list"/>
-    <List v-if="all"/>
+    <All v-if="all"/>
+    <EmployeeList/>
+    <CustomerList/>
+    <CarList/>
   </div>
 </template>
 
@@ -13,12 +16,18 @@ import LeftMenu from '@/components/testdrive/TestDriveMenu'
 import Form from '@/components/testdrive/TestDriveForm'
 import List from '@/components/testdrive/TestDriveList'
 import All from '@/components/testdrive/TestDriveAll'
+import EmployeeList from '@/components/employee/EmployeeAll'
+import CarList from '@/components/car/CarAll'
+import CustomerList from '@/components/customer/CustomerAll'
 export default {
 components:{
     LeftMenu,
     Form,
     List,
-    All
+    All,
+    EmployeeList,
+    CustomerList,
+    CarList,
 },
   data () {
     return {

@@ -21,15 +21,15 @@ export default {
                 sortable:true
             },
             {
-                key:'employee',
+                key:'employee.id',
                 sortable:true
             },
             {
-                key:'customer',
+                key:'customer.id',
                 sortable:false
             },
             {
-                key:'car',
+                key:'car.id',
                 sortable:true
             }]
         }

@@ -2,7 +2,7 @@
     <Slide class="slide-menu" right>
         <span @click="changeToForm">Form</span>
         <span @click="changeToList">List</span>    
-        <span @click="changeToAll">All</span>      
+        <span @click="changeToAll">All</span>   z   
     </Slide>
 </template>
 <script>

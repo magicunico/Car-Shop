@@ -1,36 +1,28 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+         <b-table striped hover :items="brand" :fields="fields"></b-table>
     </div>
 </template>
 <script>
 import axios from 'axios'
+import CarBrandAll from '@/components/car/CarBrandAll'
 export default {
     components:{
         axios
     },
     data(){
         return{
-            employees:[],
+            brand:[],
             fields:[{
                 key:'id',
                 sortable:true
             },
             {
-                key:'date',
+                key:'name',
                 sortable:true
             },
             {
-                key:'employee.id',
-                sortable:true
-            },
-            {
-                key:'customer.id',
-                sortable:false
-            },
-            {
-                key:'car.id',
-                sortable:true
+                key:"producer.id"
             }]
         }
     },
@@ -46,8 +38,8 @@ export default {
         }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/testdrive/all")
-        .then(data => this.employees = data.data)
+        axios.get("http://localhost:8080/brand/active")
+        .then(data => this.brand = data.data)
         .catch(error => console.error(error))
     }
     

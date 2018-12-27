@@ -1,6 +1,6 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+         <b-table striped hover :items="brand" :fields="fields"></b-table>
     </div>
 </template>
 <script>
@@ -11,25 +11,13 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            brand:[],
             fields:[{
                 key:'id',
                 sortable:true
             },
             {
-                key:'date',
-                sortable:true
-            },
-            {
-                key:'employee.id',
-                sortable:true
-            },
-            {
-                key:'customer.id',
-                sortable:false
-            },
-            {
-                key:'car.id',
+                key:'name',
                 sortable:true
             }]
         }
@@ -46,8 +34,8 @@ export default {
         }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/testdrive/all")
-        .then(data => this.employees = data.data)
+        axios.get("http://localhost:8080/producer/active")
+        .then(data => this.brand = data.data)
         .catch(error => console.error(error))
     }
     

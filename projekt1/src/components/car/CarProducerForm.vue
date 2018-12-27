@@ -2,7 +2,8 @@
     <b-form @submit="submit">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
-                    label-for="exampleInput1">
+                    label-for="exampleInput1"
+                    description="We'll never share your email with anyone else.">
         <b-form-input id="exampleInput1"
                       type="text"
                       v-model="name"
@@ -10,7 +11,7 @@
                       placeholder="Enter name">
         </b-form-input>
       </b-form-group>
-    <b-button type="submit" variant="primary">Add brand</b-button>
+    <b-button type="submit" variant="primary">Add Producer</b-button>
     </b-form>
 </template>
 <script>
@@ -19,7 +20,7 @@ export default {
     components:{axios},
     data(){
         return {
-            name:''
+            name:'',
         }
     },
     methods:{
@@ -31,7 +32,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/warehouse/add",body)
+            axios.post("http://localhost:8080/producer/add",body)
             .catch(body => console.log(body))
             console.log(body)
 

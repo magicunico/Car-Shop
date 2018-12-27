@@ -3,7 +3,7 @@
     <LeftMenu @change-emp="change"/>
     <Form v-if="form"/>
     <List v-if="list"/>
-    <List v-if="all"/>
+    <All v-if="all"/>
   </div>
 </template>
 

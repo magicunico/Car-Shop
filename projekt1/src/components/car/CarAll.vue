@@ -33,12 +33,18 @@ export default {
                 sortable:true
             },
              {
-                key:'warehouse',
+                key:'warehouse.id',
                 sortable:true
             },
+            {
+                key: 'warehouse.name'
+            },
              {
-                key:'brand',
+                key:'brand.id',
                 sortable:true
+            },
+            {
+                key:'brand.name'
             }]
         }
     },
