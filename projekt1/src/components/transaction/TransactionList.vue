@@ -1,6 +1,10 @@
 <template>
-    <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+    <div class="container">
+         <b-table margin-right:200px striped :items="transactions" :fields="fields" :hover="true" ref="table" id="tranactions-list-table">
+             <template slot="actions" slot-scope="data">
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteTransaction(data.item.id)"></span>
+             </template>
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +15,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            transactions:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -37,16 +41,46 @@ export default {
                 sortable:true
             },
             {
+                key:'car.brand.name',
+                sortable:true
+            },
+            {
+                key:'car.color',
+                sortable:true
+            },
+            {
                 key:'customer.id',
+                sortable:true
+            },
+            {
+                key:'customer.name',
+                sortable:true
+            },
+            {
+                key:'customer.surname',
                 sortable:true
             },
             {
                 key:'employee.id',
                 sortable:true
             },
+             {
+                key:'employee.name',
+                sortable:true
+            },
+             {
+                key:'employee.surname',
+                sortable:true
+            },
             {
                 key:'insurance.id',
                 sortable:true
+            },
+            {
+                key:'insurance.name',
+            },
+            {
+                key:"actions"
             }]
         }
     },
@@ -59,11 +93,16 @@ export default {
                 newList.push(list[i])
             }
             return newList
+        },
+        deleteTransaction(data){
+            axios.delete("http://localhost:8080/transaction/delete/" + data);
+            this.$root.$emit("bv::refresh::table", "transactions-list-table");
+            this.$refs.table.refresh();
         }
     },
     beforeMount(){
         axios.get("http://localhost:8080/transaction/active")
-        .then(data => this.employees = data.data)
+        .then(data => this.transactions = data.data)
         .catch(error => console.error(error))
     }
     

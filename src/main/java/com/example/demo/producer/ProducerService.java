@@ -35,4 +35,9 @@ public class ProducerService {
         return producerRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Producer getProducer(Long id){
+        return producerRepository.findById(id).get();
+    }
+
 }

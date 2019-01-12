@@ -1,6 +1,10 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+         <b-table striped :items="testDrives" :fields="fields" :hover="true" ref="table" id="testdrives-list-table">
+             <template slot="actions" slot-scope="data">
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteTestDrive(data.item.id)"></span>
+             </template>
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +15,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            testDrives:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -20,17 +24,42 @@ export default {
                 key:'date',
                 sortable:true
             },
+            // {
+            //     key:'employee.id',
+            //     sortable:true
+            // },
             {
-                key:'employee.id',
-                sortable:true
+                key:'employee.name'
             },
             {
-                key:'customer.id',
+                key:'employee.surname'
+            },
+            // {
+            //     key:'customer.id',
+            //     sortable:false
+            // },
+            {
+                key:'customer.name',
                 sortable:false
             },
             {
-                key:'car.id',
+                key:'customer.surname',
+                sortable:false
+            },
+            // {
+            //     key:'car.id',
+            //     sortable:true
+            // },
+            {
+                key:'car.color',
                 sortable:true
+            },
+            {
+                key:'car.brand.name',
+                sortable:true
+            },
+            {
+                key:"actions"
             }]
         }
     },
@@ -43,11 +72,16 @@ export default {
                 newList.push(list[i])
             }
             return newList
-        }
+        },
+    deleteTestDrive(data) {
+      axios.delete("http://localhost:8080/testdrive/delete/" + data);
+      this.$root.$emit("bv::refresh::table", "testdrives-list-table");
+      this.$refs.table.refresh();
+    }
     },
     beforeMount(){
         axios.get("http://localhost:8080/testdrive/active")
-        .then(data => this.employees = data.data)
+        .then(data => this.testDrives = data.data)
         .catch(error => console.error(error))
     }
     

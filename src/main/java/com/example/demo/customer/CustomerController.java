@@ -37,4 +37,10 @@ public class CustomerController {
     public List<Customer> getActive(){
         return customerService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Customer getCustomer(@PathVariable Long id){
+        return customerService.getCustomer(id);
+    }
 }

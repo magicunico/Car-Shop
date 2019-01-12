@@ -44,4 +44,9 @@ public class TransactionService {
         return transactionRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Transaction getTransaction(Long id){
+        return transactionRepository.findById(id).get();
+    }
+
 }

@@ -40,4 +40,9 @@ public class TestDriveService {
         return testDriveRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    TestDrive getTestDrive(Long id){
+        return testDriveRepository.findById(id).get();
+    }
+
 }

@@ -41,4 +41,8 @@ public class EmployeeService {
         return employeeRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
      }
+
+     Employee getEmployee(Long id){
+        return employeeRepository.findById(id).get();
+     }
 }

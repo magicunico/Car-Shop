@@ -37,5 +37,11 @@ public class TransactionController {
     public List<Transaction> getActive(){
         return transactionService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Transaction getTransaction(@PathVariable Long id){
+        return transactionService.getTransaction(id);
+    }
 }
 

@@ -1,6 +1,10 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+         <b-table striped :items="cars" :fields="fields" :hover="true" ref="table" id="cars-list-table">
+             <template slot="actions" slot-scope="data">
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteCar(data.item.id)"></span>
+             </template>
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +15,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            cars:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -39,6 +43,9 @@ export default {
              {
                 key:'brand.id',
                 sortable:true
+            },
+            {
+                key:"actions"
             }]
         }
     },
@@ -51,11 +58,16 @@ export default {
                 newList.push(list[i])
             }
             return newList
+        },
+        deleteCar(data){
+        axios.delete("http://localhost:8080/car/delete/" + data);
+      this.$root.$emit("bv::refresh::table", "cars-list-table");
+      this.$refs.table.refresh();
         }
     },
     beforeMount(){
         axios.get("http://localhost:8080/car/active")
-        .then(data => this.employees = data.data)
+        .then(data => this.cars = data.data)
         .catch(error => console.error(error))
     },
     

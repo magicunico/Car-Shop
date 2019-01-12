@@ -37,4 +37,10 @@ public class BrandController {
         return brandService.getActive();
     }
 
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Brand getBrand(@PathVariable Long id){
+        return brandService.getBrand(id);
+    }
 }

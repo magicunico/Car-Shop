@@ -42,4 +42,9 @@ public class CustomerService {
         return customerRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Customer getCustomer(Long id){
+        return customerRepository.findById(id).get();
+    }
+
 }

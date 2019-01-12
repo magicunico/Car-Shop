@@ -39,4 +39,9 @@ public class InsuranceService {
         return insuranceRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Insurance getInsurance(Long id){
+        return insuranceRepository.findById(id).get();
+    }
+
 }

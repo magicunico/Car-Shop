@@ -34,4 +34,10 @@ public class InsuranceController {
     public List<Insurance> getActive(){
         return insuranceService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Insurance getInsurance(@PathVariable Long id){
+        return insuranceService.getInsurance(id);
+    }
 }

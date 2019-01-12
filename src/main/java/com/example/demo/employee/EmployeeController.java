@@ -34,4 +34,10 @@ public class EmployeeController {
     public List<Employee> getActive(){
         return employeeService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Employee getEmployee(@PathVariable Long id){
+        return employeeService.getEmployee(id);
+    }
 }

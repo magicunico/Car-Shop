@@ -34,4 +34,10 @@ public class RepairController {
     public List<Repair> getActive(){
         return repairService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Repair getRepair(@PathVariable Long id){
+        return repairService.getRepair(id);
+    }
 }

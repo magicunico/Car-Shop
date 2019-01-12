@@ -34,4 +34,10 @@ public class ProducerController {
     public List<Producer> getActive(){
         return producerService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Producer getProducer(@PathVariable Long id){
+        return producerService.getProducer(id);
+    }
 }

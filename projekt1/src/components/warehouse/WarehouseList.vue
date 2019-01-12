@@ -1,6 +1,11 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+        <b-table striped :items="warehouses" :fields="fields" :hover="true" ref="table" id="warehouses-list-table">
+             <template slot="actions" slot-scope="data">
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteWarehouse(data.item.id)"></span>
+
+             </template>
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +16,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            warehouses:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -19,6 +24,9 @@ export default {
             {
                 key:'name',
                 sortable:true
+            },
+            {
+                key: "actions"
             }]
         }
     },
@@ -31,11 +39,16 @@ export default {
                 newList.push(list[i])
             }
             return newList
+        },
+        deleteWarehouse(data){
+            axios.delete("http://localhost:8080/warehouse/delete/" + data);
+             this.$root.$emit("bv::refresh::table", "warehouses-list-table");
+            this.$refs.table.refresh();
         }
     },
     beforeMount(){
         axios.get("http://localhost:8080/warehouse/active")
-        .then(data => this.employees = data.data)
+        .then(data => this.warehouses = data.data)
         .catch(error => console.error(error))
     }
     

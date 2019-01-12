@@ -1,6 +1,11 @@
 <template>
     <div>
-         <b-table striped hover :items="brand" :fields="fields"></b-table>
+         <b-table striped :items="producer" :fields="fields" :hover="true" ref="table" id="producer-list-table">
+             <template slot="actions" slot-scope="data">
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteProducer(data.item.id)"></span>
+                
+             </template>
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +16,7 @@ export default {
     },
     data(){
         return{
-            brand:[],
+            producer:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -19,6 +24,9 @@ export default {
             {
                 key:'name',
                 sortable:true
+            },
+            {
+                key: "actions"
             }]
         }
     },
@@ -31,11 +39,18 @@ export default {
                 newList.push(list[i])
             }
             return newList
-        }
+        },
+    deleteProducer(data) {
+      axios.delete("http://localhost:8080/producer/delete/" + data);
+      this.$root.$emit("bv::refresh::table", "producer-list-table");
+      this.$refs.table.refresh();
+    }
     },
+
+
     beforeMount(){
         axios.get("http://localhost:8080/producer/active")
-        .then(data => this.brand = data.data)
+        .then(data => this.producer = data.data)
         .catch(error => console.error(error))
     }
     

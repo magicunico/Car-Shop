@@ -36,4 +36,10 @@ public class WarehouseController {
     @CrossOrigin("*")
     @GetMapping("/active")
     public List<Warehouse> getActive(){ return warehouseService.getActive(); }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Warehouse getWarehouse(@PathVariable Long id){
+        return warehouseService.getWarehouse(id);
+    }
 }

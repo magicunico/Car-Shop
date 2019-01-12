@@ -38,4 +38,9 @@ public class RepairService {
         return repairRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Repair getRepair(Long id){
+        return repairRepository.findById(id).get();
+    }
+
 }

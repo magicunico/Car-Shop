@@ -42,5 +42,9 @@ public class WarehouseService {
                 .collect(Collectors.toList());
     }
 
+    Warehouse getWarehouse(Long id){
+        return warehouseRepository.findById(id).get();
+    }
+
 
 }

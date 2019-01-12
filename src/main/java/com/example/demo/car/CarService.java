@@ -41,4 +41,9 @@ public class CarService {
         return carRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Car getCar(Long id){
+        return carRepository.findById(id).get();
+    }
+
 }

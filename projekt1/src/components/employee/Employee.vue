@@ -37,11 +37,12 @@ components:{
             this.form = false;
             this.list = true;
             this.all=false;
-
+            
         }else if (payload == 'all') {
             this.all=true;
             this.form = false;
             this.list = false;
+            
         }
       }
   }

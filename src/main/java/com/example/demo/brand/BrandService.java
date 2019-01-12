@@ -39,4 +39,9 @@ public class BrandService {
         return brandRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
     }
+
+    Brand getBrand(Long id){
+        return brandRepository.findById(id).get();
+    }
+
 }

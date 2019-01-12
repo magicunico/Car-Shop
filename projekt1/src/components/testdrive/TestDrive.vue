@@ -16,18 +16,12 @@ import LeftMenu from '@/components/testdrive/TestDriveMenu'
 import Form from '@/components/testdrive/TestDriveForm'
 import List from '@/components/testdrive/TestDriveList'
 import All from '@/components/testdrive/TestDriveAll'
-import EmployeeList from '@/components/employee/EmployeeAll'
-import CarList from '@/components/car/CarAll'
-import CustomerList from '@/components/customer/CustomerAll'
 export default {
 components:{
     LeftMenu,
     Form,
     List,
-    All,
-    EmployeeList,
-    CustomerList,
-    CarList,
+    All
 },
   data () {
     return {

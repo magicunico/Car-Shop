@@ -34,4 +34,10 @@ public class TestDriveController {
     public List<TestDrive> getActive(){
         return testDriveService.getActive();
     }
+
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public TestDrive getTestDrive(@PathVariable Long id){
+        return testDriveService.getTestDrive(id);
+    }
 }

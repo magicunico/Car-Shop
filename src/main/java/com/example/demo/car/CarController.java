@@ -35,4 +35,10 @@ public class CarController {
         return carService.getActive();
     }
 
+    @CrossOrigin("*")
+    @GetMapping("{id}")
+    public Car getCar(@PathVariable Long id){
+        return carService.getCar(id);
+    }
+
 }
