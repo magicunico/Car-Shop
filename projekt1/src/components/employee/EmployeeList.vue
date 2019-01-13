@@ -2,7 +2,7 @@
     <div>
          <b-table striped :items="employees" :fields="fields" :hover="true" ref="table" id="employee-list-table" v-if="!edit">
              <template slot="actions" slot-scope="data">
-                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteEmployee(data.item.id)"></span>
+                 <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click.prevent="deleteEmployee(data.item.id)"></span>
                  <span><img src="../../assets/edit.svg" @click="editEmployee(data.item.id)"></span>
              </template>
          </b-table>
@@ -133,8 +133,9 @@ export default {
     },
     deleteEmployee(data) {
       axios.delete("http://localhost:8080/employee/delete/" + data);
-      this.$root.$emit("bv::refresh::table", "employee-list-table");
-      this.$refs.table.refresh();
+     // this.$root.$emit("bv::refresh::table", "employee-list-table");
+      //this.$refs.table.refresh();
+      this.$forceUpdate();
     },
     editEmployee(data){
         this.edit = true;

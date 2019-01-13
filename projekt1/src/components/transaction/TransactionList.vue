@@ -52,10 +52,7 @@ export default {
                 key:'customer.id',
                 sortable:true
             },
-            {
-                key:'customer.name',
-                sortable:true
-            },
+            
             {
                 key:'customer.surname',
                 sortable:true
@@ -64,10 +61,7 @@ export default {
                 key:'employee.id',
                 sortable:true
             },
-             {
-                key:'employee.name',
-                sortable:true
-            },
+            
              {
                 key:'employee.surname',
                 sortable:true
