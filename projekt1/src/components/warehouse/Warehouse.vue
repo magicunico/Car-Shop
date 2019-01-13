@@ -22,8 +22,8 @@ components:{
 },
   data () {
     return {
-      list:false,
-      form:true,
+      list:true,
+      form:false,
       all:false,
     }
   },

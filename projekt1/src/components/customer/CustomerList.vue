@@ -6,7 +6,7 @@
                  <span><img src="../../assets/edit.svg" @click="editCustomer(data.item.id)"></span>
              </template>
          </b-table>
-     <b-form v-else @submit="updateCustomer">
+     <b-form v-else @submit="updateCustomer()">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
@@ -106,6 +106,16 @@ export default {
       axios.delete("http://localhost:8080/customer/delete/" + data);
       this.$root.$emit("bv::refresh::table", "customer-list-table");
       this.$refs.table.refresh();
+    },
+    editCustomer(data){
+        this.edit=true;
+        axios.get("http://localhost:8080/customer/"+data)
+        .then(result=>{
+            this.name=result.data.name;
+            this.surname=result.data.surname;
+            this.pesel=result.data.pesel;
+            this.address=result.data.address;
+        })
     }
     },
     beforeMount(){
