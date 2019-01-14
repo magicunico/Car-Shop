@@ -48,7 +48,7 @@
         </b-form-input>
       </b-form-group>
        
-    <b-button type="submit" variant="primary">Edit Customer</b-button>
+    <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
     </div>
 </template>
@@ -89,23 +89,17 @@ export default {
         name: "",
         surname:"",
         pesel:"",
-        address:""
+        address:"",
+        id:""
         };
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        },
+        
      deleteCustomer(data) {
-      axios.delete("http://localhost:8080/customer/delete/" + data);
-      this.$root.$emit("bv::refresh::table", "customer-list-table");
-      this.$refs.table.refresh();
+      axios.delete("http://localhost:8080/customer/delete/" + data)
+      .then(()=>{
+          this.$router.go();
+      })
     },
     editCustomer(data){
         this.edit=true;
@@ -115,7 +109,20 @@ export default {
             this.surname=result.data.surname;
             this.pesel=result.data.pesel;
             this.address=result.data.address;
+            this.id=result.data.id;
         })
+    },
+    updateCustomer(){
+        let body={
+            id: this.id,
+            status:"1",
+            name: this.name,
+            surname: this.surname,
+            pesel: this.pesel,
+            address:this.address
+        };
+        axios.put("http://localhost:8080/customer/update",body);
+        console.log(body);
     }
     },
     beforeMount(){

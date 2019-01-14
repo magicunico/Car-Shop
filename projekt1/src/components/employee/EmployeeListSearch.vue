@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-form-input id="filter-search" placeholder="Type to Search" @input="filterData" @change="filterData"/>
     <b-table
       striped
       :items="employees"
@@ -8,6 +9,8 @@
       ref="table"
       id="employee-list-table"
       v-if="!edit"
+      @filtered="onFiltered"
+      :current-page="currentPage"
     >
       <template slot="actions" slot-scope="data">
         <span style="padding-left:20px;">
@@ -120,16 +123,30 @@ export default {
       address: "",
       date: "",
       salary: "",
-      id:""
+      id:"",
+      backUpEmployees:[],
+      fiter:null,
+      totalRows:0,
+      currentPage:1
     };
   },
   methods: {
-    
+    // filter(data){
+    //   console.log(data);
+    // },
+    filterList(list) {
+      let newList = new Array();
+      for (let i = 0; i < list.lenght; i++) {
+        list[i].date = list[i].date.trim(0, 10);
+        newList.push(list[i]);
+      }
+      return newList;
+    },
     deleteEmployee(data) {
-      axios.delete("http://localhost:8080/employee/delete/" + data)
-      .then(()=>{
-          this.$router.go();
-      })
+      axios.delete("http://localhost:8080/employee/delete/" + data);
+      // this.$root.$emit("bv::refresh::table", "employee-list-table");
+      //this.$refs.table.refresh();
+      this.$forceUpdate();
     },
     editEmployee(data) {
       this.edit = true;
@@ -170,7 +187,31 @@ export default {
         salary:this.salary
       };
       axios.put("http://localhost:8080/employee/update",body);
-    }
+    },
+  //    onFiltered (filteredItems) {
+  //     // Trigger pagination to update the number of buttons/pages due to filtering
+  //     this.totalRows = filteredItems.length
+  //     this.currentPage = 1
+  //   },
+  //   filterData(){
+  //     let input = document.getElementById('filter-search');
+  //     this.employees.forEach(element =>{  
+  //       if(element.name.includes(input.value)){
+  //         if(this.backUpEmployees.indexOf(element.name)<0){
+  //           this.backUpEmployees.push(element.name);
+  //         }
+  //       } 
+  //     })
+  //     this.employees = this.backUpEmployees;
+  //   },
+  //   clone(obj) {
+  //     if (null == obj || "object" != typeof obj) return obj;
+  //     var copy = obj.constructor();
+  //     for (var attr in obj) {
+  //         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+  //     }
+  //     return copy;
+  // }
   },
   beforeMount() {
     axios
@@ -178,6 +219,7 @@ export default {
       .then(data => {
         this.employees = data.data;
         this.test(this.employees);
+        this.totalRows = data.data.length;
       })
       .catch(error => console.error(error));
   }

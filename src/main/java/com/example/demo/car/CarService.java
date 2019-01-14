@@ -25,15 +25,15 @@ public class CarService {
         carRepository.save(car);
     }
 
-    void updateCar(CarDTO carDTO){
-        Car car = carRepository.findById(carDTO.getId()).orElseThrow(()->new IllegalArgumentException("Car not found"));
-
-        car.setBody(carDTO.getBody());
-        car.setBrand(carDTO.getBrand());
-        car.setColor(carDTO.getColor());
-        car.setPrice(carDTO.getPrice());
-        car.setGearbox(carDTO.getGearbox());
-        car.setWarehouse(carDTO.getWarehouse());
+    void updateCar(Car car){
+//        Car car = carRepository.findById(carDTO.getId()).orElseThrow(()->new IllegalArgumentException("Car not found"));
+//
+//        car.setBody(carDTO.getBody());
+//        car.setBrand(carDTO.getBrand());
+//        car.setColor(carDTO.getColor());
+//        car.setPrice(carDTO.getPrice());
+//        car.setGearbox(carDTO.getGearbox());
+//        car.setWarehouse(carDTO.getWarehouse());
         carRepository.save(car);
     }
 

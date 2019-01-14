@@ -43,32 +43,35 @@ export default {
                 key: "actions"
             }],
             edit:false,
-            name:""
+            name:"",
+            id:""
         }
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        },
+       
     deleteProducer(data) {
-      axios.delete("http://localhost:8080/producer/delete/" + data);
-      this.$root.$emit("bv::refresh::table", "producer-list-table");
-      this.$refs.table.refresh();
+      axios.delete("http://localhost:8080/producer/delete/" + data)
+      .then(()=>{
+          this.$router.go();
+      })
     },
     editProducer(data){
         this.edit=true;
         axios.get("http://localhost:8080/producer/"+data)
         .then(result=>{
             this.name=result.data.name;
+            this.id=result.data.id;
         })
     },
-    updateProducer(){}
+    updateProducer(){
+        let body = {
+            id: this.id,
+            name: this.name,
+            status: '1'
+        };
+        axios.put("http://localhost:8080/producer/update",body);
+        console.log(body);
+    }
     },
 
 

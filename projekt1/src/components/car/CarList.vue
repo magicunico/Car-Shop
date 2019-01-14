@@ -119,23 +119,17 @@ export default {
             body:"",
             gearbox:"",
             warehouse:"",
-            brand:""
+            brand:"",
+            id:""
         }
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        },
+       
         deleteCar(data){
-        axios.delete("http://localhost:8080/car/delete/" + data);
-      this.$root.$emit("bv::refresh::table", "cars-list-table");
-      this.$refs.table.refresh();
+        axios.delete("http://localhost:8080/car/delete/" + data)
+        .then(()=>{
+          this.$router.go();
+      })
         },
         editCar(data){
              this.edit = true;
@@ -147,9 +141,24 @@ export default {
             this.gearbox = result.data.gearbox;
             this.warehouse=result.data.warehouse.id;
             this.brand = result.data.brand.id;
+            this.id=result.data.id;
         })
         },
-        updateCar(){}
+        updateCar(){
+            let body = {
+            color: this.color,
+            price:this.price,
+            body:this.body,
+            gearbox:this.gearbox,
+            warehouse:{id: this.warehouse},
+            brand:{id: this.brand},
+            id:this.id,
+            status:"1"
+        
+      };
+            axios.put("http://localhost:8080/car/update",body);
+            console.log(body);
+        }
     },
     beforeMount(){
         axios.get("http://localhost:8080/car/active")

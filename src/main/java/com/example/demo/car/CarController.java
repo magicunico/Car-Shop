@@ -27,7 +27,7 @@ public class CarController {
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody CarDTO carDTO ){carService.updateCar(carDTO);}
+    public void updateCustomer(@RequestBody Car car ){carService.updateCar(car);}
 
     @CrossOrigin("*")
     @GetMapping("/active")

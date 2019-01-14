@@ -21,15 +21,15 @@ public class CarDTO {
 
     private Integer status;
 
-    public CarDTO(Long id, String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand, Integer status) {
+    public CarDTO(Long id, String color, float price, String body, String gearbox, Integer status, Warehouse warehouse, Brand brand) {
         this.id = id;
         this.color = color;
         this.price = price;
         this.body = body;
         this.gearbox = gearbox;
+        this.status = status;
         this.warehouse = warehouse;
         this.brand = brand;
-        this.status = status;
     }
 
     public CarDTO(Long id, String color, float price, String body, String gearbox, Warehouse warehouse, Brand brand) {

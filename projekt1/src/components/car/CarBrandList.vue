@@ -6,7 +6,7 @@
                   <span><img src="../../assets/edit.svg" @click="editBrand(data.item.id)"></span>
              </template>
          </b-table>
-         <b-form v-else @submit.prevent="updateBrand()">
+         <b-form v-else @submit="updateBrand()">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1"
@@ -58,23 +58,16 @@ export default {
             }],
             edit:false,
             name:"",
-            producer:""
+            producer:"",
+            id:""
         };
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        },
+        
      deleteBrand(data) {
-      axios.delete("http://localhost:8080/brand/delete/" + data);
-      this.$root.$emit("bv::refresh::table", "brand-list-table");
-      this.$refs.table.refresh();
+      axios.delete("http://localhost:8080/brand/delete/" + data).then(()=>{
+          this.$router.go();
+      })
     },
     editBrand(data){
         this.edit = true;
@@ -82,7 +75,21 @@ export default {
         .then( result => {
             this.name = result.data.name;
             this.producer=result.data.producer.id;
+            this.id=result.data.id;
         })
+    },
+    updateBrand(){
+         let body = {
+              id: this.id,
+        name: this.name,
+        status: "1",
+        producer: {
+            id: this.producer}
+        
+      };
+      
+      axios.put("http://localhost:8080/brand/update", body);
+      console.log(body);
     }
     },
     beforeMount(){
