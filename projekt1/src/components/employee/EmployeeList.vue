@@ -1,5 +1,14 @@
 <template>
   <div>
+    <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+
     <b-table
       striped
       :items="employees"
@@ -8,6 +17,7 @@
       ref="tableEmp"
       id="employee-list-table"
       v-if="!edit"
+      :filter="filter"
     >
       <template slot="actions" slot-scope="row">
         <b-button @click="pomFoo(row.item.id)">Promote</b-button>
@@ -17,9 +27,6 @@
         <span>
           <img src="../../assets/edit.svg" @click="editEmployee(row.item.id)">
         </span>
-        <template slot="row-details" slot-scope="row">
-          <b-card>dupaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</b-card>
-        </template>
       </template>
     </b-table>
 
@@ -28,7 +35,7 @@
       <b-button v-if="showField" @click="promote(promoteValue)">Accept</b-button>
     </b-form-group>
 
-    <b-form v-if="edit"  @submit.prevent="updateEmployee">
+    <b-form v-if="edit" @submit.prevent="updateEmployee">
       <b-form-group id="exampleInputGroup1" label="Name:" label-for="exampleInput1">
         <b-form-input
           id="exampleInput1"
@@ -56,9 +63,10 @@
           required
           placeholder="Enter pesel"
         >
-        <b-form-invalid-feedback id="input1LiveFeedback">
-        This is a required field and must be at least 11 characters
-      </b-form-invalid-feedback>
+          <b-form-invalid-feedback
+            id="input1LiveFeedback"
+          >This is a required field and must be at least 11 characters
+          </b-form-invalid-feedback>
         </b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="Address:" label-for="exampleInput1">
@@ -77,10 +85,16 @@
           v-model="salary"
           required
           placeholder="Enter salary"
-        ></b-form-input>
+        >
+        </b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="date:" label-for="exampleInput1">
-        <b-form-input id="exampleInput1" type="date" v-model="date" required></b-form-input>
+        <b-form-input 
+        id="exampleInput1" 
+        type="date"
+         v-model="date" 
+         required>
+         </b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
@@ -88,8 +102,8 @@
 </template>
 <script>
 import axios from "axios";
-import { validationMixin } from "vuelidate"
-import { required, minLength, maxLength } from "vuelidate/lib/validators"
+import { validationMixin } from "vuelidate";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 export default {
   components: {
     axios
@@ -139,37 +153,37 @@ export default {
       date: "",
       salary: "",
       id: "",
-      showField:false,
-      promoteValue:'',
-      promoteId:'',
-      error:'',
-      form: {}
+      showField: false,
+      promoteValue: "",
+      promoteId: "",
+      error: "",
+      form: {},
+      filter: ""
     };
   },
-  mixins: [
-      validationMixin
-    ],
-    validations: {
-      form: {
-        pesel: {
-          required,
-          maxLength: maxLength(11),
-          minLength: minLength(11),   
-        }
+  mixins: [validationMixin],
+  validations: {
+    form: {
+      pesel: {
+        required,
+        maxLength: maxLength(11),
+        minLength: minLength(10)
       }
-    },
+    }
+  },
   methods: {
     promote(data) {
-      let body =  {
-        employee:this.promoteId,
-        howmuch:data
-      }
-      axios.post("http://localhost:8080/employee/promote/",body)
-      .then( data =>{
+      let body = {
+        employee: this.promoteId,
+        howmuch: data
+      };
+      axios.post("http://localhost:8080/employee/promote/", body).then(data => {
         this.showField = false;
-      })
+      });
+      this.$refs.tableEmp.refresh();
+      this.$router.go();
     },
-    pomFoo(id){
+    pomFoo(id) {
       this.showField = true;
       this.promoteId = id;
     },
@@ -180,30 +194,31 @@ export default {
     },
     editEmployee(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/employee/" + data)
-      .then(result => {
-        this.name = result.data.name;
-        this.surname = result.data.surname;
-        this.pesel = result.data.pesel;
-        this.address = result.data.address;
-        this.date = new Date(result.data.date)
-          .toLocaleDateString("ko-KR")
-          .replace(". ", "-")
-          .replace(". ", "-")
-          .replace(".", "");
-        this.salary = result.data.salary;
-        this.id = result.data.id;
-      })
-      .catch( error => {
-        console.log("DUPA");
-        this.$notify({
-          group:"foo",
-          title:"Error found",
-          text:error,
-          type:"Error"
+      axios
+        .get("http://localhost:8080/employee/" + data)
+        .then(result => {
+          this.name = result.data.name;
+          this.surname = result.data.surname;
+          this.form.pesel = result.data.pesel;
+          this.address = result.data.address;
+          this.date = new Date(result.data.date)
+            .toLocaleDateString("ko-KR")
+            .replace(". ", "-")
+            .replace(". ", "-")
+            .replace(".", "");
+          this.salary = result.data.salary;
+          this.id = result.data.id;
         })
-        this.$refs.tableEmp.refresh();
-      })
+        .catch(error => {
+          console.log("DUPA");
+          this.$notify({
+            group: "foo",
+            title: "Error found",
+            text: error,
+            type: "Error"
+          });
+          this.$refs.tableEmp.refresh();
+        });
       console.log(this.date);
     },
     test(data) {
@@ -226,18 +241,17 @@ export default {
         date: this.date,
         salary: this.salary
       };
-      axios.put("http://localhost:8080/employee/update", body)
-      .catch( error => {
+      axios.put("http://localhost:8080/employee/update", body).catch(error => {
         console.log(error);
         this.error = error;
         this.$notify({
-          group:"foo",
-          title:"Error found",
-          text:"Incorrect field values",
-          type:"Error"
-        })
+          group: "foo",
+          title: "Error found",
+          text: "Incorrect field values",
+          type: "Error"
+        });
         this.$refs.tableEmp.refresh();
-      })
+      });
     },
     showDetails() {}
   },

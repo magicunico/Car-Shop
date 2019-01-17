@@ -49,6 +49,7 @@ public class EmployeeService {
         employeeRepository.save(employee);
      }
 
+     @Transactional
      public Integer countEmployees(){
         String proc = "SELECT \"hired\" ()";
         Query query=entityManager.createNativeQuery(proc);
