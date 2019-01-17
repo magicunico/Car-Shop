@@ -5,20 +5,30 @@
       :items="employees"
       :fields="fields"
       :hover="true"
-      ref="table"
+      ref="tableEmp"
       id="employee-list-table"
       v-if="!edit"
     >
-      <template slot="actions" slot-scope="data">
+      <template slot="actions" slot-scope="row">
+        <b-button @click="pomFoo(row.item.id)">Promote</b-button>
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click.prevent="deleteEmployee(data.item.id)">
+          <img src="../../assets/delete.svg" @click.prevent="deleteEmployee(row.item.id)">
         </span>
         <span>
-          <img src="../../assets/edit.svg" @click="editEmployee(data.item.id)">
+          <img src="../../assets/edit.svg" @click="editEmployee(row.item.id)">
         </span>
+        <template slot="row-details" slot-scope="row">
+          <b-card>dupaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</b-card>
+        </template>
       </template>
     </b-table>
-    <b-form v-else @submit="updateEmployee">
+
+    <b-form-group v-if="showField">
+      <b-input type="text" id="promote-input" v-model="promoteValue"></b-input>
+      <b-button v-if="showField" @click="promote(promoteValue)">Accept</b-button>
+    </b-form-group>
+
+    <b-form v-if="edit"  @submit.prevent="updateEmployee">
       <b-form-group id="exampleInputGroup1" label="Name:" label-for="exampleInput1">
         <b-form-input
           id="exampleInput1"
@@ -80,6 +90,7 @@ export default {
   data() {
     return {
       employees: [],
+      hired: [],
       fields: [
         {
           key: "id",
@@ -120,34 +131,58 @@ export default {
       address: "",
       date: "",
       salary: "",
-      id:""
+      id: "",
+      showField:false,
+      promoteValue:'',
+      promoteId:''
     };
   },
   methods: {
-    
-    deleteEmployee(data) {
-      axios.delete("http://localhost:8080/employee/delete/" + data)
-      .then(()=>{
-          this.$router.go();
+    promote(data) {
+      let body =  {
+        employee:this.promoteId,
+        howmuch:data
+      }
+      axios.post("http://localhost:8080/employee/promote/",body)
+      .then( data =>{
+        this.showField = false;
       })
+    },
+    pomFoo(id){
+      this.showField = true;
+      this.promoteId = id;
+    },
+    deleteEmployee(data) {
+      axios.delete("http://localhost:8080/employee/delete/" + data).then(() => {
+        this.$router.go();
+      });
     },
     editEmployee(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/employee/" + data).then(result => {
+      axios.get("http://localhost:8080/employee/" + data)
+      .then(result => {
         this.name = result.data.name;
         this.surname = result.data.surname;
         this.pesel = result.data.pesel;
         this.address = result.data.address;
         this.date = new Date(result.data.date)
           .toLocaleDateString("ko-KR")
-          .replace(" ", "")
-          .replace(" ", "")
-          .replace(".", "-")
-          .replace(".", "-")
+          .replace(". ", "-")
+          .replace(". ", "-")
           .replace(".", "");
         this.salary = result.data.salary;
-        this.id=result.data.id;
-      });
+        this.id = result.data.id;
+      })
+      .catch( error => {
+        this.$notify({
+          group:"foo",
+          title:"Error found",
+          text:error,
+          type:"Error"
+        })
+        this.$refs.tableEmp.refresh();
+      })
+      console.log(this.date);
     },
     test(data) {
       let i = 0;
@@ -159,18 +194,19 @@ export default {
       });
     },
     updateEmployee() {
-      let body={
-        id:this.id,
-        status:"1",
+      let body = {
+        id: this.id,
+        status: "1",
         name: this.name,
         surname: this.surname,
         pesel: this.pesel,
-        address:this.address,
+        address: this.address,
         date: this.date,
-        salary:this.salary
+        salary: this.salary
       };
-      axios.put("http://localhost:8080/employee/update",body);
-    }
+      axios.put("http://localhost:8080/employee/update", body);
+    },
+    showDetails() {}
   },
   beforeMount() {
     axios
@@ -178,6 +214,7 @@ export default {
       .then(data => {
         this.employees = data.data;
         this.test(this.employees);
+        console.log(data);
       })
       .catch(error => console.error(error));
   }

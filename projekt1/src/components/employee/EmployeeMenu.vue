@@ -2,7 +2,8 @@
     <Slide class="slide-menu" right>
         <span @click="changeToForm">Form</span>
         <span @click="changeToList">List</span>    
-        <span @click="changeToAll">All</span>    
+        <span @click="changeToAll">All</span>
+        <span @click="changeToManage">Manage</span>
         
     </Slide>
 </template>
@@ -19,6 +20,9 @@ export default {
         },
          changeToAll(){
             this.$emit('change-emp','all')
+        },
+         changeToManage(){
+            this.$emit('change-emp','manage')
         }
     }
     

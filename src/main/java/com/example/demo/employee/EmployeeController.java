@@ -2,6 +2,7 @@ package com.example.demo.employee;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,14 @@ public class EmployeeController {
     public List<Employee> getActive(){
         return employeeService.getActive();
     }
+
+    @CrossOrigin("*")
+    @PostMapping(value="/promote")
+    public void promoteEmployee(@RequestBody EmployeePromotion employeePromotion) {employeeService.prom(employeePromotion);}
+
+    @CrossOrigin("*")
+    @GetMapping(value="/hired")
+    public Integer count(){return employeeService.countEmployees();}
 
     @CrossOrigin("*")
     @GetMapping("{id}")

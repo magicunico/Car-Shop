@@ -4,9 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import BootsreapVue from 'bootstrap-vue'
-
+import Notifications from 'vue-notification'
 
 Vue.use(BootsreapVue);
+Vue.use(Notifications);
 Vue.config.productionTip = false
 
 import 'bootstrap/dist/css/bootstrap.css'
