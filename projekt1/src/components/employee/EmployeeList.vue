@@ -51,10 +51,15 @@
         <b-form-input
           id="exampleInput2"
           type="text"
-          v-model="pesel"
+          v-model="form.pesel"
+          :state="!$v.form.pesel.$invalid"
           required
           placeholder="Enter pesel"
-        ></b-form-input>
+        >
+        <b-form-invalid-feedback id="input1LiveFeedback">
+        This is a required field and must be at least 11 characters
+      </b-form-invalid-feedback>
+        </b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="Address:" label-for="exampleInput1">
         <b-form-input
@@ -83,6 +88,8 @@
 </template>
 <script>
 import axios from "axios";
+import { validationMixin } from "vuelidate"
+import { required, minLength, maxLength } from "vuelidate/lib/validators"
 export default {
   components: {
     axios
@@ -134,9 +141,23 @@ export default {
       id: "",
       showField:false,
       promoteValue:'',
-      promoteId:''
+      promoteId:'',
+      error:'',
+      form: {}
     };
   },
+  mixins: [
+      validationMixin
+    ],
+    validations: {
+      form: {
+        pesel: {
+          required,
+          maxLength: maxLength(11),
+          minLength: minLength(11),   
+        }
+      }
+    },
   methods: {
     promote(data) {
       let body =  {
@@ -174,6 +195,7 @@ export default {
         this.id = result.data.id;
       })
       .catch( error => {
+        console.log("DUPA");
         this.$notify({
           group:"foo",
           title:"Error found",
@@ -199,12 +221,23 @@ export default {
         status: "1",
         name: this.name,
         surname: this.surname,
-        pesel: this.pesel,
+        pesel: this.form.pesel,
         address: this.address,
         date: this.date,
         salary: this.salary
       };
-      axios.put("http://localhost:8080/employee/update", body);
+      axios.put("http://localhost:8080/employee/update", body)
+      .catch( error => {
+        console.log(error);
+        this.error = error;
+        this.$notify({
+          group:"foo",
+          title:"Error found",
+          text:"Incorrect field values",
+          type:"Error"
+        })
+        this.$refs.tableEmp.refresh();
+      })
     },
     showDetails() {}
   },

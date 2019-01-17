@@ -20,6 +20,7 @@
     "vue-burger-menu": "^1.0.9",
     "vue-notification": "^1.3.14",
     "vue-router": "^3.0.1",
+    "vuelidate": "^0.7.4",
     "willvalidate": "^1.0.1"
   },
   "devDependencies": {
