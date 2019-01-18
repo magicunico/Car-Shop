@@ -16,5 +16,8 @@ export default {
 }
 </script>
 <style>
-  @import 'assets/styles/main.scss';
+  /* @import 'assets/styles/main.scss'; */
+  #app{
+    padding-right: 0%
+  }
 </style>

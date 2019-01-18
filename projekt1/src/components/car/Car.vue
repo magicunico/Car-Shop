@@ -4,6 +4,8 @@
     <Form v-if="form"/>
     <List v-if="list"/>
     <All v-if="all"/>
+    <CarBrand v-if="carBrand"/>
+    <CarProducer v-if="carProducer"/>
     <CarBrandAll v-if="carBrandAll"/>
     <CarBrandList v-if="carBrandList"/>
     <CarBrandForm v-if="carBrandForm"/>
@@ -46,10 +48,10 @@ components:{
       form:false,
       all:false,
       carBrandAll:false,
-      carBrandList:true,
+      carBrandList:false,
       carBrandForm:false,
       carProducerAll:false,
-      carProducerList:true,
+      carProducerList:false,
       carProducerForm:false,
     }
   },

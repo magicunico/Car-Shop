@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
     <b-table
       margin-right:200px
       striped
@@ -9,6 +17,7 @@
       ref="table"
       id="tranactions-list-table"
       v-if="!edit"
+      :filter="filter"
     >
       <template slot="actions" slot-scope="data">
         <span style="padding-left:20px;">
@@ -106,40 +115,59 @@ export default {
           sortable: true
         },
         {
+          label:"Car",
           key: "car.id",
           sortable: true
         },
         {
+          label:"Brand",
           key: "car.brand.name",
           sortable: true
         },
         {
+          label:"Color",
           key: "car.color",
           sortable: true
         },
         {
+          label:"Producer",
+          key: "car.brand.producer.name"
+        },
+        {
+          label:"Customer",
           key: "customer.id",
           sortable: true
         },
-
         {
+          label:"Name",
+          key:"customer.name"
+        },
+        {
+          label:"Surname",
           key: "customer.surname",
           sortable: true
         },
         {
+          label:"Employee",
           key: "employee.id",
           sortable: true
         },
-
         {
+          label:"Name",
+          key:"employee.name"
+        },
+        {
+          label:"Surname",
           key: "employee.surname",
           sortable: true
         },
         {
+          label:"Insurance",
           key: "insurance.id",
           sortable: true
         },
         {
+          label:"Type",
           key: "insurance.name"
         },
         {
@@ -155,7 +183,8 @@ export default {
       customer: "",
       employee: "",
       insurance: "",
-      id: ""
+      id: "",
+      filter:""
     };
   },
   methods: {
@@ -230,3 +259,12 @@ export default {
   }
 };
 </script>
+<style>
+  .container{
+    margin-left: 40px
+  }
+  .mb-0{
+    margin-left: 350px
+  }
+</style>
+

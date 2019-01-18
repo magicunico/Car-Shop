@@ -60,8 +60,13 @@
                     label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       type="date"
-                      v-model="date"
+                      v-model="form.date"
+                      :state="!$v.form.date.$and"
                       required>
+          <b-form-invalid-feedback
+            id="input1LiveFeedback"
+          >Date must by after 1.01.2000
+          </b-form-invalid-feedback>
         </b-form-input>
       </b-form-group>
     <b-button type="submit" variant="primary">Add employee</b-button>
@@ -70,7 +75,7 @@
 <script>
 import axios from 'axios'
 import { validationMixin } from "vuelidate";
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { and, numeric,required, minLength, maxLength } from "vuelidate/lib/validators";
 
 export default {
     components:{axios},
@@ -89,9 +94,16 @@ export default {
   validations: {
     form: {
       pesel: {
+        and,
+        numeric,
         required,
         maxLength: maxLength(11),
         minLength: minLength(11)
+      },
+      date:{
+        and,
+        required,
+        numeric
       }
     }
   },

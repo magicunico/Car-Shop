@@ -1,6 +1,14 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+        <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+         <b-table striped hover :items="employees" :fields="fields" :filter="filter"></b-table>
     </div>
 </template>
 <script>
@@ -19,7 +27,8 @@ export default {
             {
                 key:'name',
                 sortable:true
-            }]
+            }],
+            filter:""
         }
     },
     methods:{

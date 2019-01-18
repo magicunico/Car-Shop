@@ -1,6 +1,22 @@
 <template>
     <div>
-         <b-table striped :items="cars" :fields="fields" :hover="true" ref="table" id="cars-list-table" v-if="!edit">
+         <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+         <b-table 
+         striped 
+         :items="cars"
+          :fields="fields"
+           :hover="true"
+            ref="table"
+             id="cars-list-table"
+              v-if="!edit"
+              :filter="filter">
              <template slot="actions" slot-scope="data">
                  <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteCar(data.item.id)"></span>
                  <span><img src="../../assets/edit.svg" @click="editCar(data.item.id)"></span>
@@ -106,9 +122,15 @@ export default {
                 key:'warehouse.id',
                 sortable:true
             },
+            {
+                key:'warehouse.name'
+            },
              {
                 key:'brand.id',
                 sortable:true
+            },
+            {
+                key:'brand.name'
             },
             {
                 key:"actions"
@@ -120,7 +142,8 @@ export default {
             gearbox:"",
             warehouse:"",
             brand:"",
-            id:""
+            id:"",
+            filter:""
         }
     },
     methods:{

@@ -1,6 +1,24 @@
 <template>
     <div>
-         <b-table striped hover :items="employees" :fields="fields"></b-table>
+         <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+
+         <b-table
+         striped 
+         :hover="true"
+         :items="cars" 
+         :fields="fields" 
+         ref="tableCar"
+         id="car-list-table"
+         v-if="!edit"
+         :filter="filter">
+         </b-table>
     </div>
 </template>
 <script>
@@ -11,7 +29,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            cars:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -45,23 +63,17 @@ export default {
             },
             {
                 key:'brand.name'
-            }]
-        }
+            }
+            ],
+            edit: false,
+            filter: ""
+        };
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        }
     },
     beforeMount(){
         axios.get("http://localhost:8080/car/all")
-        .then(data => this.employees = data.data)
+        .then(data => this.cars = data.data)
         .catch(error => console.error(error))
     }
     

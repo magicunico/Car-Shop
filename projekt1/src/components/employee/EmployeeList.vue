@@ -59,8 +59,6 @@
           id="exampleInput2"
           type="text"
           v-model="form.pesel"
-          :state="!$v.form.pesel.$invalid"
-          required
           placeholder="Enter pesel"
         >
           <b-form-invalid-feedback
@@ -103,7 +101,7 @@
 <script>
 import axios from "axios";
 import { validationMixin } from "vuelidate";
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { required,and,numeric, minLength, maxLength } from "vuelidate/lib/validators";
 export default {
   components: {
     axios
@@ -166,8 +164,10 @@ export default {
     form: {
       pesel: {
         required,
+        and,
         maxLength: maxLength(11),
-        minLength: minLength(10)
+        minLength: minLength(11),
+        numeric
       }
     }
   },

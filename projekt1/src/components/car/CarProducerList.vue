@@ -1,6 +1,14 @@
 <template>
     <div>
-         <b-table striped :items="producer" :fields="fields" :hover="true" ref="table" id="producer-list-table" v-if="!edit">
+         <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+         <b-table striped :items="producer" :fields="fields" :hover="true" ref="table" id="producer-list-table" v-if="!edit" :filter="filter">
              <template slot="actions" slot-scope="data">
                  <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteProducer(data.item.id)"></span>
                 <span><img src="../../assets/edit.svg" @click="editProducer(data.item.id)"></span>
@@ -44,7 +52,8 @@ export default {
             }],
             edit:false,
             name:"",
-            id:""
+            id:"",
+            filter:""
         }
     },
     methods:{

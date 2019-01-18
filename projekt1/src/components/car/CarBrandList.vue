@@ -79,13 +79,17 @@ export default {
           key: "producer.id"
         },
         {
+          key:'producer.name'
+        },
+        {
           key: "actions"
         }
       ],
       edit: false,
       name: "",
       producer: "",
-      id: ""
+      id: "",
+      filter:""
     };
   },
   methods: {
