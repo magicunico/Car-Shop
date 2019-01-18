@@ -1,24 +1,24 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit.prevent="submit">
         <b-form-group id="exampleInputGroup1"
                     label="warehouse:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="warehouse"
+         <b-form-select id="exampleInput3"
+                      :options="cars.map(a =>{return a.name})"
                       required
-                      placeholder="Enter warehouse id">
-        </b-form-input>
+                      v-model="warehouse"
+                      >
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="brand"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="brand"
+        <b-form-select id="exampleInput3"
+                      :options="brands.map(a =>{return a.name})"
                       required
-                      placeholder="Enter brand id">
-        </b-form-input>
+                      v-model="brand"
+                      >
+        </b-form-select>
       </b-form-group>
       <b-form-group id="exampleInputGroup1"
                     label="Color:"
@@ -44,23 +44,23 @@
                     label="Body:"
                     label-for="exampleInput1"
                     description="select one from: sedan, kombi, SUV, hatchback, kabriolet, liftback, pick-up, minivan ">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="body"
+         <b-form-select id="exampleInput3"
+                      :options="bodies" 
                       required
-                      placeholder="Enter body">
-        </b-form-input>
+                      v-model="body"
+                      >
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="gearbox:"
                     label-for="exampleInput1"
                     description="enter one of: manual, auto">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="gearbox"
+       <b-form-select id="exampleInput3"
+                      :options="gearboxes"
                       required
-                      placeholder="Enter name">
-        </b-form-input>
+                      v-model="gearbox"
+                      >
+        </b-form-select>
       </b-form-group>
     <b-button type="submit" variant="primary">Add car</b-button>
     </b-form>
@@ -71,25 +71,54 @@ export default {
     components:{axios},
     data(){
         return {
+            cars:[],
+            brands:[],
             color:'',
             price:'',
-            body:'',
+            body:null,
             gearbox:'',
             warehouse:'',
-            brand:''
+            brand:'',
+            bodies:['sedan','kombi','SUV','hatchback','kabriolet','liftback','pick-up','minivan'],
+            gearboxes:['manual','auto']
         }
     },
     methods:{
+           getId(){
+            let id = -1;
+            let pom = this.warehouse.split(' ');
+            console.log(pom[0])
+            this.cars.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+        getIdId(){
+            let id = -1;
+            let pom = this.brand.split(' ');
+            console.log(pom[0])
+            this.brands.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
         submit(){
+         
             let body = {
                 'color' : this.color,
                 'price' : this.price,
                 'body' : this.body,
                 'gearbox': this.gearbox,
                 'warehouse': {
-                    'id': this.warehouse},
+                    'id': this.getId()},
                 'brand': {
-                    'id':this.brand
+                    'id':this.getIdId()
                     },
                 'status':'1'
             }
@@ -101,7 +130,17 @@ export default {
             console.log(body)
 
         }
-    }
+    },
+    beforeMount() {
+      axios
+      .get("http://localhost:8080/warehouse/active")
+      .then(data => (this.cars = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/brand/active")
+      .then(data => (this.brands = data.data))
+      .catch(error => console.error(error));
+  }
     
 }
 </script>

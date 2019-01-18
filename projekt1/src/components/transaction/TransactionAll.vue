@@ -8,7 +8,7 @@
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
-         <b-table striped hover :items="employees" :fields="fields" :filter="filter"></b-table>
+         <b-table striped hover :items="transactions" :fields="fields" :filter="filter" v-if="!edit"></b-table>
     </div>
 </template>
 <script>
@@ -19,60 +19,105 @@ export default {
     },
     data(){
         return{
-            employees:[],
-            fields:[{
-                key:'id',
-                sortable:true
-            },
-            {
-                key:'date',
-                sortable:true
-            },
-            {
-                key:'payment',
-                sortable:true
-            },
-            {
-                key:'place',
-                sortable:false
-            },
-            {
-                key:'sum',
-                sortable:true
-            },
-            {
-                key:'car.id',
-                sortable:true
-            },
-            {
-                key:'customer.id',
-                sortable:true
-            },
-            {
-                key:'employee.id',
-                sortable:true
-            },
-            {
-                key:'insurance.id',
-                sortable:true
-            }],
-            filter:""
+            transactions:[],
+            fields:[
+                {
+          key: "id",
+          sortable: true
+        },
+        {
+          key: "date",
+          sortable: true
+        },
+        {
+          key: "payment",
+          sortable: true
+        },
+        {
+          key: "place",
+          sortable: false
+        },
+        {
+          key: "sum",
+          sortable: true
+        },
+        {
+          label:"Car",
+          key: "car.id",
+          sortable: true
+        },
+        {
+          label:"Brand",
+          key: "car.brand.name",
+          sortable: true
+        },
+        {
+          label:"Color",
+          key: "car.color",
+          sortable: true
+        },
+        {
+          label:"Producer",
+          key: "car.brand.producer.name"
+        },
+        {
+          label:"Customer",
+          key: "customer.id",
+          sortable: true
+        },
+        {
+          label:"Name",
+          key:"customer.name"
+        },
+        {
+          label:"Surname",
+          key: "customer.surname",
+          sortable: true
+        },
+        {
+          label:"Employee",
+          key: "employee.id",
+          sortable: true
+        },
+        {
+          label:"Name",
+          key:"employee.name"
+        },
+        {
+          label:"Surname",
+          key: "employee.surname",
+          sortable: true
+        },
+        {
+          label:"Insurance",
+          key: "insurance.id",
+          sortable: true
+        },
+        {
+          label:"Type",
+          key: "insurance.name"
+        }
+       ],
+            filter:"",
+            edit:false
         }
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        }
+        test(data) {
+      let i = 0;
+      data.forEach(element => {
+        this.transactions[i].date = new Date(element.date).toLocaleDateString(
+          "en-GB"
+        );
+        i++;
+      });
+    }
     },
     beforeMount(){
         axios.get("http://localhost:8080/transaction/all")
-        .then(data => this.employees = data.data)
+        .then(data => {
+            this.transactions = data.data;
+            this.test(this.transactions);})
         .catch(error => console.error(error))
     }
     

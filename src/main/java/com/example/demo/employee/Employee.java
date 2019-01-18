@@ -45,14 +45,6 @@ public class Employee  {
         this.status = status;
     }
 
-    public Employee(String pesel, String name, String surname, String address, Date date, float salary) {
-        this.pesel = pesel;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.date = date;
-        this.salary = salary;
-    }
 
     public Employee() {
     }

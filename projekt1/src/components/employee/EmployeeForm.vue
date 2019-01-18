@@ -115,14 +115,16 @@ export default {
                 'pesel' : this.form.pesel,
                 'address': this.address,
                 'status': '1',
-                'date': this.date,
+                'date': this.form.date,
                 'salary':this.salary
             }
 
             console.log(body);
 
             axios.post("http://localhost:8080/employee/add",body)
-            .catch(error => console.error(error))
+            .catch(error => {
+              
+            })
             console.log(body)
 
         }

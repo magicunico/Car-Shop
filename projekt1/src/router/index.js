@@ -10,7 +10,8 @@ import TestDrive from '@/components/testdrive/Testdrive'
 import Transaction from '@/components/transaction/Transaction'
 import Warehouse from '@/components/warehouse/Warehouse'
 import Repair from '@/components/repair/Repair'
-
+import Producer from '@/components/car/Producer'
+import Brand from '@/components/car/Brand'
 
 Vue.use(Router)
 
@@ -31,6 +32,16 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test
+    },
+    {
+      path: '/brand',
+      name: 'Brand',
+      component: Brand
+    },
+    {
+      path: '/producer',
+      name: 'Producer',
+      component: Producer
     },
     {
       path: '/employee',

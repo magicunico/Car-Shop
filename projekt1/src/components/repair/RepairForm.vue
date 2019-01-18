@@ -60,8 +60,8 @@ export default {
             let body = {
                 'name' : this.name,
                 'price' : this.price,
-                'employee' : this.employee,
-                'car': this.car,
+                'employee' :{'id':this.employee } ,
+                'car': {'id': this.car},
                 'status': '1'
             }
 

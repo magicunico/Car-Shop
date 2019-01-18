@@ -28,29 +28,23 @@
         </span>
       </template>
     </b-table>
-    <b-form v-else @submit="updateBrand()">
-      <b-form-group
-        id="exampleInputGroup1"
-        label="Name:"
-        label-for="exampleInput1"
-        description="We'll never share your email with anyone else."
-      >
+    <b-form v-else @click="updateBrand()" @keyup.space="updateBrand()">
+      <b-form-group id="exampleInputGroup1" label="Name:" label-for="exampleInput1">
         <b-form-input
           id="exampleInput1"
           type="text"
-          v-model="name"
+          v-model="form.name"
           required
           placeholder="Enter name"
         ></b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup2" label="producer:" label-for="exampleInput2">
-        <b-form-input
-          id="exampleInput2"
-          type="text"
-          v-model="producer"
+        <b-form-select
+          id="exampleInput3"
+          :options="producers.map(a =>{return a.name})"
           required
-          placeholder="Enter pesel"
-        ></b-form-input>
+          v-model="pro"
+        ></b-form-select>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
@@ -59,6 +53,15 @@
 <script>
 import axios from "axios";
 import CarBrandAll from "@/components/car/CarBrandAll";
+import { validationMixin } from "vuelidate";
+import {
+  and,
+  numeric,
+  required,
+  minLength,
+  maxLength
+} from "vuelidate/lib/validators";
+
 export default {
   components: {
     axios
@@ -79,7 +82,7 @@ export default {
           key: "producer.id"
         },
         {
-          key:'producer.name'
+          key: "producer.name"
         },
         {
           key: "actions"
@@ -89,41 +92,85 @@ export default {
       name: "",
       producer: "",
       id: "",
-      filter:""
+      filter: "",
+      pro: "",
+      producers: [],
+      form: {}
     };
   },
+  mixins: [validationMixin],
+  validations: {
+    form: {
+      name: {
+        required
+      }
+    }
+  },
   methods: {
+    getId() {
+      let id = -1;
+      let pom = this.pro.split(" ");
+      console.log(pom[0]);
+      this.producers.forEach(element => {
+        console.log(element.name);
+        if (element.name == pom[0]) {
+          id = element.id;
+        }
+      });
+      return id;
+    },
     deleteBrand(data) {
       axios.delete("http://localhost:8080/brand/delete/" + data).then(() => {
-        this.$router.go();
+        this.$refs.refresh();
       });
     },
     editBrand(data) {
       this.edit = true;
       axios.get("http://localhost:8080/brand/" + data).then(result => {
-        this.name = result.data.name;
+        this.form.name = result.data.name;
         this.producer = result.data.producer.id;
+        this.pro = result.data.producer.name;
         this.id = result.data.id;
       });
     },
     updateBrand() {
       let body = {
         id: this.id,
-        name: this.name,
+        name: this.form.name,
         status: "1",
         producer: {
-          id: this.producer
+          id: this.getId()
         }
       };
 
       axios.put("http://localhost:8080/brand/update", body);
+      //   .catch(error=>
+      // {
+      //   this.$notify({
+      //     group:'foo',
+      //     title:'Imp',
+      //     text:error,
+      //     closeOnClick:10000
+      //   });
+      //})
+      //.then(()=>{this.updateupdate})
+
       console.log(body);
+    },
+    updateupdate(body) {
+      axios.put("http://localhost:8080/brand/update", body).then(() => {
+        this.$refs.refresh();
+      });
     }
   },
   beforeMount() {
     axios
       .get("http://localhost:8080/brand/active")
       .then(data => (this.brand = data.data))
+      .catch(error => console.error(error));
+    axios
+      .get("http://localhost:8080/producer/active")
+      .then(data => (this.producers = data.data))
       .catch(error => console.error(error));
   }
 };

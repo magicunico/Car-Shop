@@ -73,15 +73,7 @@ export default {
     };
   },
   methods: {
-    filterList(list) {
-      let newList = new Array();
-      for (let i = 0; i < list.lenght; i++) {
-        list[i].date = list[i].date.trim(0, 10);
-        console.log(list[i].date);
-        newList.push(list[i]);
-      }
-      return newList;
-    },
+    
     deleteWarehouse(data) {
       axios.delete("http://localhost:8080/warehouse/delete/" + data)
       .then(()=>{
