@@ -9,6 +9,7 @@ import Insurance from '@/components/insurance/Insurance'
 import TestDrive from '@/components/testdrive/Testdrive'
 import Transaction from '@/components/transaction/Transaction'
 import Warehouse from '@/components/warehouse/Warehouse'
+import Repair from '@/components/repair/Repair'
 
 
 Vue.use(Router)
@@ -20,6 +21,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/repair',
+      name: 'Repair',
+      component: Repair
     },
     {
       path: '/test',

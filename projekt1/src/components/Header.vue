@@ -13,6 +13,8 @@
       <b-nav-item href="/insurance" >Insurances</b-nav-item>
       <b-nav-item href="/transaction" >Transactions</b-nav-item>
       <b-nav-item href="/warehouse" >Warehouses</b-nav-item>
+      <b-nav-item href="/repair" >Repair</b-nav-item>
+      <!-- <b-nav-item href="/repair" >Repair</b-nav-item> -->
       
     </b-navbar-nav>
 
