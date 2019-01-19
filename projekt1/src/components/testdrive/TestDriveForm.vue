@@ -24,22 +24,20 @@
        <b-form-group id="exampleInputGroup1"
                     label="Address:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="customer"
+        <b-form-select id="exampleInput1"
+                     :options="customers.map(a =>{return a.name+' '+a.surname})"
                       required
-                      placeholder="Enter customer">
-        </b-form-input>
+                      v-model="customer">
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="car:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="car"
+        <b-form-select id="exampleInput1"
+                      :options="cars.map(a =>{return a.id+' '+a.color})"
                       required
-                      placeholder="Enter car">
-        </b-form-input>
+                      v-model="car">
+        </b-form-select>
       </b-form-group>
     <b-button type="submit" variant="primary">Add testdrive</b-button>
     </b-form>
@@ -56,6 +54,9 @@ export default {
             car:'',
             employees:[],
             employeeId:'',
+            employ:"",
+            customers:[],
+            cars:[]
         }
     },
     methods:{
@@ -71,12 +72,36 @@ export default {
             });
             return id;
         },
+         getIdCus(){
+            let id = -1
+            let pom = this.customer.split(' ');
+            console.log(pom[0])
+            this.customers.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+        getIdCar(){
+            let id = -1
+            let pom = this.car.split(' ');
+            console.log(pom[0])
+            this.cars.forEach(element => {
+                console.log(element.id);
+                if(element.id == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
         submit(){
             let body = {
                 'date' : this.date,
                 'employee' :{'id': this.getId()},
-                'customer' :{'id': this.customer},
-                'car' :{'id': this.car},
+                'customer' :{'id': this.getIdCus()},
+                'car' :{'id': this.getIdCar()},
                 'status': '1'
             }
 
@@ -89,10 +114,18 @@ export default {
         }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/employee/all")
+        axios.get("http://localhost:8080/employee/active")
         .then(data =>{
             this.employees = data.data;
-        })
+        });
+        axios.get("http://localhost:8080/customer/active")
+        .then(data =>{
+            this.customers = data.data;
+        });
+        axios.get("http://localhost:8080/car/active")
+        .then(data =>{
+            this.cars = data.data;
+        });
     }
     
 }

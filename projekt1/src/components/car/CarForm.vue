@@ -76,7 +76,7 @@ export default {
             color:'',
             price:'',
             body:null,
-            gearbox:'',
+            gearbox:null,
             warehouse:'',
             brand:'',
             bodies:['sedan','kombi','SUV','hatchback','kabriolet','liftback','pick-up','minivan'],

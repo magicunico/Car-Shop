@@ -18,7 +18,7 @@
         </span>
       </template>
       </b-table>
-       <b-form v-else @submit="updateRepair()">
+       <b-form v-else @submit.prevent="updateRepair()">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
@@ -42,23 +42,24 @@
        <b-form-group id="exampleInputGroup1"
                     label="employee:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="employee"
+       <b-form-select id="exampleInput7"
+                      :options="employees.map(a =>{return a.name+' '+a.surname})"
                       required
-                      placeholder="Enter employee id">
-        </b-form-input>
+                      v-model="employ"
+                      >
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="car:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="number"
-                      v-model="car"
+        <b-form-select id="exampleInput3"
+                      :options="carses.map(a =>{return a.id+' model: '+a.brand.producer.name+' color: '+a.color+' at: '+a.warehouse.name})"
                       required
-                      placeholder="Enter car id">
-        </b-form-input>
+                      v-model="car"
+                      >
+        </b-form-select>
       </b-form-group>
+      <b-button type="submit" variant="primary">Update</b-button>
        </b-form>
     </div>
 </template>
@@ -70,6 +71,10 @@ export default {
     },
     data(){
         return{
+            carses:[],
+            carname:"",
+            employ:"",
+            employees:[],
             repairs:[],
             fields:[{
                 key:'id',
@@ -125,6 +130,30 @@ export default {
         }
     },
     methods:{
+         getId(){
+            let id = -1
+            let pom = this.employee.split(' ');
+            console.log(pom[0])
+            this.employees.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+         getIdis(){
+            let id = -1
+            let pom = this.car.split(' ');
+            console.log(pom[0])
+            this.carses.forEach(element => {
+                console.log(element.id);
+                if(element.id == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
         deleteRepair(data) {
       axios.delete("http://localhost:8080/repair/delete/" + data)
       .then(()=>{
@@ -139,13 +168,14 @@ export default {
         this.employee=result.data.employee.id;
         this.car=result.data.car.id;
         this.id = result.data.id;
+        this.employ=result.data.employee.name;
       });
     },
-    updatRepair() {
+    updateRepair() {
       let body = {
         name: this.name,
-        employee: this.employee,
-        car: this.car,
+        employee: {id:this.getId()},
+        car: {id: this.getIdis()},
         price: this.price,
         status: "1",
         id: this.id
@@ -157,7 +187,16 @@ export default {
     beforeMount(){
         axios.get("http://localhost:8080/repair/active")
         .then(data => this.repairs = data.data)
-        .catch(error => console.error(error))
+        .catch(error => console.error(error));
+         axios
+      .get("http://localhost:8080/employee/active")
+      .then(data => (this.employees = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/car/active")
+      .then(data => {this.carses = data.data;
+      console.log(data)})
+      .catch(error => console.error(error));
     }
     
 }

@@ -32,25 +32,25 @@
         <b-form-input id="exampleInput1" type="date" v-model="date" required></b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup2" label="Employee:" label-for="exampleInput2">
-        <b-form-input
-          id="exampleInput2"
-          type="text"
-          v-model="employee"
-          required
-          placeholder="Enter employee"
-        ></b-form-input>
+         <b-form-select id="exampleInput3"
+                      :options="employees.map(a =>{return a.name+' '+a.surname})"
+                      required
+                      v-model="employee"
+                      >
+        </b-form-select>
       </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="Address:" label-for="exampleInput1">
-        <b-form-input
-          id="exampleInput1"
-          type="text"
-          v-model="customer"
-          required
-          placeholder="Enter customer"
-        ></b-form-input>
+      <b-form-group id="exampleInputGroup1" label="Customer:" label-for="exampleInput1">
+        <b-form-select
+          :options="customers.map(a =>{return a.name+' '+a.surname})"
+                      required
+                      v-model="customer">
+        </b-form-select>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="car:" label-for="exampleInput1">
-        <b-form-input id="exampleInput1" type="text" v-model="car" required placeholder="Enter car"></b-form-input>
+        <b-form-input 
+        id="exampleInput1" 
+        type="text" 
+        v-model="car" required placeholder="Enter car"></b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
@@ -111,11 +111,36 @@ export default {
       customer: "",
       car: "",
       id: "",
-      filter:""
+      filter:"",
+      employees:[],
+      customers:[]
     };
   },
   methods: {
-    
+    getId(){
+            let id = -1
+            let pom = this.employee.split(' ');
+            console.log(pom[0])
+            this.employees.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+        getIdid(){
+            let id = -1
+            let pom = this.customer.split(' ');
+            console.log(pom[0])
+            this.customers.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
     deleteTestDrive(data) {
       axios.delete("http://localhost:8080/testdrive/delete/" + data)
       .then(()=>{
@@ -143,10 +168,10 @@ export default {
         id: this.id,
         date: this.date,
         employee: {
-          id: this.employee
+          id: this.getId()
         },
         customer: {
-          id: this.customer
+          id: this.getIdid()
         },
         car: {
           id: this.car
@@ -173,6 +198,14 @@ export default {
         this.test(this.testDrives);
       })
       .catch(error => console.error(error));
+      axios.get("http://localhost:8080/employee/active")
+        .then(data =>{
+            this.employees = data.data;
+        });
+        axios.get("http://localhost:8080/customer/active")
+        .then(data =>{
+            this.customers = data.data;
+        })
   }
 };
 </script>
