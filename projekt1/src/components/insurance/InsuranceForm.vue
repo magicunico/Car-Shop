@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit="submit" @keyup.enter="submit()" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
@@ -35,7 +35,8 @@
                     label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       type="number"
-                      v-model="price"
+                      v-model="form.price"
+                      v-on:keydown.enter.prevent="submit"
                       required
                       placeholder="Enter price">
         </b-form-input>
@@ -45,6 +46,9 @@
 </template>
 <script>
 import axios from 'axios'
+import { validationMixin } from "vuelidate";
+import { and, between,numeric,required, minLength, maxLength,minValue,min } from "vuelidate/lib/validators";
+
 export default {
     components:{axios},
     data(){
@@ -53,22 +57,40 @@ export default {
             starting:'',
             ending:'',
             price:'',
+            form:{}
         }
     },
+    mixins: [validationMixin],
+  validations: {
+    price: {
+      date:{
+        minValue:minValue(1) 
+      }
+    }
+  },
     methods:{
         submit(){
             let body = {
                 'name' : this.name,
                 'starting' : this.starting,
                 'ending' : this.ending,
-                'price': this.price,
+                'price': this.form.price,
                 'status': '1'
             }
 
             console.log(body);
 
             axios.post("http://localhost:8080/insurance/add",body)
-            .catch(error => console.error(error))
+            .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'VERIFY DATES',
+                text:"Dates need to be between 01-01-1990 <br />and 01-01-2100",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
             console.log(body)
 
         }

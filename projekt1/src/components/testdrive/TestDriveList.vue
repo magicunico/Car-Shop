@@ -20,7 +20,7 @@
     >
       <template slot="actions" slot-scope="data">
          <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click.prevent="deleteTestDrive(data.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteTestDrive(data.item.id)">
         </span>
         <span>
           <img src="../../assets/edit.svg" @click="editTestDrive(data.item.id)">

@@ -1,10 +1,11 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit="submit" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       type="text"
+                      required
                       v-model="form.name"
                        :state="!$v.form.name.$invalid"
                       placeholder="Enter name">

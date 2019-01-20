@@ -1,23 +1,24 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit.prevent="submit" @keyup.enter="submit()" :validated="true">
         <b-form-group id="exampleInputGroup1"
                     label="date:"
                     label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       type="date"
                       v-model="date"
+                      v-on:keydown.enter.prevent="submit"
                       required>
         </b-form-input>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="payment"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
+        <b-form-radio-group id="exampleInput1"
+                      :options="paymentMethods"
                       v-model="payment"
                       required
-                      placeholder="Enter payment">
-        </b-form-input>
+                      >
+        </b-form-radio-group>
       </b-form-group>
       <b-form-group id="exampleInputGroup1"
                     label="place:"
@@ -32,42 +33,38 @@
        <b-form-group id="exampleInputGroup1"
                     label="Car:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="car"
+        <b-form-select id="exampleInput1"
+                     :options="cars.map(a =>{return a.id+' '+a.brand.name+' '+a.price})"
                       required
-                      placeholder="Enter car">
-        </b-form-input>
+                      v-model="car">
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="customer:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="customer"
+        <b-form-select id="exampleInput1"
+                      :options="customers.map(a =>{return a.name+' '+a.surname+' '+a.id})"
                       required
-                      placeholder="customer">
-        </b-form-input>
+                      v-model="customer">
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="employee:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="employee"
+        <b-form-select id="exampleInput1"
+                      :options="employees.map(a =>{return a.name+' '+a.surname+' '+a.id})"
                       required
-                      placeholder="employee">
-        </b-form-input>
+                      v-model="employee">
+        </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="insurance:"
                     label-for="exampleInput1">
-        <b-form-input id="exampleInput1"
-                      type="text"
-                      v-model="insurance"
+        <b-form-select id="exampleInput1"
+                     :options="insurances.map(a =>{return a.name+' '+a.price+' '+ a.id})"
                       required
-                      placeholder="insurance">
-        </b-form-input>
+                      v-model="insurance">
+        </b-form-select>
       </b-form-group>
     <b-button type="submit" variant="primary">Add car</b-button>
     </b-form>
@@ -85,30 +82,109 @@ export default {
             car:'',
             customer:'',
             employee:'',
-            insurance:''
+            insurance:'',
+            cars:[],
+            employees:[],
+            customers:[],
+            insurances:[],
+            paymentMethods:['card','cash','check']
         }
     },
     methods:{
+        getCar(){
+            let id = -1;
+            let pom = this.car.split(' ');
+            console.log(pom[0])
+            this.cars.forEach(element => {
+                console.log(element.name);
+                if(element.id == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+        getEmp(){
+            let id = -1;
+            let pom = this.employee.split(' ');
+            console.log(pom[0])
+            this.employees.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+         getCus(){
+            let id = -1;
+            let pom = this.customer.split(' ');
+            console.log(pom[0])
+            this.customers.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
+        getIns(){
+            let id = -1;
+            let pom = this.insurance.split(' ');
+            console.log(pom[0])
+            this.insurances.forEach(element => {
+                console.log(element.name);
+                if(element.name == pom[0]){
+                    id = element.id;
+                }
+            });
+            return id;
+        },
         submit(){
             let body = {
                 'date' : this.date,
                 'payment':this.payment,
                 'place' : this.place,
                 'sum' : this.sum,
-                'car':{'id':this.car},
-                'customer':{'id':this.customer},
-                'employee':{'id':this.employee},
-                'insurance':{'id':this.insurance},
+                'car':{'id':this.getCar()},
+                'customer':{'id':this.getCus()},
+                'employee':{'id':this.getEmp()},
+                'insurance':{'id':this.getIns()},
                 'status':'1'
             }
 
             console.log(body);
 
             axios.post("http://localhost:8080/transaction/add",body)
-            .catch(error => console.error(error))
+            .catch(error => { this.$notify({
+                group:'foo',
+                type:'error',
+                title:'VERIFY DATE',
+                text:"Date must be after 01-01-1990",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
             console.log(body)
 
         }
+    },
+    beforeMount(){
+        axios
+      .get("http://localhost:8080/customer/active")
+      .then(data => (this.customers = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/car/active")
+      .then(data => (this.cars = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/insurance/active")
+      .then(data => (this.insurances = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/employee/active")
+      .then(data => (this.employees = data.data))
+      .catch(error => console.error(error));
     }
     
 }

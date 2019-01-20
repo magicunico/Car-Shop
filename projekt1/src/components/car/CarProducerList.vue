@@ -8,7 +8,7 @@
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
-         <b-table striped :items="producer" :fields="fields" :hover="true" ref="table" id="producer-list-table" v-if="!edit" :filter="filter">
+         <b-table striped :items="producer" :fields="fields" :hover="true" refs="tableProd" id="producer-list-table" v-if="!edit" :filter="filter">
              <template slot="actions" slot-scope="data">
                  <span style="padding-left:20px;"><img src="../../assets/delete.svg" @click="deleteProducer(data.item.id)"></span>
                 <span><img src="../../assets/edit.svg" @click="editProducer(data.item.id)"></span>

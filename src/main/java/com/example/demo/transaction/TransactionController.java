@@ -32,6 +32,7 @@ public class TransactionController {
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody TransactionDTO transactionDTO){transactionService.updateTransaction(transactionDTO);}
 
+
     @CrossOrigin("*")
     @GetMapping("/active")
     public List<Transaction> getActive(){

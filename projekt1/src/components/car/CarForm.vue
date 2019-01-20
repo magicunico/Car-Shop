@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit.prevent="submit">
+    <b-form @submit="submit" :validated="true">
         <b-form-group id="exampleInputGroup1"
                     label="warehouse:"
                     label-for="exampleInput1">
@@ -44,23 +44,19 @@
                     label="Body:"
                     label-for="exampleInput1"
                     description="select one from: sedan, kombi, SUV, hatchback, kabriolet, liftback, pick-up, minivan ">
-         <b-form-select id="exampleInput3"
-                      :options="bodies" 
-                      required
-                      v-model="body"
-                      >
-        </b-form-select>
+         <b-form-radio-group id="radios1" v-model="body" :options="bodies" name="radioOpenions">
+      </b-form-radio-group>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
                     label="gearbox:"
                     label-for="exampleInput1"
                     description="enter one of: manual, auto">
-       <b-form-select id="exampleInput3"
+       <b-form-radio-group id="exampleInput3"
                       :options="gearboxes"
                       required
                       v-model="gearbox"
                       >
-        </b-form-select>
+        </b-form-radio-group>
       </b-form-group>
     <b-button type="submit" variant="primary">Add car</b-button>
     </b-form>

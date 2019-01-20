@@ -48,7 +48,7 @@ public class Transaction {
     @Column
     private Integer status;
 
-    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Employee employee, Insurance insurance, Integer status) {
+    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Insurance insurance,Employee employee, Integer status) {
         this.date = date;
         this.payment = payment;
         this.place = place;

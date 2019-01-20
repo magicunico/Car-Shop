@@ -14,7 +14,7 @@
       :items="brand"
       :fields="fields"
       :hover="true"
-      ref="table"
+      ref="tableBrand"
       id="brand-list-table"
       v-if="!edit"
       :filter="filter"
@@ -121,7 +121,8 @@ export default {
     },
     deleteBrand(data) {
       axios.delete("http://localhost:8080/brand/delete/" + data).then(() => {
-        this.$refs.refresh();
+        this.$refs.tableBrand.refresh();
+        this.$router.go();
       });
     },
     editBrand(data) {

@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit="submit" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1"

@@ -1,5 +1,6 @@
 <template>
   <div>
+   
     <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
       <b-input-group>
         <b-form-input v-model="filter" placeholder="Type to Search"/>
@@ -8,6 +9,34 @@
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
+
+   <table ref="hiring">
+    
+      <tr>
+            <td colspan="10" height=20px></td>
+     </tr>
+      <td scope="col">
+        
+      </td>
+      <td scope="col">
+        You hiring 
+      </td>
+      <td scope="col">
+                         
+      </td>
+      <td scope="col" v-text="hiredd">
+        
+      </td>
+      <td scope="col">
+        
+      </td>
+      <td scope="col">
+        employees at this moment.
+      </td>
+       <tr>
+            <td colspan="10" height=20px></td>
+     </tr>
+    </table>
 
     <b-table
       striped
@@ -22,7 +51,7 @@
       <template slot="actions" slot-scope="row">
         <b-button @click="pomFoo(row.item.id)">Promote</b-button>
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click.prevent="deleteEmployee(row.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteEmployee(row.item.id)">
         </span>
         <span>
           <img src="../../assets/edit.svg" @click="editEmployee(row.item.id)">
@@ -35,7 +64,7 @@
       <b-button v-if="showField" @click="promote(promoteValue)">Accept</b-button>
     </b-form-group>
 
-    <b-form v-if="edit" @submit.prevent="updateEmployee">
+    <b-form v-if="edit" @submit="updateEmployee" @keyup.space="updateEmployee">
       <b-form-group id="exampleInputGroup1" label="Name:" label-for="exampleInput1">
         <b-form-input
           id="exampleInput1"
@@ -96,6 +125,7 @@
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
+    
   </div>
 </template>
 <script>
@@ -108,6 +138,7 @@ export default {
   },
   data() {
     return {
+      hiredd:"",
       employees: [],
       hired: [],
       fields: [
@@ -172,6 +203,12 @@ export default {
     }
   },
   methods: {
+    hiredEmp(){
+        axios.get("http://localhost:8080/employee/hired")
+      .then(data=> this.hiredd=data.data);
+       this.$refs.hiring.refresh();
+       this.$router.go()
+    },
     promote(data) {
       let body = {
         employee: this.promoteId,
@@ -189,6 +226,7 @@ export default {
     },
     deleteEmployee(data) {
       axios.delete("http://localhost:8080/employee/delete/" + data).then(() => {
+        //this.$refs.tableEmp.refresh();
         this.$router.go();
       });
     },
@@ -247,7 +285,7 @@ export default {
         this.$notify({
           group: "foo",
           title: "Error found",
-          text: "Incorrect field values",
+          text: "Incorrect field values, please chceck pesel",
           type: "Error"
         });
         this.$refs.tableEmp.refresh();
@@ -264,6 +302,9 @@ export default {
         console.log(data);
       })
       .catch(error => console.error(error));
+      axios.get("http://localhost:8080/employee/hired")
+      .then(data=> this.hiredd=data.data);
+      
   }
 };
 </script>

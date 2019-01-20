@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+        <b-form-group horizontal label="Search" class="mb-0">
       <b-input-group>
         <b-form-input v-model="filter" placeholder="Type to Search"/>
         <b-input-group-append>
@@ -8,7 +8,7 @@
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
-         <b-table striped hover :items="employees" :fields="fields" :filter="filter"></b-table>
+         <b-table striped hover :items="insurances" :fields="fields" :filter="filter"></b-table>
     </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
     },
     data(){
         return{
-            employees:[],
+            insurances:[],
             fields:[{
                 key:'id',
                 sortable:true
@@ -44,19 +44,24 @@ export default {
         }
     },
     methods:{
-        filterList(list){
-            let newList = new Array()
-            for(let i=0;i<list.lenght;i++){
-                list[i].date = list[i].date.trim(0,10)
-                console.log(list[i].date)
-                newList.push(list[i])
-            }
-            return newList
-        }
+        test(data) {
+      let i = 0;
+      data.forEach(element => {
+        this.insurances[i].starting = new Date(element.starting).toLocaleDateString(
+          "en-GB"
+        );
+        this.insurances[i].ending = new Date(element.ending).toLocaleDateString(
+          "en-GB"
+        );
+        i++;
+      });
+    }
     },
     beforeMount(){
         axios.get("http://localhost:8080/insurance/all")
-        .then(data => this.employees = data.data)
+        .then(data => {
+        this.insurances = data.data;
+        this.test(this.insurances);})
         .catch(error => console.error(error))
     }
     

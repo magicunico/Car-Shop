@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit="submit">
+    <b-form @submit="submit" @keyup.enter="submit()" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
@@ -20,14 +20,22 @@
                       placeholder="Enter surname">
         </b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup2"
+      <b-form-group id="exampleInputGroup1"
                     label="Pesel:"
                     label-for="exampleInput2">
-        <b-form-input id="exampleInput2"
-                      type="text"
-                      v-model="pesel"
-                      required
-                      placeholder="Enter pesel">
+      <b-form-input
+          id="exampleInput2"
+          type="text"
+           v-on:keydown.enter.prevent="submit"
+          v-model="form.pesel"
+          :state="!$v.form.pesel.$invalid"
+          required
+          placeholder="Enter pesel"
+        >
+          <b-form-invalid-feedback
+            id="input1LiveFeedback"
+          >This is a required field and must be at least 11 characters
+          </b-form-invalid-feedback>
         </b-form-input>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
@@ -46,6 +54,9 @@
 </template>
 <script>
 import axios from 'axios'
+import { validationMixin } from "vuelidate";
+import { and, between,numeric,required, minLength, maxLength,minValue,min } from "vuelidate/lib/validators";
+
 export default {
     components:{axios},
     data(){
@@ -54,14 +65,27 @@ export default {
             surname:'',
             pesel:'',
             address:'',
+            form:{}
         }
     },
+    mixins: [validationMixin],
+  validations: {
+    form: {
+      pesel: {
+        and,
+        numeric,
+        required,
+        maxLength: maxLength(11),
+        minLength: minLength(11)
+      },
+    }
+  },
     methods:{
         submit(){
             let body = {
                 'name' : this.name,
                 'surname' : this.surname,
-                'pesel' : this.pesel,
+                'pesel' : this.form.pesel,
                 'address': this.address,
                 'status': '1'
             }
@@ -69,7 +93,16 @@ export default {
             console.log(body);
 
             axios.post("http://localhost:8080/customer/add",body)
-            .catch(error => console.error(error))
+            .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'VERIFY PESEL',
+                text:"Customer with this pesel already exists",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
             console.log(body)
 
         }

@@ -3,6 +3,7 @@ package com.example.demo.employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -14,7 +15,7 @@ public class Employee  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String pesel;
 
     @Column
@@ -41,6 +42,16 @@ public class Employee  {
         this.surname = surname;
         this.address = address;
         this.date = date;
+        this.salary = salary;
+        this.status = status;
+    }
+
+    public Employee(String pesel, String name, String surname, String address, float salary, Integer status) {
+        this.pesel = pesel;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.date = Calendar.getInstance().getTime();
         this.salary = salary;
         this.status = status;
     }

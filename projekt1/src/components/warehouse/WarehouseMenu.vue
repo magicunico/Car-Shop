@@ -1,8 +1,8 @@
 <template>
     <Slide class="slide-menu" right>
+         <span @click="changeToList">List</span> 
         <span @click="changeToForm">Form</span>
-        <span @click="changeToList">List</span>    
-        <span @click="changeToAll">All</span>      
+        <span @click="changeToAll">All</span>        
     </Slide>
 </template>
 <script>

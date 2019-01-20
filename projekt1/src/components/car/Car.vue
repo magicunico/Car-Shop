@@ -1,8 +1,8 @@
 <template>
 <div class="container">
     <LeftMenu @change-emp="change"/>
-    <Form v-if="form"/>
-    <List v-if="list"/>
+    <Form v-if="list"/>
+    <List v-if="form"/>
     <All v-if="all"/>
   </div>
 </template>
@@ -19,9 +19,9 @@ import All from '@/components/car/CarAll'
 export default {
 components:{
     LeftMenu,
-    Form,
     List,
-    All
+    Form,
+    All,
 },
   data () {
     return {

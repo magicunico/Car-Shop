@@ -105,10 +105,13 @@ export default {
     methods:{
         
      deleteCustomer(data) {
-      axios.delete("http://localhost:8080/customer/delete/" + data)
-      .then(()=>{
-          this.$router.go();
-      })
+      axios.delete("http://localhost:8080/customer/delete/" + data);
+    //   .then(()=>{
+    //     //   this.$refs.table.refresh();
+    //     //   this.$router.go();
+    //   });
+        this.$refs.table.refresh();
+        this.$router.go();
     },
     editCustomer(data){
         this.edit=true;

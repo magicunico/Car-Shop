@@ -1,9 +1,9 @@
 <template>
     <Slide class="slide-menu" right>
+         <span @click="changeToList">List</span> 
         <span @click="changeToForm">Form</span>
-        <span @click="changeToList">List</span>    
-        <span @click="changeToAll">All</span>
-        <span @click="changeToManage">Manage</span>
+        <span @click="changeToAll">All</span>   
+        
         
     </Slide>
 </template>
@@ -20,9 +20,6 @@ export default {
         },
          changeToAll(){
             this.$emit('change-emp','all')
-        },
-         changeToManage(){
-            this.$emit('change-emp','manage')
         }
     }
     
@@ -31,7 +28,7 @@ export default {
 </script>
 <style>
 .slide-menu{
-    top:15%;
+    top:25%;
 }
 
 </style>

@@ -1,6 +1,6 @@
 
 <template>
-    <b-form @submit.prevent="submit" :validated="true">
+    <b-form @submit="submit" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Date:"
                     label-for="exampleInput1">
@@ -22,7 +22,7 @@
         </b-form-select>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
-                    label="Address:"
+                    label="Customer:"
                     label-for="exampleInput1">
         <b-form-select id="exampleInput1"
                      :options="customers.map(a =>{return a.name+' '+a.surname})"

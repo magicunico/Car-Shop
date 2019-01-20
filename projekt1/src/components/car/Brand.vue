@@ -19,8 +19,8 @@ import All from '@/components/car/CarBrandAll'
 export default {
 components:{
     LeftMenu,
-    Form,
     List,
+    Form,
     All,
 },
   data () {

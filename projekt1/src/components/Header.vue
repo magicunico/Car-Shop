@@ -9,13 +9,13 @@
       <b-nav-item href="/employee">Employess</b-nav-item>
       <b-nav-item href="/customer" >Customers</b-nav-item>
       <b-nav-item href="/car" >Cars</b-nav-item>
-      <b-nav-item href="/brand" >Brands</b-nav-item>
-      <b-nav-item href="/producer" >Producers</b-nav-item>
+      <b-nav-item href="/transaction" >Transactions</b-nav-item>
       <b-nav-item href="/testdrive" >Test Drives</b-nav-item>
       <b-nav-item href="/insurance" >Insurances</b-nav-item>
-      <b-nav-item href="/transaction" >Transactions</b-nav-item>
-      <b-nav-item href="/warehouse" >Warehouses</b-nav-item>
       <b-nav-item href="/repair" >Repair</b-nav-item>
+      <b-nav-item href="/brand" >Brands</b-nav-item>
+      <b-nav-item href="/producer" >Producers</b-nav-item>
+      <b-nav-item href="/warehouse" >Warehouses</b-nav-item>
       <!-- <b-nav-item href="/repair" >Repair</b-nav-item> -->
       
     </b-navbar-nav>

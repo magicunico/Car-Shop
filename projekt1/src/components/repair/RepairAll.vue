@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
+        <b-form-group horizontal label="Search"  class="mb-0">
       <b-input-group>
         <b-form-input v-model="filter" placeholder="Type to Search"/>
         <b-input-group-append>

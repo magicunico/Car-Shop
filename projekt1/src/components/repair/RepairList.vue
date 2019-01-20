@@ -18,7 +18,7 @@
         </span>
       </template>
       </b-table>
-       <b-form v-else @submit.prevent="updateRepair()">
+       <b-form v-else @submit="updateRepair()">
       <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">

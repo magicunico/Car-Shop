@@ -40,6 +40,7 @@ public class TransactionService {
         transactionRepository.save(transaction);
      }
 
+
     List<Transaction> getActive(){
         return transactionRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());

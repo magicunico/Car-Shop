@@ -13,7 +13,7 @@
       :items="cars"
       :fields="fields"
       :hover="true"
-      ref="table"
+      ref="tableCar"
       id="cars-list-table"
       v-if="!edit"
       :filter="filter"
@@ -182,9 +182,12 @@ export default {
       return id;
     },
     deleteCar(data) {
-      axios.delete("http://localhost:8080/car/delete/" + data).then(() => {
-        this.$refs.refresh();
-      });
+      axios.delete("http://localhost:8080/car/delete/" + data);
+      // .then(() => {
+      //   this.$refs.refresh();
+      //});
+      this.$refs.tableCar.refresh();
+      this.$router.go();
     },
     editCar(data) {
       this.edit = true;
