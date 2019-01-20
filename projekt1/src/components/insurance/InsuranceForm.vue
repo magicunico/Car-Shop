@@ -86,7 +86,7 @@ export default {
                 group:'foo',
                 type:'error',
                 title:'VERIFY DATES',
-                text:"Dates need to be between 01-01-1990 <br />and 01-01-2100",
+                text:"Dates need to be between 01-01-1990 <br />and 01-01-2100 <br /> <br /> All fields need to bee filled",
                 closeOnClick:true,
                 duration: 10000
               });

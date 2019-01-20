@@ -141,7 +141,7 @@ export default {
                 group:'foo',
                 type:'error',
                 title:'VERIFY DATE AND PESEL',
-                text:"Employee with this pesel may already exists or you picked date before 01-01-1990",
+                text:"Employee with this pesel may already exists or you picked date before 01-01-1990 <br /> <br /> All fields need to bee filled",
                 closeOnClick:true,
                 duration: 10000
               });

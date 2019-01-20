@@ -98,7 +98,7 @@ export default {
                 group:'foo',
                 type:'error',
                 title:'VERIFY PESEL',
-                text:"Customer with this pesel already exists",
+                text:"Customer with this pesel already exists <br /> <br /> All fields need to bee filled",
                 closeOnClick:true,
                 duration: 10000
               });

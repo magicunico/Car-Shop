@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import BootsreapVue from 'bootstrap-vue'
 import Notifications from 'vue-notification'
+//import VueImageLoa
 
 Vue.use(BootsreapVue);
 Vue.use(Notifications);

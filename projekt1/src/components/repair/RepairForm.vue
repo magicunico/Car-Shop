@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit.prevent="submit" :validated="true">
+    <b-form @submit.prevent="submit" @keyup.enter="submit" :validated="true">
        <b-form-group id="exampleInputGroup1"
                     label="Name:"
                     label-for="exampleInput1">
@@ -16,6 +16,8 @@
         <b-form-input id="exampleInput2"
                       type="text"
                       v-model="price"
+                     v-on:keydown.enter.prevent="submit"
+
                       required
                       placeholder="Enter price">
         </b-form-input>
@@ -95,7 +97,16 @@ export default {
             console.log(body);
 
             axios.post("http://localhost:8080/repair/add",body)
-            .catch(error => console.error(error))
+           .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'PRICE',
+                text:"Price needs to be positive number <br /> <br /> All fields need to bee filled",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
             console.log(body)
 
         }

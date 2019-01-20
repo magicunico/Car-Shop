@@ -1,5 +1,5 @@
 <template>
-    <b-form @submit="submit" :validated="true">
+    <b-form @submit="submit" @keyup.enter="submit"   :validated="true">
         <b-form-group id="exampleInputGroup1"
                     label="warehouse:"
                     label-for="exampleInput1">
@@ -36,6 +36,7 @@
         <b-form-input id="exampleInput2"
                       type="number"
                       v-model="price"
+                                            v-on:keydown.enter.prevent="submit"
                       required
                       placeholder="Enter price">
         </b-form-input>
@@ -44,7 +45,7 @@
                     label="Body:"
                     label-for="exampleInput1"
                     description="select one from: sedan, kombi, SUV, hatchback, kabriolet, liftback, pick-up, minivan ">
-         <b-form-radio-group id="radios1" v-model="body" :options="bodies" name="radioOpenions">
+         <b-form-radio-group id="radios1" required  v-model="body" :options="bodies" name="radioOpenions">
       </b-form-radio-group>
       </b-form-group>
        <b-form-group id="exampleInputGroup1"
@@ -122,8 +123,16 @@ export default {
             console.log(body);
 
             axios.post("http://localhost:8080/car/add",body)
-            .catch(error => console.error(error))
-            console.log(body)
+            .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'PRICE',
+                text:"Price needs to be positive number <br /> <br /> All fields need to bee filled" ,
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
 
         }
     },

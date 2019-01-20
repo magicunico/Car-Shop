@@ -37,9 +37,6 @@
           placeholder="Enter name"
         ></b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="Id:" label-for="exampleInput1">
-        <b-form-input id="exampleInput1" type="text" v-model="id" required placeholder="Enter name"></b-form-input>
-      </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
   </div>

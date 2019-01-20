@@ -33,31 +33,11 @@
                     label="price:"
                     label-for="exampleInput2">
         <b-form-input id="exampleInput2"
-                      type="text"
+                      type="number"
                       v-model="price"
                       required
                       placeholder="Enter price">
         </b-form-input>
-      </b-form-group>
-       <b-form-group id="exampleInputGroup1"
-                    label="employee:"
-                    label-for="exampleInput1">
-       <b-form-select id="exampleInput7"
-                      :options="employees.map(a =>{return a.name+' '+a.surname})"
-                      required
-                      v-model="employ"
-                      >
-        </b-form-select>
-      </b-form-group>
-       <b-form-group id="exampleInputGroup1"
-                    label="car:"
-                    label-for="exampleInput1">
-        <b-form-select id="exampleInput3"
-                      :options="carses.map(a =>{return a.id+' model: '+a.brand.producer.name+' color: '+a.color+' at: '+a.warehouse.name})"
-                      required
-                      v-model="car"
-                      >
-        </b-form-select>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
        </b-form>
@@ -130,30 +110,6 @@ export default {
         }
     },
     methods:{
-         getId(){
-            let id = -1
-            let pom = this.employee.split(' ');
-            console.log(pom[0])
-            this.employees.forEach(element => {
-                console.log(element.name);
-                if(element.name == pom[0]){
-                    id = element.id;
-                }
-            });
-            return id;
-        },
-         getIdis(){
-            let id = -1
-            let pom = this.car.split(' ');
-            console.log(pom[0])
-            this.carses.forEach(element => {
-                console.log(element.id);
-                if(element.id == pom[0]){
-                    id = element.id;
-                }
-            });
-            return id;
-        },
         deleteRepair(data) {
       axios.delete("http://localhost:8080/repair/delete/" + data)
       .then(()=>{
@@ -174,8 +130,8 @@ export default {
     updateRepair() {
       let body = {
         name: this.name,
-        employee: {id:this.getId()},
-        car: {id: this.getIdis()},
+        employee: {id:this.employee},
+        car: {id: this.car},
         price: this.price,
         status: "1",
         id: this.id

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Start from '@/components/Start'
 import Test from '@/components/Test'
 import Employee from '@/components/employee/Employee'
 import Customer from '@/components/customer/Customer'
@@ -12,7 +12,7 @@ import Warehouse from '@/components/warehouse/Warehouse'
 import Repair from '@/components/repair/Repair'
 import Producer from '@/components/car/Producer'
 import Brand from '@/components/car/Brand'
-
+import HelloWorld from '@/components/HelloWorld'
 Vue.use(Router)
 
 export default new Router({

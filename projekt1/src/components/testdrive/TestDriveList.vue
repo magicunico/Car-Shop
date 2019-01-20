@@ -22,9 +22,9 @@
          <span style="padding-left:20px;">
           <img src="../../assets/delete.svg" @click="deleteTestDrive(data.item.id)">
         </span>
-        <span>
+        <!-- <span>
           <img src="../../assets/edit.svg" @click="editTestDrive(data.item.id)">
-        </span>
+        </span> -->
       </template>
     </b-table>
     <b-form v-else @submit="updateTestDrive()">

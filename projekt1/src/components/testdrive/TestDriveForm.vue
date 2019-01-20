@@ -1,12 +1,14 @@
 
 <template>
-    <b-form @submit="submit" :validated="true">
+    <b-form @submit="submit" @keyup.enter="submit" :validated="true">
       <b-form-group id="exampleInputGroup1"
                     label="Date:"
                     label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       type="date"
                       v-model="date"
+                                                                  v-on:keydown.enter.prevent="submit"
+
                       required>
         </b-form-input>
       </b-form-group>
@@ -108,7 +110,16 @@ export default {
             console.log(body);
 
             axios.post("http://localhost:8080/testdrive/add",body)
-            .catch(error => console.error(error))
+            .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'VERIFY DATE',
+                text:"Date can't be before 01-01-1990 <br /> <br /> All fields need to bee filled",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
             console.log(body)
 
         }

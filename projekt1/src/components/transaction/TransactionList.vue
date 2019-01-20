@@ -28,18 +28,9 @@
         </span>
       </template>
     </b-table>
-    <b-form v-else @submit="updateTransaction()">
-      <b-form-group id="exampleInputGroup1" label="date:" label-for="exampleInput1">
-        <b-form-input id="exampleInput1" type="date" v-model="date" required></b-form-input>
-      </b-form-group>
+    <b-form v-else @submit="updateTransaction()" :validated="true">
       <b-form-group id="exampleInputGroup1" label="payment" label-for="exampleInput1">
-        <b-form-input
-          id="exampleInput1"
-          type="text"
-          v-model="payment"
-          required
-          placeholder="Enter payment"
-        ></b-form-input>
+        <b-form-radio-group id="exampleInput1" :options="paymentMethods" v-model="payment" required></b-form-radio-group>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="place:" label-for="exampleInput1">
         <b-form-input
@@ -48,36 +39,6 @@
           v-model="place"
           required
           placeholder="Enter address"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="Car:" label-for="exampleInput1">
-        <b-form-input id="exampleInput1" type="text" v-model="car" required placeholder="Enter car"></b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="customer:" label-for="exampleInput1">
-        <b-form-input
-          id="exampleInput1"
-          type="text"
-          v-model="customer"
-          required
-          placeholder="customer"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="employee:" label-for="exampleInput1">
-        <b-form-input
-          id="exampleInput1"
-          type="text"
-          v-model="employee"
-          required
-          placeholder="employee"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup1" label="insurance:" label-for="exampleInput1">
-        <b-form-input
-          id="exampleInput1"
-          type="text"
-          v-model="insurance"
-          required
-          placeholder="insurance"
         ></b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
@@ -115,59 +76,59 @@ export default {
           sortable: true
         },
         {
-          label:"Car",
+          label: "Car",
           key: "car.id",
           sortable: true
         },
         {
-          label:"Brand",
+          label: "Brand",
           key: "car.brand.name",
           sortable: true
         },
         {
-          label:"Color",
+          label: "Color",
           key: "car.color",
           sortable: true
         },
         {
-          label:"Producer",
+          label: "Producer",
           key: "car.brand.producer.name"
         },
         {
-          label:"Customer",
+          label: "Customer",
           key: "customer.id",
           sortable: true
         },
         {
-          label:"Name",
-          key:"customer.name"
+          label: "Name",
+          key: "customer.name"
         },
         {
-          label:"Surname",
+          label: "Surname",
           key: "customer.surname",
           sortable: true
         },
         {
-          label:"Employee",
+          label: "Employee",
           key: "employee.id",
           sortable: true
         },
         {
-          label:"Name",
-          key:"employee.name"
+          label: "Name",
+          key: "employee.name"
         },
         {
-          label:"Surname",
+          label: "Surname",
           key: "employee.surname",
           sortable: true
         },
         {
-          label:"Insurance",
+          label: "Insurance",
           key: "insurance.id",
           sortable: true
         },
         {
-          label:"Type",
+          label: "Type",
           key: "insurance.name"
         },
         {
@@ -184,16 +145,23 @@ export default {
       employee: "",
       insurance: "",
       id: "",
-      filter:""
+      carEmp:"",
+      filter: "",
+      cars:[],
+            employees:[],
+            customers:[],
+            insurances:[],
+            paymentMethods:['card','cash','check']
     };
   },
   methods: {
-    
+   
     deleteTransaction(data) {
-      axios.delete("http://localhost:8080/transaction/delete/" + data)
-      .then(()=>{
+      axios
+        .delete("http://localhost:8080/transaction/delete/" + data)
+        .then(() => {
           this.$router.go();
-      })
+        });
     },
     editTransaction(data) {
       this.edit = true;
@@ -215,28 +183,28 @@ export default {
         this.id = result.data.id;
       });
     },
-    updateTransaction(){
-        let body={
-            id: this.id,
-            status:"1",
-            date: this.date,
-            payment:this.payment,
-            place: this.place,
-            sum: this.sum,
-            car:{
-                id: this.car
-            },
-            customer:{
-                id: this.customer
-            },
-            employee:{
-                id: this.employee
-            },
-            insurance:{
-                id: this.insurance
-            }
-        };
-        axios.put("http://localhost:8080/transaction/update",body);
+    updateTransaction() {
+      let body = {
+        id: this.id,
+        status: "1",
+        date: this.date,
+        payment: this.payment,
+        place: this.place,
+        sum: this.sum,
+        car: {
+          id: this.car
+        },
+        customer: {
+          id: this.customer
+        },
+        employee: {
+          id: this.employee
+        },
+        insurance: {
+          id: this.insurance
+        }
+      };
+      axios.put("http://localhost:8080/transaction/update", body);
     },
     test(data) {
       let i = 0;
@@ -256,15 +224,27 @@ export default {
         this.test(this.transactions);
       })
       .catch(error => console.error(error));
+       axios
+      .get("http://localhost:8080/car/active")
+      .then(data => (this.cars = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/insurance/active")
+      .then(data => (this.insurances = data.data))
+      .catch(error => console.error(error));
+      axios
+      .get("http://localhost:8080/employee/active")
+      .then(data => (this.employees = data.data))
+      .catch(error => console.error(error));
   }
 };
 </script>
 <style>
-  .container{
-    margin-left: 40px
-  }
-  .mb-0{
-    margin-left: 350px
-  }
+.container {
+  margin-left: 40px;
+}
+.mb-0 {
+  margin-left: 350px;
+}
 </style>
 

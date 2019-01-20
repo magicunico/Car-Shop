@@ -159,7 +159,7 @@ export default {
                 group:'foo',
                 type:'error',
                 title:'VERIFY DATE',
-                text:"Date must be after 01-01-1990",
+                text:"Date must be after 01-01-1990 <br /> <br /> All fields need to bee filled",
                 closeOnClick:true,
                 duration: 10000
               });

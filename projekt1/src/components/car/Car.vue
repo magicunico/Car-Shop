@@ -1,8 +1,8 @@
 <template>
 <div class="container">
     <LeftMenu @change-emp="change"/>
-    <Form v-if="list"/>
-    <List v-if="form"/>
+    <Form v-if="form"/>
+    <List v-if="list"/>
     <All v-if="all"/>
   </div>
 </template>

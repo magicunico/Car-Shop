@@ -27,7 +27,7 @@
         </span>
       </template>
     </b-table>
-    <b-form v-else @submit="updateCar()">
+    <b-form v-else @submit="updateCar()"  @keyup.enter="updateCar()" :validated="true">
       <b-form-group id="exampleInputGroup1" label="warehouse:" label-for="exampleInput1">
         <b-form-select
           id="exampleInput3"
@@ -53,30 +53,32 @@
           placeholder="Enter color"
         ></b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup2" label="Price:" label-for="exampleInput2">
-        <b-form-input
-          id="exampleInput2"
-          type="number"
-          v-model="price"
-          required
-          placeholder="Enter price"
-        ></b-form-input>
-      </b-form-group>
       <b-form-group
         id="exampleInputGroup1"
         label="Body:"
         label-for="exampleInput1"
       >
-        <b-form-select id="exampleInput3" 
+        <b-form-radio-group id="exampleInput3" 
         :options="bodies" 
-        required v-model="body"></b-form-select>
+        required v-model="body"></b-form-radio-group>
       </b-form-group>
+      <b-form-group id="exampleInputGroup2" label="Price:" label-for="exampleInput2">
+        <b-form-input
+          id="exampleInput2"
+          type="number"
+          v-model="form.price"
+          required
+          v-on:keydown.enter.prevent="updateCar()"
+          placeholder="Enter price"
+        ></b-form-input>
+      </b-form-group>
+      
       <b-form-group
         id="exampleInputGroup1"
         label="gearbox:"
         label-for="exampleInput1"
       >
-        <b-form-select id="exampleInput3" :options="gearboxes" required v-model="gearbox"></b-form-select>
+        <b-form-radio-group id="exampleInput4" :options="gearboxes" required v-model="gearbox"></b-form-radio-group>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
@@ -84,6 +86,8 @@
 </template>
 <script>
 import axios from "axios";
+import { validationMixin } from "vuelidate";
+import { and, between,numeric,required, minLength, maxLength,minValue,min } from "vuelidate/lib/validators";
 export default {
   components: {
     axios
@@ -142,6 +146,7 @@ export default {
       brandname:"",
       filter: "",
       warehouses: [],
+      form:{},
       brands: [],
       bodies: [{value: null},
         "sedan",
@@ -155,6 +160,16 @@ export default {
       ],
       gearboxes: ["manual", "auto"]
     };
+  },
+   mixins: [validationMixin],
+  validations: {
+    form: {
+      price:{
+        required,
+        minValue:minValue(1) 
+      },
+
+    }
   },
   methods: {
     getId() {
@@ -193,7 +208,7 @@ export default {
       this.edit = true;
       axios.get("http://localhost:8080/car/" + data).then(result => {
         this.color = result.data.color;
-        this.price = result.data.price;
+        this.form.price = result.data.price;
         this.body = result.data.body;
         this.gearbox = result.data.gearbox;
         this.warehouse = result.data.warehouse.id;
@@ -206,7 +221,7 @@ export default {
     updateCar() {
       let body = {
         color: this.color,
-        price: this.price,
+        price: this.form.price,
         body: this.body,
         gearbox: this.gearbox,
         warehouse: { id: this.getId() },
@@ -214,8 +229,17 @@ export default {
         id: this.id,
         status: "1"
       };
-      axios.put("http://localhost:8080/car/update", body);
-      console.log(body);
+      axios.put("http://localhost:8080/car/update", body)
+      .catch(error => {
+              this.$notify({
+                group:'foo',
+                type:'error',
+                title:'PRICE',
+                text:"Price needs to be above 0",
+                closeOnClick:true,
+                duration: 10000
+              });
+            })
     }
   },
   beforeMount() {
