@@ -1,7 +1,5 @@
 package com.example.demo.employee;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
