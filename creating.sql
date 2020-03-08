@@ -25,6 +25,40 @@ create table employee(
   salary numeric(10,2) check (salary>0)
 );
 
+drop table if exists producer cascade;
+create table producer(
+  id bigserial primary key ,
+  name varchar(40) not null
+);
+
+drop table if exists brand cascade;
+create table brand(
+  id bigserial primary key ,
+  name varchar(40) not null,
+  producer_id bigserial constraint brand_producer_fk references producer(id) on DELETE set null
+);
+
+drop table if exists car cascade;
+create table car(
+  id bigserial primary key ,
+  color varchar(40) not null ,
+  price numeric(10,2) check(price>0),
+  body varchar(40),
+  gearBox varchar(40),
+  warehouse_id bigserial constraint car_warehouse_fk references warehouse(id) on DELETE set null,
+  brand_id bigserial constraint car_brand_fk references brand(id) on DELETE set null
+);
+
+
+drop table if exists insurance cascade;
+create table insurance(
+  id bigserial primary key ,
+  name varchar(40)not null ,
+  starting date not null default current_date,
+  ending date not null default current_date,
+  price numeric(10,2) check (price>0)
+);
+
 drop table if exists transaction cascade;
 create table transaction(
   id bigserial primary key ,
@@ -38,39 +72,6 @@ create table transaction(
   insurance_id bigserial constraint transaction_insurance_fk references insurance(id) on DELETE set null
 );
 
-drop table if exists insurance cascade;
-create table insurance(
-  id bigserial primary key ,
-  name varchar(40)not null ,
-  starting date not null default current_date,
-  ending date not null default current_date,
-  price numeric(10,2) check (price>0)
-);
-
-drop table if exists brand cascade;
-create table brand(
-  id bigserial primary key ,
-  name varchar(40) not null,
-  producer_id bigserial constraint brand_producer_fk references producer(id) on DELETE set null
-);
-
-drop table if exists producer cascade;
-create table producer(
-  id bigserial primary key ,
-  name varchar(40) not null
-);
-
-drop table if exists car cascade;
-create table car(
-  id bigserial primary key ,
-  color varchar(40) not null ,
-  price numeric(10,2) check(price>0),
-  body varchar(40),
-  gearBox varchar(40),
-  warehouse_id bigserial constraint car_warehouse_fk references warehouse(id) on DELETE set null,
-  brand_id bigserial constraint car_brand_fk references brand(id) on DELETE set null
-
-);
 
 drop table if exists testDrive cascade;
 create table testDrive(

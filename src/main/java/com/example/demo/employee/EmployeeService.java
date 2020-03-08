@@ -1,9 +1,7 @@
 package com.example.demo.employee;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +14,8 @@ import javax.transaction.Transactional;
 
 @Service
 public class EmployeeService {
-    private EmployeeRepository employeeRepository;
-
     public Connection conn;
+    private EmployeeRepository employeeRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -27,18 +24,22 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-     List<Employee> getEmployees(){return employeeRepository.findAll();}
+    List<Employee> getEmployees() {
+        return employeeRepository.findAll();
+    }
 
-     void addEmployee(Employee employee){employeeRepository.save(employee);}
+    void addEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
 
-     void deleteEmployee(Long id){
+    void deleteEmployee(Long id) {
         Employee employee = employeeRepository.findById(id).get();
         employee.setNonactive();
         employeeRepository.save(employee);
     }
 
-     void updateEmployee(EmployeeDTO employeeDTO){
-        Employee employee = employeeRepository.findById(employeeDTO.getId()).orElseThrow(()-> new IllegalArgumentException("Employee not found"));
+    void updateEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = employeeRepository.findById(employeeDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Employee not found"));
 
         employee.setAddress(employeeDTO.getAddress());
         employee.setDate(employeeDTO.getDate());
@@ -47,30 +48,30 @@ public class EmployeeService {
         employee.setSurname(employeeDTO.getSurname());
         employee.setSalary(employeeDTO.getSalary());
         employeeRepository.save(employee);
-     }
+    }
 
-     @Transactional
-     public Integer countEmployees(){
+    @Transactional
+    public Integer countEmployees() {
         String proc = "SELECT \"hired\" ()";
-        Query query=entityManager.createNativeQuery(proc);
+        Query query = entityManager.createNativeQuery(proc);
         return (Integer) query.getSingleResult();
-     }
+    }
 
 
     @Transactional
     public void prom(EmployeePromotion employeePromotion) {
         String queryString = "SELECT \"promote\"(%d, %d)";
-        queryString = String.format(queryString, employeePromotion.getEmployee(),employeePromotion.getHowmuch());
+        queryString = String.format(queryString, employeePromotion.getEmployee(), employeePromotion.getHowmuch());
         Query query = entityManager.createNativeQuery(queryString);
         query.getSingleResult();
     }
 
-     List<Employee> getActive(){
-        return employeeRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+    List<Employee> getActive() {
+        return employeeRepository.findAll().stream().filter(a -> a.getStatus().equals(1))
                 .collect(Collectors.toList());
-     }
+    }
 
-     Employee getEmployee(Long id){
+    Employee getEmployee(Long id) {
         return employeeRepository.findById(id).get();
-     }
+    }
 }
