@@ -6,9 +6,10 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "heroku-postbuild": "npm run build",
+    "start": "http-server dist/ -d false -g"
   },
   "dependencies": {
     "@detools/vue-form": "^2.7.4",
@@ -16,6 +17,7 @@
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
     "element-ui": "^2.4.11",
+    "http-server": "^0.12.1",
     "moment": "^2.23.0",
     "vue": "^2.5.2",
     "vue-burger-menu": "^1.0.9",
@@ -74,8 +76,8 @@
     "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
+    "node": "8.x",
+    "npm": "5.x"
   },
   "browserslist": [
     "> 1%",
