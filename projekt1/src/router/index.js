@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Start from '@/components/Start'
 import Test from '@/components/Test'
 import Employee from '@/components/employee/Employee'
 import Customer from '@/components/customer/Customer'
 import Car from '@/components/car/Car'
 import Insurance from '@/components/insurance/Insurance'
-import TestDrive from '@/components/testdrive/Testdrive'
+import TestDrive from '@/components/testdrive/TestDrive'
 import Transaction from '@/components/transaction/Transaction'
 import Warehouse from '@/components/warehouse/Warehouse'
 import Repair from '@/components/repair/Repair'
@@ -78,6 +77,5 @@ export default new Router({
       name: 'Transaction',
       component: Transaction
     }
-
   ]
 })
