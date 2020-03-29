@@ -135,7 +135,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/employee/add",body)
+            axios.post(process.env.API_URL + "/employee/add",body)
             .catch(error => {
               this.$notify({
                 group:'foo',

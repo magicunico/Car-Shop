@@ -96,7 +96,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/repair/add",body)
+            axios.post(process.env.API_URL + "/repair/add",body)
            .catch(error => {
               this.$notify({
                 group:'foo',
@@ -113,11 +113,11 @@ export default {
     },
     beforeMount(){
         axios
-      .get("http://localhost:8080/employee/active")
+      .get(process.env.API_URL + "/employee/active")
       .then(data => (this.employees = data.data))
       .catch(error => console.error(error));
       axios
-      .get("http://localhost:8080/car/active")
+      .get(process.env.API_URL + "/car/active")
       .then(data => {this.carses = data.data;
       console.log(data)})
       .catch(error => console.error(error));

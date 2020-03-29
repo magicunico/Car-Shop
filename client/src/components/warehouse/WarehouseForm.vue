@@ -31,7 +31,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/warehouse/add",body)
+            axios.post(process.env.API_URL + "/warehouse/add",body)
             .catch(body => console.log(body))
             console.log(body)
 

@@ -1,21 +1,21 @@
 <template>
     <b-navbar toggleable="md" type="dark" variant="info">
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-  <b-navbar-brand href="#">JHKD </b-navbar-brand>
+  <b-navbar-brand to="/">JHKD</b-navbar-brand>
 
   <b-collapse is-nav id="nav_collapse">
 
     <b-navbar-nav>
-      <b-nav-item href="/employee">Employess</b-nav-item>
-      <b-nav-item href="/customer" >Customers</b-nav-item>
-      <b-nav-item href="/car" >Cars</b-nav-item>
-      <b-nav-item href="/transaction" >Transactions</b-nav-item>
-      <b-nav-item href="/testdrive" >Test Drives</b-nav-item>
-      <b-nav-item href="/insurance" >Insurances</b-nav-item>
-      <b-nav-item href="/repair" >Repair</b-nav-item>
-      <b-nav-item href="/brand" >Brands</b-nav-item>
-      <b-nav-item href="/producer" >Producers</b-nav-item>
-      <b-nav-item href="/warehouse" >Warehouses</b-nav-item>
+      <b-nav-item to="/employee">Employess</b-nav-item>
+      <b-nav-item to="/customer" >Customers</b-nav-item>
+      <b-nav-item to="/car" >Cars</b-nav-item>
+      <b-nav-item to="/transaction" >Transactions</b-nav-item>
+      <b-nav-item to="/testdrive" >Test Drives</b-nav-item>
+      <b-nav-item to="/insurance" >Insurances</b-nav-item>
+      <b-nav-item to="/repair" >Repair</b-nav-item>
+      <b-nav-item to="/brand" >Brands</b-nav-item>
+      <b-nav-item to="/producer" >Producers</b-nav-item>
+      <b-nav-item to="/warehouse" >Warehouses</b-nav-item>
       <!-- <b-nav-item href="/repair" >Repair</b-nav-item> -->
       
     </b-navbar-nav>

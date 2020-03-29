@@ -114,7 +114,7 @@ export default {
     }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/transaction/all")
+        axios.get(process.env.API_URL + "/transaction/all")
         .then(data => {
             this.transactions = data.data;
             this.test(this.transactions);})

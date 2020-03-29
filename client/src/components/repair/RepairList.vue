@@ -111,14 +111,14 @@ export default {
     },
     methods:{
         deleteRepair(data) {
-      axios.delete("http://localhost:8080/repair/delete/" + data)
+      axios.delete(process.env.API_URL + "/repair/delete/" + data)
       .then(()=>{
           this.$router.go();
       })
     },
     editRepair(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/repair/" + data).then(result => {
+      axios.get(process.env.API_URL + "/repair/" + data).then(result => {
         this.name = result.data.name;
         this.price=result.data.price;
         this.employee=result.data.employee.id;
@@ -137,19 +137,19 @@ export default {
         id: this.id
       };
 
-      axios.put("http://localhost:8080/repair/update", body);
+      axios.put(process.env.API_URL + "/repair/update", body);
     }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/repair/active")
+        axios.get(process.env.API_URL + "/repair/active")
         .then(data => this.repairs = data.data)
         .catch(error => console.error(error));
          axios
-      .get("http://localhost:8080/employee/active")
+      .get(process.env.API_URL + "/employee/active")
       .then(data => (this.employees = data.data))
       .catch(error => console.error(error));
       axios
-      .get("http://localhost:8080/car/active")
+      .get(process.env.API_URL + "/car/active")
       .then(data => {this.carses = data.data;
       console.log(data)})
       .catch(error => console.error(error));

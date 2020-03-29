@@ -72,7 +72,7 @@ export default {
     methods:{
     },
     beforeMount(){
-        axios.get("http://localhost:8080/car/all")
+        axios.get(process.env.API_URL + "/car/all")
         .then(data => this.cars = data.data)
         .catch(error => console.error(error))
     }

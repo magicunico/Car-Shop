@@ -45,7 +45,7 @@ export default {
         }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/customer/all")
+        axios.get(process.env.API_URL + "/customer/all")
         .then(data => this.user = data.data).
         catch(err => console.error(err))
     }

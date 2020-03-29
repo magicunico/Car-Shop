@@ -55,7 +55,7 @@ export default {
     }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/testdrive/all")
+        axios.get(process.env.API_URL + "/testdrive/all")
         .then(data =>{ 
             this.testdrives = data.data;
             this.test(this.testdrives);

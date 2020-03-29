@@ -142,14 +142,14 @@ export default {
             return id;
         },
     deleteTestDrive(data) {
-      axios.delete("http://localhost:8080/testdrive/delete/" + data)
+      axios.delete(process.env.API_URL + "/testdrive/delete/" + data)
       .then(()=>{
           this.$router.go();
       })
     },
     editTestDrive(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/testdrive/" + data).then(result => {
+      axios.get(process.env.API_URL + "/testdrive/" + data).then(result => {
         this.date = new Date(result.data.date)
           .toLocaleDateString("ko-KR")
           .replace(" ", "")
@@ -178,7 +178,7 @@ export default {
         },
         status: "1"
       };
-      axios.put("http://localhost:8080/testdrive/update", body);
+      axios.put(process.env.API_URL + "/testdrive/update", body);
     },
     test(data) {
       let i = 0;
@@ -192,17 +192,17 @@ export default {
   },
   beforeMount() {
   axios
-      .get("http://localhost:8080/testdrive/active")
+      .get(process.env.API_URL + "/testdrive/active")
       .then(data => {
         this.testDrives = data.data;
         this.test(this.testDrives);
       })
       .catch(error => console.error(error));
-      axios.get("http://localhost:8080/employee/active")
+      axios.get(process.env.API_URL + "/employee/active")
         .then(data =>{
             this.employees = data.data;
         });
-        axios.get("http://localhost:8080/customer/active")
+        axios.get(process.env.API_URL + "/customer/active")
         .then(data =>{
             this.customers = data.data;
         })

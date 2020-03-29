@@ -158,14 +158,14 @@ export default {
    
     deleteTransaction(data) {
       axios
-        .delete("http://localhost:8080/transaction/delete/" + data)
+        .delete(process.env.API_URL + "/transaction/delete/" + data)
         .then(() => {
           this.$router.go();
         });
     },
     editTransaction(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/transaction/" + data).then(result => {
+      axios.get(process.env.API_URL + "/transaction/" + data).then(result => {
         this.date = new Date(result.data.date)
           .toLocaleDateString("ko-KR")
           .replace(" ", "")
@@ -204,7 +204,7 @@ export default {
           id: this.insurance
         }
       };
-      axios.put("http://localhost:8080/transaction/update", body);
+      axios.put(process.env.API_URL + "/transaction/update", body);
     },
     test(data) {
       let i = 0;
@@ -218,22 +218,22 @@ export default {
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/transaction/active")
+      .get(process.env.API_URL + "/transaction/active")
       .then(data => {
         this.transactions = data.data;
         this.test(this.transactions);
       })
       .catch(error => console.error(error));
        axios
-      .get("http://localhost:8080/car/active")
+      .get(process.env.API_URL + "/car/active")
       .then(data => (this.cars = data.data))
       .catch(error => console.error(error));
       axios
-      .get("http://localhost:8080/insurance/active")
+      .get(process.env.API_URL + "/insurance/active")
       .then(data => (this.insurances = data.data))
       .catch(error => console.error(error));
       axios
-      .get("http://localhost:8080/employee/active")
+      .get(process.env.API_URL + "/employee/active")
       .then(data => (this.employees = data.data))
       .catch(error => console.error(error));
   }

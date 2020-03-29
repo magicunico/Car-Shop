@@ -197,7 +197,7 @@ export default {
       return id;
     },
     deleteCar(data) {
-      axios.delete("http://localhost:8080/car/delete/" + data);
+      axios.delete(process.env.API_URL + "/car/delete/" + data);
       // .then(() => {
       //   this.$refs.refresh();
       //});
@@ -206,7 +206,7 @@ export default {
     },
     editCar(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/car/" + data).then(result => {
+      axios.get(process.env.API_URL + "/car/" + data).then(result => {
         this.color = result.data.color;
         this.form.price = result.data.price;
         this.body = result.data.body;
@@ -229,7 +229,7 @@ export default {
         id: this.id,
         status: "1"
       };
-      axios.put("http://localhost:8080/car/update", body)
+      axios.put(process.env.API_URL + "/car/update", body)
       .catch(error => {
               this.$notify({
                 group:'foo',
@@ -244,15 +244,15 @@ export default {
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/car/active")
+      .get(process.env.API_URL + "/car/active")
       .then(data => (this.cars = data.data))
       .catch(error => console.error(error));
     axios
-      .get("http://localhost:8080/warehouse/active")
+      .get(process.env.API_URL + "/warehouse/active")
       .then(data => (this.warehouses = data.data))
       .catch(error => console.error(error));
     axios
-      .get("http://localhost:8080/brand/active")
+      .get(process.env.API_URL + "/brand/active")
       .then(data => (this.brands = data.data))
       .catch(error => console.error(error));
   }

@@ -80,7 +80,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/insurance/add",body)
+            axios.post(process.env.API_URL + "/insurance/add",body)
             .catch(error => {
               this.$notify({
                 group:'foo',

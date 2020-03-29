@@ -12,7 +12,7 @@ export default {
     },
     methods:{
         count(){
-            axios.get("http://localhost:8080/employee/count")
+            axios.get(process.env.API_URL + "/employee/count")
             .then(data=>this.field=data.data);
             console.log(body)
 

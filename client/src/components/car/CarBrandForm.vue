@@ -78,7 +78,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/brand/add",body)
+            axios.post(process.env.API_URL + "/brand/add",body)
             .catch(body => console.log(body))
             console.log(body)
 
@@ -86,7 +86,7 @@ export default {
     },
      beforeMount() {
       axios
-      .get("http://localhost:8080/producer/active")
+      .get(process.env.API_URL + "/producer/active")
       .then(data => (this.producers = data.data))
       .catch(error => console.error(error));
   }

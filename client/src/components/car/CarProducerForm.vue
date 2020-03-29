@@ -32,7 +32,7 @@ export default {
 
             console.log(body);
 
-            axios.post("http://localhost:8080/producer/add",body)
+            axios.post(process.env.API_URL + "/producer/add",body)
             .catch(body => console.log(body))
             console.log(body)
 

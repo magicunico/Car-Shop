@@ -115,14 +115,14 @@ export default {
   methods: {
    
     deleteInsurance(data) {
-      axios.delete("http://localhost:8080/insurance/delete/" + data)
+      axios.delete(process.env.API_URL + "/insurance/delete/" + data)
       .then(()=>{
           this.$router.go();
       })
     },
     editInsurance(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/insurance/" + data).then(result => {
+      axios.get(process.env.API_URL + "/insurance/" + data).then(result => {
         this.name = result.data.name;
         this.starting= new Date(result.data.starting)
           .toLocaleDateString("ko-KR")
@@ -151,7 +151,7 @@ export default {
         ending: this.ending,
         price: this.price
       };
-      axios.put("http://localhost:8080/insurance/update/", body);
+      axios.put(process.env.API_URL + "/insurance/update/", body);
       console.log(body);
     },
     test(data) {
@@ -169,7 +169,7 @@ export default {
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/insurance/active")
+      .get(process.env.API_URL + "/insurance/active")
       .then(data => {
         this.insurances = data.data;
         this.test(this.insurances);})

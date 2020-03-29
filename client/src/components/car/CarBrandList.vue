@@ -120,14 +120,14 @@ export default {
       return id;
     },
     deleteBrand(data) {
-      axios.delete("http://localhost:8080/brand/delete/" + data).then(() => {
+      axios.delete(process.env.API_URL + "/brand/delete/" + data).then(() => {
         this.$refs.tableBrand.refresh();
         this.$router.go();
       });
     },
     editBrand(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/brand/" + data).then(result => {
+      axios.get(process.env.API_URL + "/brand/" + data).then(result => {
         this.form.name = result.data.name;
         this.producer = result.data.producer.id;
         this.pro = result.data.producer.name;
@@ -144,7 +144,7 @@ export default {
         }
       };
 
-      axios.put("http://localhost:8080/brand/update", body);
+      axios.put(process.env.API_URL + "/brand/update", body);
       //   .catch(error=>
       // {
       //   this.$notify({
@@ -159,18 +159,18 @@ export default {
       console.log(body);
     },
     updateupdate(body) {
-      axios.put("http://localhost:8080/brand/update", body).then(() => {
+      axios.put(process.env.API_URL + "/brand/update", body).then(() => {
         this.$refs.refresh();
       });
     }
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/brand/active")
+      .get(process.env.API_URL + "/brand/active")
       .then(data => (this.brand = data.data))
       .catch(error => console.error(error));
     axios
-      .get("http://localhost:8080/producer/active")
+      .get(process.env.API_URL + "/producer/active")
       .then(data => (this.producers = data.data))
       .catch(error => console.error(error));
   }

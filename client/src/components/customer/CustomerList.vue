@@ -105,7 +105,7 @@ export default {
     methods:{
         
      deleteCustomer(data) {
-      axios.delete("http://localhost:8080/customer/delete/" + data);
+      axios.delete(process.env.API_URL + "/customer/delete/" + data);
     //   .then(()=>{
     //     //   this.$refs.table.refresh();
     //     //   this.$router.go();
@@ -115,7 +115,7 @@ export default {
     },
     editCustomer(data){
         this.edit=true;
-        axios.get("http://localhost:8080/customer/"+data)
+        axios.get(process.env.API_URL + "/customer/"+data)
         .then(result=>{
             this.name=result.data.name;
             this.surname=result.data.surname;
@@ -133,12 +133,12 @@ export default {
             pesel: this.pesel,
             address:this.address
         };
-        axios.put("http://localhost:8080/customer/update",body);
+        axios.put(process.env.API_URL + "/customer/update",body);
         console.log(body);
     }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/customer/active")
+        axios.get(process.env.API_URL + "/customer/active")
         .then(data => this.customer = data.data)
         .catch(error => console.error(error))
     }

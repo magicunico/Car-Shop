@@ -204,7 +204,7 @@ export default {
   },
   methods: {
     hiredEmp(){
-        axios.get("http://localhost:8080/employee/hired")
+        axios.get(process.env.API_URL + "/employee/hired")
       .then(data=> this.hiredd=data.data);
        this.$refs.hiring.refresh();
        this.$router.go()
@@ -214,7 +214,7 @@ export default {
         employee: this.promoteId,
         howmuch: data
       };
-      axios.post("http://localhost:8080/employee/promote/", body).then(data => {
+      axios.post(process.env.API_URL + "/employee/promote/", body).then(data => {
         this.showField = false;
       });
       this.$refs.tableEmp.refresh();
@@ -225,7 +225,7 @@ export default {
       this.promoteId = id;
     },
     deleteEmployee(data) {
-      axios.delete("http://localhost:8080/employee/delete/" + data).then(() => {
+      axios.delete(process.env.API_URL + "/employee/delete/" + data).then(() => {
         //this.$refs.tableEmp.refresh();
         this.$router.go();
       });
@@ -233,7 +233,7 @@ export default {
     editEmployee(data) {
       this.edit = true;
       axios
-        .get("http://localhost:8080/employee/" + data)
+        .get(process.env.API_URL + "/employee/" + data)
         .then(result => {
           this.name = result.data.name;
           this.surname = result.data.surname;
@@ -279,7 +279,7 @@ export default {
         date: this.date,
         salary: this.salary
       };
-      axios.put("http://localhost:8080/employee/update", body).catch(error => {
+      axios.put(process.env.API_URL + "/employee/update", body).catch(error => {
         console.log(error);
         this.error = error;
         this.$notify({
@@ -295,14 +295,14 @@ export default {
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/employee/active")
+      .get(process.env.API_URL + "/employee/active")
       .then(data => {
         this.employees = data.data;
         this.test(this.employees);
         console.log(data);
       })
       .catch(error => console.error(error));
-      axios.get("http://localhost:8080/employee/hired")
+      axios.get(process.env.API_URL + "/employee/hired")
       .then(data=> this.hiredd=data.data);
       
   }

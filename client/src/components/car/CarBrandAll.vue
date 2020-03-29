@@ -41,7 +41,7 @@ export default {
     methods:{
     },
     beforeMount(){
-        axios.get("http://localhost:8080/brand/all")
+        axios.get(process.env.API_URL + "/brand/all")
         .then(data => this.brand = data.data)
         .catch(error => console.error(error))
     }

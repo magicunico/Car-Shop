@@ -44,7 +44,7 @@ export default {
         }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/producer/all")
+        axios.get(process.env.API_URL + "/producer/all")
         .then(data => this.brand = data.data)
         .catch(error => console.error(error))
     }

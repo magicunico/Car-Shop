@@ -68,7 +68,7 @@ export default {
     methods:{
     },
     beforeMount(){
-        axios.get("http://localhost:8080/repair/all")
+        axios.get(process.env.API_URL + "/repair/all")
         .then(data => this.repairs = data.data)
         .catch(error => console.error(error))
     }

@@ -58,7 +58,7 @@ export default {
     }
     },
     beforeMount(){
-        axios.get("http://localhost:8080/insurance/all")
+        axios.get(process.env.API_URL + "/insurance/all")
         .then(data => {
         this.insurances = data.data;
         this.test(this.insurances);})

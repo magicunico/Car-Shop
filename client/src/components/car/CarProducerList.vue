@@ -59,14 +59,14 @@ export default {
     methods:{
        
     deleteProducer(data) {
-      axios.delete("http://localhost:8080/producer/delete/" + data)
+      axios.delete(process.env.API_URL + "/producer/delete/" + data)
       .then(()=>{
           this.$router.go();
       })
     },
     editProducer(data){
         this.edit=true;
-        axios.get("http://localhost:8080/producer/"+data)
+        axios.get(process.env.API_URL + "/producer/"+data)
         .then(result=>{
             this.name=result.data.name;
             this.id=result.data.id;
@@ -78,14 +78,14 @@ export default {
             name: this.name,
             status: '1'
         };
-        axios.put("http://localhost:8080/producer/update",body);
+        axios.put(process.env.API_URL + "/producer/update",body);
         console.log(body);
     }
     },
 
 
     beforeMount(){
-        axios.get("http://localhost:8080/producer/active")
+        axios.get(process.env.API_URL + "/producer/active")
         .then(data => this.producer = data.data)
         .catch(error => console.error(error))
     }

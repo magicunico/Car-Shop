@@ -72,14 +72,14 @@ export default {
   methods: {
     
     deleteWarehouse(data) {
-      axios.delete("http://localhost:8080/warehouse/delete/" + data)
+      axios.delete(process.env.API_URL + "/warehouse/delete/" + data)
       .then(()=>{
           this.$router.go();
       })
     },
     editWarehouse(data) {
       this.edit = true;
-      axios.get("http://localhost:8080/warehouse/" + data).then(result => {
+      axios.get(process.env.API_URL + "/warehouse/" + data).then(result => {
         this.name = result.data.name;
         this.id = result.data.id;
       });
@@ -91,12 +91,12 @@ export default {
         id: this.id
       };
 
-      axios.put("http://localhost:8080/warehouse/update", body);
+      axios.put(process.env.API_URL + "/warehouse/update", body);
     }
   },
   beforeMount() {
     axios
-      .get("http://localhost:8080/warehouse/active")
+      .get(process.env.API_URL + "/warehouse/active")
       .then(data => (this.warehouses = data.data))
       .catch(error => console.error(error));
   }
