@@ -19,7 +19,7 @@
        
       </li>
     </ul>
-    <h2>We provdide proffesional services <br> in the field of buying car:</h2>
+    <h2>We provdide professional services <br> in the field of buying car:</h2>
     <ul>
       <li>
         
@@ -45,7 +45,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to JHKD Car Dealr Shop'
+      msg: 'Welcome to JHKD Car Dealer Shop'
     }
   }
 }

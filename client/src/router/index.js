@@ -12,6 +12,7 @@ import Repair from '@/components/repair/Repair'
 import Producer from '@/components/car/Producer'
 import Brand from '@/components/car/Brand'
 import HelloWorld from '@/components/HelloWorld'
+import Login from '@/components/Login'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +20,11 @@ export default new Router({
   routes: [
     {
       path: '',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/HelloWorld',
       name: 'HelloWorld',
       component: HelloWorld
     },
