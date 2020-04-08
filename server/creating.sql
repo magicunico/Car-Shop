@@ -5,7 +5,6 @@ CREATE table warehouse(
   status integer
 );
 
-
 drop table if exists customer cascade;
 create table customer(
   id bigserial primary key,
@@ -100,3 +99,6 @@ create table repair(
   car_id bigserial constraint repair_car_fk references car(id) on DELETE set null,
   status integer
 );
+
+drop table if exists users cascade;
+create table users(username varchar(40) primary key,password varchar);
