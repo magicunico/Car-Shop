@@ -13,7 +13,11 @@ import Producer from '@/components/car/Producer'
 import Brand from '@/components/car/Brand'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
+import SignUp from '@/components/SignUp'
+import VueAxios from 'vue-axios'
 Vue.use(Router)
+
+
 
 export default new Router({
   // mode: 'history',
@@ -22,6 +26,11 @@ export default new Router({
       path: '',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/SignUp',
+      name: 'SignUp',
+      component: SignUp
     },
     {
       path: '/HelloWorld',

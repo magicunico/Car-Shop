@@ -96,7 +96,13 @@ export default {
 
             console.log(body);
 
-            axios.post(process.env.API_URL + "/repair/add",body)
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+            axios.post(process.env.API_URL + "/repair/add",body,config)
            .catch(error => {
               this.$notify({
                 group:'foo',

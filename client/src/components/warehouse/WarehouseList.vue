@@ -72,7 +72,13 @@ export default {
   methods: {
     
     deleteWarehouse(data) {
-      axios.delete(process.env.API_URL + "/warehouse/delete/" + data)
+                  let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+      axios.delete(process.env.API_URL + "/warehouse/delete/" + data,config)
       .then(()=>{
           this.$router.go();
       })
@@ -90,8 +96,13 @@ export default {
         status: "1",
         id: this.id
       };
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
 
-      axios.put(process.env.API_URL + "/warehouse/update", body);
+      axios.put(process.env.API_URL + "/warehouse/update", body,config);
     }
   },
   beforeMount() {

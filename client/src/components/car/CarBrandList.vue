@@ -2,7 +2,7 @@
   <div>
     <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
       <b-input-group>
-        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
         <b-input-group-append>
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-append>
@@ -21,10 +21,10 @@
     >
       <template slot="actions" slot-scope="data">
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click="deleteBrand(data.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteBrand(data.item.id)" />
         </span>
         <span>
-          <img src="../../assets/edit.svg" @click="editBrand(data.item.id)">
+          <img src="../../assets/edit.svg" @click="editBrand(data.item.id)" />
         </span>
       </template>
     </b-table>
@@ -119,11 +119,20 @@ export default {
       });
       return id;
     },
+
     deleteBrand(data) {
-      axios.delete(process.env.API_URL + "/brand/delete/" + data).then(() => {
-        this.$refs.tableBrand.refresh();
-        this.$router.go();
-      });
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .delete(process.env.API_URL + "/brand/delete/" + data, config)
+        .then(() => {
+          this.$refs.tableBrand.refresh();
+          this.$router.go();
+        });
     },
     editBrand(data) {
       this.edit = true;
@@ -144,7 +153,13 @@ export default {
         }
       };
 
-      axios.put(process.env.API_URL + "/brand/update", body);
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios.put(process.env.API_URL + "/brand/update", body, config);
       //   .catch(error=>
       // {
       //   this.$notify({
@@ -159,9 +174,17 @@ export default {
       console.log(body);
     },
     updateupdate(body) {
-      axios.put(process.env.API_URL + "/brand/update", body).then(() => {
-        this.$refs.refresh();
-      });
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .put(process.env.API_URL + "/brand/update", body, config)
+        .then(() => {
+          this.$refs.refresh();
+        });
     }
   },
   beforeMount() {

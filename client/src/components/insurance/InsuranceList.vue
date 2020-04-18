@@ -2,7 +2,7 @@
   <div>
     <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
       <b-input-group>
-        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
         <b-input-group-append>
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-append>
@@ -20,10 +20,10 @@
     >
       <template slot="actions" slot-scope="data">
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click="deleteInsurance(data.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteInsurance(data.item.id)" />
         </span>
         <span>
-          <img src="../../assets/edit.svg" @click="editInsurance(data.item.id)">
+          <img src="../../assets/edit.svg" @click="editInsurance(data.item.id)" />
         </span>
       </template>
     </b-table>
@@ -109,22 +109,28 @@ export default {
       ending: "",
       price: "",
       id: "",
-      filter:""
+      filter: ""
     };
   },
   methods: {
-   
     deleteInsurance(data) {
-      axios.delete(process.env.API_URL + "/insurance/delete/" + data)
-      .then(()=>{
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .delete(process.env.API_URL + "/insurance/delete/" + data, config)
+        .then(() => {
           this.$router.go();
-      })
+        });
     },
     editInsurance(data) {
       this.edit = true;
       axios.get(process.env.API_URL + "/insurance/" + data).then(result => {
         this.name = result.data.name;
-        this.starting= new Date(result.data.starting)
+        this.starting = new Date(result.data.starting)
           .toLocaleDateString("ko-KR")
           .replace(" ", "")
           .replace(" ", "")
@@ -151,15 +157,21 @@ export default {
         ending: this.ending,
         price: this.price
       };
-      axios.put(process.env.API_URL + "/insurance/update/", body);
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios.put(process.env.API_URL + "/insurance/update/", body, config);
       console.log(body);
     },
     test(data) {
       let i = 0;
       data.forEach(element => {
-        this.insurances[i].starting = new Date(element.starting).toLocaleDateString(
-          "en-GB"
-        );
+        this.insurances[i].starting = new Date(
+          element.starting
+        ).toLocaleDateString("en-GB");
         this.insurances[i].ending = new Date(element.ending).toLocaleDateString(
           "en-GB"
         );
@@ -172,7 +184,8 @@ export default {
       .get(process.env.API_URL + "/insurance/active")
       .then(data => {
         this.insurances = data.data;
-        this.test(this.insurances);})
+        this.test(this.insurances);
+      })
       .catch(error => console.error(error));
   }
 };

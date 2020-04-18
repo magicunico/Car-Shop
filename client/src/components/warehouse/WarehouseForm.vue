@@ -31,7 +31,13 @@ export default {
 
             console.log(body);
 
-            axios.post(process.env.API_URL + "/warehouse/add",body)
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+            axios.post(process.env.API_URL + "/warehouse/add",body,config)
             .catch(body => console.log(body))
             console.log(body)
 

@@ -32,8 +32,17 @@ export default {
 
             console.log(body);
 
-            axios.post(process.env.API_URL + "/producer/add",body)
-            .catch(body => console.log(body))
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+            console.log(localStorage.token)
+
+            axios.post(process.env.API_URL + "/producer/add",body,config)
+            .then(body => console.log(body))
+            .catch(error => {console.log(error)});
             console.log(body)
 
         }

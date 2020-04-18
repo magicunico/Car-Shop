@@ -2,7 +2,7 @@
   <div>
     <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
       <b-input-group>
-        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
         <b-input-group-append>
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-append>
@@ -20,14 +20,14 @@
     >
       <template slot="actions" slot-scope="data">
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click="deleteCar(data.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteCar(data.item.id)" />
         </span>
         <span>
-          <img src="../../assets/edit.svg" @click="editCar(data.item.id)">
+          <img src="../../assets/edit.svg" @click="editCar(data.item.id)" />
         </span>
       </template>
     </b-table>
-    <b-form v-else @submit="updateCar()"  @keyup.enter="updateCar()" :validated="true">
+    <b-form v-else @submit="updateCar()" @keyup.enter="updateCar()" :validated="true">
       <b-form-group id="exampleInputGroup1" label="warehouse:" label-for="exampleInput1">
         <b-form-select
           id="exampleInput3"
@@ -53,14 +53,8 @@
           placeholder="Enter color"
         ></b-form-input>
       </b-form-group>
-      <b-form-group
-        id="exampleInputGroup1"
-        label="Body:"
-        label-for="exampleInput1"
-      >
-        <b-form-radio-group id="exampleInput3" 
-        :options="bodies" 
-        required v-model="body"></b-form-radio-group>
+      <b-form-group id="exampleInputGroup1" label="Body:" label-for="exampleInput1">
+        <b-form-radio-group id="exampleInput3" :options="bodies" required v-model="body"></b-form-radio-group>
       </b-form-group>
       <b-form-group id="exampleInputGroup2" label="Price:" label-for="exampleInput2">
         <b-form-input
@@ -72,12 +66,8 @@
           placeholder="Enter price"
         ></b-form-input>
       </b-form-group>
-      
-      <b-form-group
-        id="exampleInputGroup1"
-        label="gearbox:"
-        label-for="exampleInput1"
-      >
+
+      <b-form-group id="exampleInputGroup1" label="gearbox:" label-for="exampleInput1">
         <b-form-radio-group id="exampleInput4" :options="gearboxes" required v-model="gearbox"></b-form-radio-group>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
@@ -87,7 +77,16 @@
 <script>
 import axios from "axios";
 import { validationMixin } from "vuelidate";
-import { and, between,numeric,required, minLength, maxLength,minValue,min } from "vuelidate/lib/validators";
+import {
+  and,
+  between,
+  numeric,
+  required,
+  minLength,
+  maxLength,
+  minValue,
+  min
+} from "vuelidate/lib/validators";
 export default {
   components: {
     axios
@@ -140,15 +139,16 @@ export default {
       body: null,
       gearbox: "",
       warehouse: "",
-      ware:"",
+      ware: "",
       brand: "",
       id: "",
-      brandname:"",
+      brandname: "",
       filter: "",
       warehouses: [],
-      form:{},
+      form: {},
       brands: [],
-      bodies: [{value: null},
+      bodies: [
+        { value: null },
         "sedan",
         "kombi",
         "SUV",
@@ -161,14 +161,13 @@ export default {
       gearboxes: ["manual", "auto"]
     };
   },
-   mixins: [validationMixin],
+  mixins: [validationMixin],
   validations: {
     form: {
-      price:{
+      price: {
         required,
-        minValue:minValue(1) 
-      },
-
+        minValue: minValue(1)
+      }
     }
   },
   methods: {
@@ -197,7 +196,13 @@ export default {
       return id;
     },
     deleteCar(data) {
-      axios.delete(process.env.API_URL + "/car/delete/" + data);
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios.delete(process.env.API_URL + "/car/delete/" + data, config);
       // .then(() => {
       //   this.$refs.refresh();
       //});
@@ -212,9 +217,9 @@ export default {
         this.body = result.data.body;
         this.gearbox = result.data.gearbox;
         this.warehouse = result.data.warehouse.id;
-        this.ware=result.data.warehouse.name;
+        this.ware = result.data.warehouse.name;
         this.brand = result.data.brand.id;
-        this.brandname=result.data.brand.name;
+        this.brandname = result.data.brand.name;
         this.id = result.data.id;
       });
     },
@@ -229,17 +234,24 @@ export default {
         id: this.id,
         status: "1"
       };
-      axios.put(process.env.API_URL + "/car/update", body)
-      .catch(error => {
-              this.$notify({
-                group:'foo',
-                type:'error',
-                title:'PRICE',
-                text:"Price needs to be above 0",
-                closeOnClick:true,
-                duration: 10000
-              });
-            })
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .put(process.env.API_URL + "/car/update", body, config)
+        .catch(error => {
+          this.$notify({
+            group: "foo",
+            type: "error",
+            title: "PRICE",
+            text: "Price needs to be above 0",
+            closeOnClick: true,
+            duration: 10000
+          });
+        });
     }
   },
   beforeMount() {

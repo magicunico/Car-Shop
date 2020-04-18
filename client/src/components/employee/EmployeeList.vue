@@ -1,41 +1,27 @@
 <template>
   <div>
-   
     <b-form-group horizontal label="Search" v-if="!edit" class="mb-0">
       <b-input-group>
-        <b-form-input v-model="filter" placeholder="Type to Search"/>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
         <b-input-group-append>
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
 
-   <table ref="hiring">
-    
+    <table ref="hiring">
       <tr>
-            <td colspan="10" height=20px></td>
-     </tr>
-      <td scope="col">
-        
-      </td>
-      <td scope="col">
-        You hiring 
-      </td>
-      <td scope="col">
-                         
-      </td>
-      <td scope="col" v-text="hiredd">
-        
-      </td>
-      <td scope="col">
-        
-      </td>
-      <td scope="col">
-        employees at this moment.
-      </td>
-       <tr>
-            <td colspan="10" height=20px></td>
-     </tr>
+        <td colspan="10" height="20px"></td>
+      </tr>
+      <td scope="col"></td>
+      <td scope="col">You hiring</td>
+      <td scope="col"></td>
+      <td scope="col" v-text="hiredd"></td>
+      <td scope="col"></td>
+      <td scope="col">employees at this moment.</td>
+      <tr>
+        <td colspan="10" height="20px"></td>
+      </tr>
     </table>
 
     <b-table
@@ -51,10 +37,10 @@
       <template slot="actions" slot-scope="row">
         <b-button @click="pomFoo(row.item.id)">Promote</b-button>
         <span style="padding-left:20px;">
-          <img src="../../assets/delete.svg" @click="deleteEmployee(row.item.id)">
+          <img src="../../assets/delete.svg" @click="deleteEmployee(row.item.id)" />
         </span>
         <span>
-          <img src="../../assets/edit.svg" @click="editEmployee(row.item.id)">
+          <img src="../../assets/edit.svg" @click="editEmployee(row.item.id)" />
         </span>
       </template>
     </b-table>
@@ -84,16 +70,10 @@
         ></b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup2" label="Pesel:" label-for="exampleInput2">
-        <b-form-input
-          id="exampleInput2"
-          type="text"
-          v-model="form.pesel"
-          placeholder="Enter pesel"
-        >
+        <b-form-input id="exampleInput2" type="text" v-model="form.pesel" placeholder="Enter pesel">
           <b-form-invalid-feedback
             id="input1LiveFeedback"
-          >This is a required field and must be at least 11 characters
-          </b-form-invalid-feedback>
+          >This is a required field and must be at least 11 characters</b-form-invalid-feedback>
         </b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="Address:" label-for="exampleInput1">
@@ -112,33 +92,32 @@
           v-model="salary"
           required
           placeholder="Enter salary"
-        >
-        </b-form-input>
+        ></b-form-input>
       </b-form-group>
       <b-form-group id="exampleInputGroup1" label="date:" label-for="exampleInput1">
-        <b-form-input 
-        id="exampleInput1" 
-        type="date"
-         v-model="date" 
-         required>
-         </b-form-input>
+        <b-form-input id="exampleInput1" type="date" v-model="date" required></b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
     </b-form>
-    
   </div>
 </template>
 <script>
 import axios from "axios";
 import { validationMixin } from "vuelidate";
-import { required,and,numeric, minLength, maxLength } from "vuelidate/lib/validators";
+import {
+  required,
+  and,
+  numeric,
+  minLength,
+  maxLength
+} from "vuelidate/lib/validators";
 export default {
   components: {
     axios
   },
   data() {
     return {
-      hiredd:"",
+      hiredd: "",
       employees: [],
       hired: [],
       fields: [
@@ -203,20 +182,29 @@ export default {
     }
   },
   methods: {
-    hiredEmp(){
-        axios.get(process.env.API_URL + "/employee/hired")
-      .then(data=> this.hiredd=data.data);
-       this.$refs.hiring.refresh();
-       this.$router.go()
+    hiredEmp() {
+      axios
+        .get(process.env.API_URL + "/employee/hired")
+        .then(data => (this.hiredd = data.data));
+      this.$refs.hiring.refresh();
+      this.$router.go();
     },
     promote(data) {
       let body = {
         employee: this.promoteId,
         howmuch: data
       };
-      axios.post(process.env.API_URL + "/employee/promote/", body).then(data => {
-        this.showField = false;
-      });
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .post(process.env.API_URL + "/employee/promote/", body, config)
+        .then(data => {
+          this.showField = false;
+        });
       this.$refs.tableEmp.refresh();
       this.$router.go();
     },
@@ -225,10 +213,18 @@ export default {
       this.promoteId = id;
     },
     deleteEmployee(data) {
-      axios.delete(process.env.API_URL + "/employee/delete/" + data).then(() => {
-        //this.$refs.tableEmp.refresh();
-        this.$router.go();
-      });
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .delete(process.env.API_URL + "/employee/delete/" + data, config)
+        .then(() => {
+          //this.$refs.tableEmp.refresh();
+          this.$router.go();
+        });
     },
     editEmployee(data) {
       this.edit = true;
@@ -279,17 +275,25 @@ export default {
         date: this.date,
         salary: this.salary
       };
-      axios.put(process.env.API_URL + "/employee/update", body).catch(error => {
-        console.log(error);
-        this.error = error;
-        this.$notify({
-          group: "foo",
-          title: "Error found",
-          text: "Incorrect field values, please chceck pesel",
-          type: "Error"
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      };
+
+      axios
+        .put(process.env.API_URL + "/employee/update", body, config)
+        .catch(error => {
+          console.log(error);
+          this.error = error;
+          this.$notify({
+            group: "foo",
+            title: "Error found",
+            text: "Incorrect field values, please chceck pesel",
+            type: "Error"
+          });
+          this.$refs.tableEmp.refresh();
         });
-        this.$refs.tableEmp.refresh();
-      });
     },
     showDetails() {}
   },
@@ -302,9 +306,9 @@ export default {
         console.log(data);
       })
       .catch(error => console.error(error));
-      axios.get(process.env.API_URL + "/employee/hired")
-      .then(data=> this.hiredd=data.data);
-      
+    axios
+      .get(process.env.API_URL + "/employee/hired")
+      .then(data => (this.hiredd = data.data));
   }
 };
 </script>

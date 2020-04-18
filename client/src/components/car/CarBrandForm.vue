@@ -76,9 +76,14 @@ export default {
                 'status' : '1'
             }
 
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
             console.log(body);
 
-            axios.post(process.env.API_URL + "/brand/add",body)
+            axios.post(process.env.API_URL + "/brand/add",body,config)
             .catch(body => console.log(body))
             console.log(body)
 

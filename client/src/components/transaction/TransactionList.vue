@@ -157,8 +157,14 @@ export default {
   methods: {
    
     deleteTransaction(data) {
+                  let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
       axios
-        .delete(process.env.API_URL + "/transaction/delete/" + data)
+        .delete(process.env.API_URL + "/transaction/delete/" + data,config)
         .then(() => {
           this.$router.go();
         });
@@ -204,7 +210,13 @@ export default {
           id: this.insurance
         }
       };
-      axios.put(process.env.API_URL + "/transaction/update", body);
+                  let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+      axios.put(process.env.API_URL + "/transaction/update", body,config);
     },
     test(data) {
       let i = 0;

@@ -142,7 +142,13 @@ export default {
             return id;
         },
     deleteTestDrive(data) {
-      axios.delete(process.env.API_URL + "/testdrive/delete/" + data)
+                  let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+      axios.delete(process.env.API_URL + "/testdrive/delete/" + data,config)
       .then(()=>{
           this.$router.go();
       })
@@ -178,7 +184,13 @@ export default {
         },
         status: "1"
       };
-      axios.put(process.env.API_URL + "/testdrive/update", body);
+                  let config = {
+                headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+                }
+            }
+
+      axios.put(process.env.API_URL + "/testdrive/update", body,config);
     },
     test(data) {
       let i = 0;
