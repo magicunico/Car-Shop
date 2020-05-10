@@ -4,6 +4,8 @@ CREATE table warehouse(
   name varchar(50) not null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_warehouse ON warehouse(id);
+
 
 drop table if exists customer cascade;
 create table customer(
@@ -14,6 +16,8 @@ create table customer(
   address varchar(40) not null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_customer ON customer(id);
+
 
 drop table if exists employee cascade;
 create table employee(
@@ -26,6 +30,8 @@ create table employee(
   salary numeric(10,2) check (salary>0),
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_employee ON employee(id);
+
 
 drop table if exists producer cascade;
 create table producer(
@@ -33,6 +39,8 @@ create table producer(
   name varchar(40) not null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_producer ON producer(id);
+
 
 drop table if exists brand cascade;
 create table brand(
@@ -41,6 +49,8 @@ create table brand(
   producer_id bigserial constraint brand_producer_fk references producer(id) on DELETE set null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_brand ON brand(id);
+
 
 drop table if exists car cascade;
 create table car(
@@ -53,6 +63,7 @@ create table car(
   brand_id bigserial constraint car_brand_fk references brand(id) on DELETE set null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_car ON car(id);
 
 
 drop table if exists insurance cascade;
@@ -64,6 +75,8 @@ create table insurance(
   price numeric(10,2) check (price>0),
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_insurance ON insurance(id);
+
 
 drop table if exists transaction cascade;
 create table transaction(
@@ -78,6 +91,7 @@ create table transaction(
   insurance_id bigserial constraint transaction_insurance_fk references insurance(id) on DELETE set null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_transaction ON transaction(id);
 
 
 drop table if exists testDrive cascade;
@@ -89,6 +103,8 @@ create table testDrive(
   car_id bigserial constraint testDrive_car_fk references car(id) on DELETE set null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_testDrive ON testDrive(id);
+
 
 drop table if exists repair cascade;
 create table repair(
@@ -99,6 +115,9 @@ create table repair(
   car_id bigserial constraint repair_car_fk references car(id) on DELETE set null,
   status integer
 );
+CREATE INDEX IF NOT EXISTS idx_repair ON repair(id);
+
 
 drop table if exists users cascade;
 create table users(username varchar(40) primary key,password varchar);
+CREATE INDEX IF NOT EXISTS idx_users ON users(username);
