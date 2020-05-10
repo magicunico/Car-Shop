@@ -19,7 +19,7 @@ public class CarService {
 
      void addCar(Car car){carRepository.save(car);}
 
-     void deleteCar(Long id){
+     void deleteCar(long id){
         Car car=carRepository.findById(id).get();
         car.setNonactive();
         carRepository.save(car);
@@ -38,11 +38,11 @@ public class CarService {
     }
 
     List<Car> getActive(){
-        return carRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return carRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Car getCar(Long id){
+    Car getCar(long id){
         return carRepository.findById(id).get();
     }
 

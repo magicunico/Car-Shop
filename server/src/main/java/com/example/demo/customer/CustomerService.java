@@ -23,13 +23,13 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-     void deleteCustomer(Long id) {
+     void deleteCustomer(long id) {
         Customer customer = customerRepository.findById(id).get();
         customer.setNonctive();
         customerRepository.save(customer);
     }
 
-     void updateCustomer(CustomerDTO customerDTO) {
+     void updateCustomer(Customer customerDTO) {
         Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow(()-> new IllegalArgumentException("customer not found"));
             customer.setAddress(customerDTO.getAddress());
             customer.setName(customerDTO.getName());
@@ -39,11 +39,11 @@ public class CustomerService {
      }
 
     List<Customer> getActive(){
-        return customerRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return customerRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Customer getCustomer(Long id){
+    Customer getCustomer(long id){
         return customerRepository.findById(id).get();
     }
 

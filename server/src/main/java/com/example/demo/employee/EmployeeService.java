@@ -32,13 +32,13 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    void deleteEmployee(Long id) {
+    void deleteEmployee(long id) {
         Employee employee = employeeRepository.findById(id).get();
         employee.setNonactive();
         employeeRepository.save(employee);
     }
 
-    void updateEmployee(EmployeeDTO employeeDTO) {
+    void updateEmployee(Employee employeeDTO) {
         Employee employee = employeeRepository.findById(employeeDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Employee not found"));
 
         employee.setAddress(employeeDTO.getAddress());
@@ -51,27 +51,27 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Integer countEmployees() {
-        String proc = "SELECT \"hired\" ()";
-        Query query = entityManager.createNativeQuery(proc);
-        return (Integer) query.getSingleResult();
+    public int countEmployees() {
+        return (int) employeeRepository.findAll()
+            .stream()
+            .filter(employee -> employee.getStatus()==1).count();
     }
 
 
     @Transactional
     public void prom(EmployeePromotion employeePromotion) {
-        String queryString = "SELECT \"promote\"(%d, %d)";
-        queryString = String.format(queryString, employeePromotion.getEmployee(), employeePromotion.getHowmuch());
-        Query query = entityManager.createNativeQuery(queryString);
-        query.getSingleResult();
+       Employee employee = employeeRepository.findById(employeePromotion.getEmployee())
+           .orElseThrow(()-> new IllegalArgumentException(""));
+       employee.setSalary(employee.getSalary()+employeePromotion.getHowmuch());
+       employeeRepository.save(employee);
     }
 
     List<Employee> getActive() {
-        return employeeRepository.findAll().stream().filter(a -> a.getStatus().equals(1))
+        return employeeRepository.findAll().stream().filter(a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Employee getEmployee(Long id) {
+    Employee getEmployee(long id) {
         return employeeRepository.findById(id).get();
     }
 }

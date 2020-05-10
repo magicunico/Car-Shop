@@ -19,13 +19,13 @@ public class InsuranceService {
 
      void addInsurance(Insurance insurance){insuranceRepository.save(insurance);}
 
-     void deleteInsurance(Long id){
+     void deleteInsurance(long id){
         Insurance insurance = insuranceRepository.findById(id).get();
         insurance.setNonactive();
         insuranceRepository.save(insurance);
     }
 
-     void updateInsurance(InsuranceDTO insuranceDTO){
+     void updateInsurance(Insurance insuranceDTO){
         Insurance insurance = insuranceRepository.findById(insuranceDTO.getId()).orElseThrow(()-> new IllegalArgumentException("Insurance not found"));
 
         insurance.setName(insuranceDTO.getName());
@@ -36,11 +36,11 @@ public class InsuranceService {
      }
 
     List<Insurance> getActive(){
-        return insuranceRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return insuranceRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Insurance getInsurance(Long id){
+    Insurance getInsurance(long id){
         return insuranceRepository.findById(id).get();
     }
 

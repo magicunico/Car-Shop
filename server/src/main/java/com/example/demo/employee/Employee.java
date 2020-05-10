@@ -3,38 +3,56 @@ package com.example.demo.employee;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table (name = "employee",indexes = {@Index(name = "employee_pkey",columnList = "id",unique = true)})
 public class Employee  {
 
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column(unique = true)
     private String pesel;
 
+    @Getter
+    @Setter
     @Column
     private String name;
 
+    @Getter
+    @Setter
     @Column
     private String surname;
 
+    @Getter
+    @Setter
     @Column
     private String address;
 
+    @Getter
+    @Setter
     @Column
     private Date date;
 
+    @Getter
+    @Setter
     @Column
     private float salary;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
-    public Employee(String pesel, String name, String surname, String address, Date date, float salary, Integer status) {
+    public Employee(String pesel, String name, String surname, String address, Date date, float salary, int status) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
@@ -44,7 +62,7 @@ public class Employee  {
         this.status = status;
     }
 
-    public Employee(String pesel, String name, String surname, String address, float salary, Integer status) {
+    public Employee(String pesel, String name, String surname, String address, float salary, int status) {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
@@ -58,69 +76,6 @@ public class Employee  {
     public Employee() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public void setActive(){
         this.status=1;

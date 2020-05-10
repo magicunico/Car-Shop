@@ -23,13 +23,13 @@ public class WarehouseService {
         warehouseRepository.save(warehouse);
     }
 
-     void deleteWarehouse(Long id){
+     void deleteWarehouse(long id){
         Warehouse warehouse = warehouseRepository.findById(id).get();
         warehouse.setNonactive();
         warehouseRepository.save(warehouse);
     }
 
-    void updateWarehouse(WarehouseDTO warehouseDTO){
+    void updateWarehouse(Warehouse warehouseDTO){
         Warehouse warehouse = warehouseRepository.findById(warehouseDTO.getId()).orElseThrow(()-> new IllegalArgumentException("warehouse not found"));
 
         warehouse.setName(warehouseDTO.getName());
@@ -38,11 +38,11 @@ public class WarehouseService {
     }
 
     List<Warehouse> getActive(){
-        return warehouseRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return warehouseRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Warehouse getWarehouse(Long id){
+    Warehouse getWarehouse(long id){
         return warehouseRepository.findById(id).get();
     }
 

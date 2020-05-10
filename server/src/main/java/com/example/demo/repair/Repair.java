@@ -4,34 +4,48 @@ import com.example.demo.car.Car;
 import com.example.demo.employee.Employee;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "repair",indexes = {@Index(name = "repair_pkey",columnList = "id",unique = true)})
 public class Repair {
 
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column
     private String name;
 
+    @Getter
+    @Setter
     @Column
     private float price;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
-    public Repair(String name, float price, Car car, Employee employee, Integer status) {
+    public Repair(String name, float price, Car car, Employee employee, int status) {
         this.name = name;
         this.price = price;
         this.car = car;
@@ -50,53 +64,6 @@ public class Repair {
     public Repair() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public void setActive(){
         this.status=1;

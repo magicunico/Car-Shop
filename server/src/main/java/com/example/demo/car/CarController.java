@@ -23,7 +23,7 @@ public class CarController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteCar(@PathVariable Long id){carService.deleteCar(id);}
+    public void deleteCar(@PathVariable long id){carService.deleteCar(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
@@ -37,7 +37,7 @@ public class CarController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Car getCar(@PathVariable Long id){
+    public Car getCar(@PathVariable long id){
         return carService.getCar(id);
     }
 

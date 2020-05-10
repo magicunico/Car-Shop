@@ -1,5 +1,7 @@
 package com.example.demo.customer;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
@@ -8,25 +10,37 @@ import javax.persistence.*;
 @Table(name = "customer",indexes = {@Index(name = "customer_pkey",columnList = "id",unique = true)})
 public class Customer {
 
+  @Getter
+  @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+  @Getter
+  @Setter
    @Column(unique = true)
     private String pesel;
 
+  @Getter
+  @Setter
    @Column
     private String name;
 
+  @Getter
+  @Setter
    @Column
    private String surname;
 
+  @Getter
+  @Setter
    @Column
     private String address;
 
+  @Getter
+  @Setter
    @Column
-   private Integer status;
+   private int status;
 
     public Customer(String pesel, String name, String surname, String address) {
         this.pesel = pesel;
@@ -36,7 +50,7 @@ public class Customer {
         this.status=1;
     }
 
-    public Customer(Long id,String pesel, String name, String surname, String address) {
+    public Customer(long id,String pesel, String name, String surname, String address) {
         this.id=id;
         this.pesel = pesel;
         this.name = name;
@@ -48,51 +62,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status){this.status=status;}
 
     public void setActive() {
         this.status = 1;

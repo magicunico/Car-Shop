@@ -1,23 +1,31 @@
 package com.example.demo.warehouse;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "warehouse",indexes = {@Index(name = "warehouse_pkey",columnList = "id",unique = true)})
 public class Warehouse {
 
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column
     private String name;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
-    public Warehouse(String name, Integer status) {
+    public Warehouse(String name, int status) {
         this.name = name;
         this.status = status;
     }
@@ -30,29 +38,6 @@ public class Warehouse {
 
     public Warehouse(){};
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public void setActive(){
         this.status=1;

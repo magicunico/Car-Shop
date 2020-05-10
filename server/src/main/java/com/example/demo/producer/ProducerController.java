@@ -23,11 +23,11 @@ public class ProducerController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteInsurance(@PathVariable Long id){producerService.deleteProducer(id);}
+    public void deleteInsurance(@PathVariable long id){producerService.deleteProducer(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody ProducerDTO producerDTO ){producerService.updateProducer(producerDTO);}
+    public void updateCustomer(@RequestBody Producer producerDTO ){producerService.updateProducer(producerDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -37,7 +37,7 @@ public class ProducerController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Producer getProducer(@PathVariable Long id){
+    public Producer getProducer(@PathVariable long id){
         return producerService.getProducer(id);
     }
 }

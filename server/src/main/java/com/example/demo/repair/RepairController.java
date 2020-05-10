@@ -23,11 +23,11 @@ public class RepairController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteInsurance(@PathVariable Long id){repairService.deleteRepair(id);}
+    public void deleteInsurance(@PathVariable long id){repairService.deleteRepair(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody RepairDTO repairDTO){repairService.updateRepair(repairDTO);}
+    public void updateCustomer(@RequestBody Repair repairDTO){repairService.updateRepair(repairDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -37,7 +37,7 @@ public class RepairController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Repair getRepair(@PathVariable Long id){
+    public Repair getRepair(@PathVariable long id){
         return repairService.getRepair(id);
     }
 }

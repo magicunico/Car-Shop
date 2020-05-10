@@ -19,24 +19,24 @@ public class ProducerService {
 
      void addProducer(Producer producer){producerRepository.save(producer);}
 
-    void deleteProducer(Long id){
+    void deleteProducer(long id){
         Producer producer = producerRepository.findById(id).get();
         producer.setNonactive();
         producerRepository.save(producer);
     }
 
-    void updateProducer(ProducerDTO producerDTO){
+    void updateProducer(Producer producerDTO){
         Producer producer = producerRepository.findById(producerDTO.getId()).orElseThrow(()->new IllegalArgumentException("Producer not found"));
             producer.setName(producerDTO.getName());
           producerRepository.save(producer);
     }
 
     List<Producer> getActive(){
-        return producerRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return producerRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Producer getProducer(Long id){
+    Producer getProducer(long id){
         return producerRepository.findById(id).get();
     }
 

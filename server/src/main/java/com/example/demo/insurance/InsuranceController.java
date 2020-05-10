@@ -23,11 +23,11 @@ public class InsuranceController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteInsurance(@PathVariable Long id){insuranceService.deleteInsurance(id);}
+    public void deleteInsurance(@PathVariable long id){insuranceService.deleteInsurance(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody InsuranceDTO insuranceDTO ){insuranceService.updateInsurance(insuranceDTO);}
+    public void updateCustomer(@RequestBody Insurance insuranceDTO ){insuranceService.updateInsurance(insuranceDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -37,7 +37,7 @@ public class InsuranceController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Insurance getInsurance(@PathVariable Long id){
+    public Insurance getInsurance(@PathVariable long id){
         return insuranceService.getInsurance(id);
     }
 }

@@ -20,13 +20,13 @@ public class TestDriveService {
 
      void addTestDrive(TestDrive testDrive){testDriveRepository.save(testDrive);}
 
-    void deleteTestDrive(Long id){
+    void deleteTestDrive(long id){
         TestDrive testDrive = testDriveRepository.findById(id).get();
         testDrive.setNonactive();
         testDriveRepository.save(testDrive);
     }
 
-    void updateTestDrive(TestDriveDTO testDriveDTO){
+    void updateTestDrive(TestDrive testDriveDTO){
         TestDrive testDrive=testDriveRepository.findById(testDriveDTO.getId()).orElseThrow(()-> new IllegalArgumentException("TestDrive not found"));
 
         testDrive.setDate(testDriveDTO.getDate());
@@ -37,11 +37,11 @@ public class TestDriveService {
     }
 
     List<TestDrive> getActive(){
-        return testDriveRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return testDriveRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    TestDrive getTestDrive(Long id){
+    TestDrive getTestDrive(long id){
         return testDriveRepository.findById(id).get();
     }
 

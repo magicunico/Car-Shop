@@ -24,13 +24,13 @@ public class CustomerController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteCustomer(@PathVariable Long id){
+    public void deleteCustomer(@PathVariable long id){
         customerService.deleteCustomer(id);
     }
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody CustomerDTO customerDTO){customerService.updateCustomer(customerDTO);}
+    public void updateCustomer(@RequestBody Customer customerDTO){customerService.updateCustomer(customerDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -40,7 +40,7 @@ public class CustomerController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Customer getCustomer(@PathVariable Long id){
+    public Customer getCustomer(@PathVariable long id){
         return customerService.getCustomer(id);
     }
 }

@@ -19,13 +19,13 @@ public class TransactionService {
 
      void addTransaction(Transaction transaction){transactionRepository.save(transaction);}
 
-     void deleteTransaction(Long id){
+     void deleteTransaction(long id){
         Transaction transaction = transactionRepository.findById(id).get();
         transaction.setNonactive();
         transactionRepository.save(transaction);
      }
 
-     void updateTransaction(TransactionDTO transactionDTO){
+     void updateTransaction(Transaction transactionDTO){
         Transaction transaction = transactionRepository.findById(transactionDTO.getId()).orElseThrow(()->new IllegalArgumentException("Transaction not found"));
 
         transaction.setDate(transactionDTO.getDate());
@@ -42,11 +42,11 @@ public class TransactionService {
 
 
     List<Transaction> getActive(){
-        return transactionRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return transactionRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Transaction getTransaction(Long id){
+    Transaction getTransaction(long id){
         return transactionRepository.findById(id).get();
     }
 

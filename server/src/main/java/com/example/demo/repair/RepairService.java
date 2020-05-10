@@ -19,13 +19,13 @@ public class RepairService {
 
      void addRepair(Repair repair){repairRepository.save(repair);}
 
-     void deleteRepair(Long id){
+     void deleteRepair(long id){
         Repair repair = repairRepository.findById(id).get();
         repair.setNonactive();
         repairRepository.save(repair);
      }
 
-     void updateRepair(RepairDTO repairDTO){
+     void updateRepair(Repair repairDTO){
         Repair repair = repairRepository.findById(repairDTO.getId()).orElseThrow(()->new IllegalArgumentException("Repair not found"));
 
         repair.setName(repairDTO.getName());
@@ -35,11 +35,11 @@ public class RepairService {
         repairRepository.save(repair);
      }
     List<Repair> getActive(){
-        return repairRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return repairRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Repair getRepair(Long id){
+    Repair getRepair(long id){
         return repairRepository.findById(id).get();
     }
 

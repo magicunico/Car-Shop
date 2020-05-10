@@ -27,11 +27,11 @@ public class WarehouseController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteWarehouse(@PathVariable Long id){warehouseService.deleteWarehouse(id);}
+    public void deleteWarehouse(@PathVariable long id){warehouseService.deleteWarehouse(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody WarehouseDTO warehouseDTO){warehouseService.updateWarehouse(warehouseDTO);}
+    public void updateCustomer(@RequestBody Warehouse warehouseDTO){warehouseService.updateWarehouse(warehouseDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -39,7 +39,7 @@ public class WarehouseController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Warehouse getWarehouse(@PathVariable Long id){
+    public Warehouse getWarehouse(@PathVariable long id){
         return warehouseService.getWarehouse(id);
     }
 }

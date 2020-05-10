@@ -20,7 +20,7 @@ public class BrandService {
 
      void addBrand(Brand brand){brandRepository.save(brand);}
 
-     void updateBrand(BrandDTO brandDTO){
+     void updateBrand(Brand brandDTO){
         Brand brand = brandRepository.findById(brandDTO.getId()).orElseThrow(()->new IllegalArgumentException("Brand not found"));
 
 
@@ -29,18 +29,18 @@ public class BrandService {
         brandRepository.save(brand);
      }
 
-     void deleteBrand(Long id){
+     void deleteBrand(long id){
         Brand brand = brandRepository.findById(id).get();
         brand.setNonactive();
         brandRepository.save(brand);
      }
 
     List<Brand> getActive(){
-        return brandRepository.findAll().stream().filter( a -> a.getStatus().equals(1))
+        return brandRepository.findAll().stream().filter( a -> a.getStatus()==1)
                 .collect(Collectors.toList());
     }
 
-    Brand getBrand(Long id){
+    Brand getBrand(long id){
         return brandRepository.findById(id).get();
     }
 

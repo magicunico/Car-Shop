@@ -23,13 +23,13 @@ public class BrandController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteCustomer(@PathVariable Long id){
+    public void deleteCustomer(@PathVariable long id){
         brandService.deleteBrand(id);
     }
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody BrandDTO brandDTO ){brandService.updateBrand(brandDTO);}
+    public void updateCustomer(@RequestBody Brand brand ){brandService.updateBrand(brand);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -40,7 +40,7 @@ public class BrandController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Brand getBrand(@PathVariable Long id){
+    public Brand getBrand(@PathVariable long id){
         return brandService.getBrand(id);
     }
 }

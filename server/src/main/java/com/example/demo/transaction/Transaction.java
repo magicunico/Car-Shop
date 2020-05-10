@@ -8,47 +8,70 @@ import com.example.demo.insurance.Insurance;
 
 import javax.persistence.*;
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "transaction",indexes = {@Index(name = "transaction_pkey",columnList = "id",unique = true)})
 public class Transaction {
+
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column
     private Date date;
 
+    @Getter
+    @Setter
     @Column
     private String payment;
 
+    @Getter
+    @Setter
     @Column
     private String place;
 
+    @Getter
+    @Setter
     @Column
     private float sum;
 
+    @Getter
+    @Setter
     @OneToOne
     @JoinColumn(name="car_id")
     private Car car;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name ="customer_id")
     private Customer customer;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name ="employee_id")
     private Employee employee;
 
+    @Getter
+    @Setter
     @OneToOne
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
-    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Insurance insurance,Employee employee, Integer status) {
+    public Transaction(Date date, String payment, String place, float sum, Car car, Customer customer, Insurance insurance,Employee employee, int status) {
         this.date = date;
         this.payment = payment;
         this.place = place;
@@ -76,85 +99,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public float getSum() {
-        return car.getPrice()+insurance.getPrice();
-    }
-
-    public void setSum(float sum) {
-        this.sum = sum;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Insurance getInsurance() {
-        return insurance;
-    }
-
-    public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public void setActive(){
         this.status=1;

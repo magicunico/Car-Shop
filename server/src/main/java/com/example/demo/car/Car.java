@@ -4,39 +4,58 @@ import com.example.demo.brand.Brand;
 import com.example.demo.warehouse.Warehouse;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "car",indexes = {@Index(name = "car_pkey",columnList = "id",unique = true)})
 public class Car {
+
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column
     private String color;
 
+    @Getter
+    @Setter
     @Column
     private float price;
 
+    @Getter
+    @Setter
     @Column
     private String body;
 
+    @Getter
+    @Setter
     @Column
     private String gearbox;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    public Car(String color, float price, String body, String gearbox, Integer status, Warehouse warehouse, Brand brand) {
+    public Car(String color, float price, String body, String gearbox, int status, Warehouse warehouse, Brand brand) {
         this.color = color;
         this.price = price;
         this.body = body;
@@ -59,69 +78,6 @@ public class Car {
     public Car() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getGearbox() {
-        return gearbox;
-    }
-
-    public void setGearbox(String gearbox) {
-        this.gearbox = gearbox;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
 
     public void setActive(){
         this.status=1;

@@ -24,11 +24,11 @@ public class EmployeeController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteEmployee(@PathVariable Long id){employeeService.deleteEmployee(id);}
+    public void deleteEmployee(@PathVariable long id){employeeService.deleteEmployee(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody EmployeeDTO employeeDTO ){employeeService.updateEmployee(employeeDTO);}
+    public void updateCustomer(@RequestBody Employee employeeDTO ){employeeService.updateEmployee(employeeDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -46,7 +46,7 @@ public class EmployeeController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Employee getEmployee(@PathVariable Long id){
+    public Employee getEmployee(@PathVariable long id){
         return employeeService.getEmployee(id);
     }
 }

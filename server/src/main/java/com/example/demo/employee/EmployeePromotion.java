@@ -3,11 +3,11 @@ package com.example.demo.employee;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class EmployeePromotion {
-    private Long employee;
+    private long employee;
 
-    private Long howmuch;
+    private long howmuch;
 
-    public EmployeePromotion(Long employee, Long howmuch) {
+    public EmployeePromotion(long employee, long howmuch) {
         this.employee = employee;
         this.howmuch = howmuch;
     }
@@ -15,19 +15,19 @@ public class EmployeePromotion {
     public EmployeePromotion() {
     }
 
-    public Long getEmployee() {
+    public long getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Long employee) {
+    public void setEmployee(long employee) {
         this.employee = employee;
     }
 
-    public Long getHowmuch() {
+    public long getHowmuch() {
         return howmuch;
     }
 
-    public void setHowmuch(Long howmuch) {
+    public void setHowmuch(long howmuch) {
         this.howmuch = howmuch;
     }
 }

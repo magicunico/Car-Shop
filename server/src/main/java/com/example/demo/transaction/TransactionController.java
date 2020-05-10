@@ -25,11 +25,11 @@ public class TransactionController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteInsurance(@PathVariable Long id){transactionService.deleteTransaction(id);}
+    public void deleteInsurance(@PathVariable long id){transactionService.deleteTransaction(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody TransactionDTO transactionDTO){transactionService.updateTransaction(transactionDTO);}
+    public void updateCustomer(@RequestBody Transaction transactionDTO){transactionService.updateTransaction(transactionDTO);}
 
 
     @CrossOrigin("*")
@@ -40,7 +40,7 @@ public class TransactionController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public Transaction getTransaction(@PathVariable Long id){
+    public Transaction getTransaction(@PathVariable long id){
         return transactionService.getTransaction(id);
     }
 }

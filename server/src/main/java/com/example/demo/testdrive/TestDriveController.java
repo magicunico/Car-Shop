@@ -23,11 +23,11 @@ public class TestDriveController {
 
     @CrossOrigin("*")
     @DeleteMapping(value = "delete/{id}")
-    public void deleteInsurance(@PathVariable Long id){testDriveService.deleteTestDrive(id);}
+    public void deleteInsurance(@PathVariable long id){testDriveService.deleteTestDrive(id);}
 
     @CrossOrigin("*")
     @PutMapping(value = "/update")
-    public void updateCustomer(@RequestBody TestDriveDTO testDriveDTO){testDriveService.updateTestDrive(testDriveDTO);}
+    public void updateCustomer(@RequestBody TestDrive testDriveDTO){testDriveService.updateTestDrive(testDriveDTO);}
 
     @CrossOrigin("*")
     @GetMapping("/active")
@@ -37,7 +37,7 @@ public class TestDriveController {
 
     @CrossOrigin("*")
     @GetMapping("{id}")
-    public TestDrive getTestDrive(@PathVariable Long id){
+    public TestDrive getTestDrive(@PathVariable long id){
         return testDriveService.getTestDrive(id);
     }
 }

@@ -3,24 +3,35 @@ package com.example.demo.brand;
 import com.example.demo.producer.Producer;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "brand", indexes = {@Index(name = "brand_pkey",columnList = "id",unique = true)})
 public class Brand {
+
+    @Getter
+    @Setter
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Getter
+    @Setter
     @Column
     private String name;
 
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "producer_id")
     private Producer producer;
 
+    @Getter
+    @Setter
     @Column
-    private Integer status;
+    private int status;
 
     public Brand(String name, Producer producer) {
         this.name = name;
@@ -31,33 +42,6 @@ public class Brand {
     public Brand() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Producer getProducer() {
-        return producer;
-    }
-
-    public void setProducer(Producer producer) {
-        this.producer = producer;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
 
     public void setActive(){
         this.status=1;
@@ -67,8 +51,5 @@ public class Brand {
         this.status=0;
     }
 
-    public void setStatus(Integer status){
-        this.status=status;
-    }
 
 }

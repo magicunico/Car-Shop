@@ -13,7 +13,7 @@ public class TestDrive {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column
     private Date date;
@@ -31,9 +31,9 @@ public class TestDrive {
     private Car car;
 
     @Column
-    private Integer status;
+    private int status;
 
-    public TestDrive(Date date, Employee employee, Customer customer, Car car, Integer status) {
+    public TestDrive(Date date, Employee employee, Customer customer, Car car, int status) {
         this.date = date;
         this.employee = employee;
         this.customer = customer;
@@ -52,11 +52,11 @@ public class TestDrive {
     public TestDrive() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -92,11 +92,11 @@ public class TestDrive {
         this.car = car;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
