@@ -14,7 +14,7 @@
   "dependencies": {
     "@detools/vue-form": "^2.7.4",
     "@kevindesousa/vue-image-loader": "^2.0.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "element-ui": "^2.4.11",
     "http-server": "^0.12.1",
